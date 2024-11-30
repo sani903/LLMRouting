@@ -43,7 +43,8 @@ def choose_router(router_name):
 class CNNDailySummarization:
     # "abisee/cnn_dailymail"
     # "3.0.0"
-    def __init__(self, dataset_name, version, batch_size, model_1, base_url_1, model_2, base_url_2, router):
+    def __init__(self, dataset_name, version, batch_size, model_1, base_url_1, model_2, base_url_2, router_name,
+                 judge_router, judge_name, judge_base_url):
         self.dataset_name = dataset_name
         self.metadata = version
         # change here to add more metadata
@@ -56,7 +57,10 @@ class CNNDailySummarization:
         self.base_url_1 = base_url_1
         self.base_url_2 = base_url_2
         self.llm = LLM()
-        self.router = choose_router(router)
+        self.router = choose_router(router_name)
+        self.judge_router = choose_router(judge_router)
+        self.judge_name = judge_name
+        self.judge_base_url = judge_base_url
 
     def process_dataset(self, ds):
         df_train = pd.DataFrame({
@@ -69,7 +73,8 @@ class CNNDailySummarization:
 
     def get_preference(self, start_group, end_group, system_prompt_task, system_prompt_preference):
         group_id = 0
-        final_data = [("original", "gold_output", "dataset", "metadata", "model_1_output", "model_2_output", "preference")]
+        final_data = [
+            ("original", "gold_output", "dataset", "metadata", "model_1_output", "model_2_output", "preference")]
         for references, summaries in self.dataloader:
             group_id += 1
             if group_id < start_group:
@@ -77,11 +82,15 @@ class CNNDailySummarization:
             if group_id > end_group:
                 break
             for reference, summary in zip(references, summaries):
-                model_1_output = self.llm.call(router=self.router, model_name=model_1, base_url=base_url_1, prompt="", system_prompt=system_prompt_task)
-                model_2_output = self.llm.call(router=self.router, model_name=model_2, base_url=base_url_2, prompt="", system_prompt=system_prompt_task)
-                preference = self.llm.get_preference(router=self.router, model_name=model_2, base_url=base_url_2, prompt="", system_prompt=system_prompt_preference)
+                model_1_output = self.llm.call(router=self.router, model_name=model_1, base_url=base_url_1, prompt="",
+                                               system_prompt=system_prompt_task)
+                model_2_output = self.llm.call(router=self.router, model_name=model_2, base_url=base_url_2, prompt="",
+                                               system_prompt=system_prompt_task)
+                preference = self.llm.get_preference(router=self.judge_router, model_name=model_2, base_url=base_url_2,
+                                                     prompt="", system_prompt=system_prompt_preference)
                 # process all outputs
-                final_data.append((reference, summary, self.dataset_name, self.metadata, model_1_output, model_2_output, preference))
+                final_data.append(
+                    (reference, summary, self.dataset_name, self.metadata, model_1_output, model_2_output, preference))
 
         return final_data
 
@@ -89,6 +98,7 @@ class CNNDailySummarization:
 if __name__ == '__main__':
     prefix = os.getcwd()
     router = "vllm"
+    judge_router = "openai"
     model_1 = "meta-llama/Meta-Llama-3-8B-Instruct"
     model_2 = "google/gemma-2-9b-it"
     model_3 = "tiiuae/falcon-7b-instruct"
@@ -97,12 +107,14 @@ if __name__ == '__main__':
     base_url_2 = "http://babel-6-21:8082/v1/completions"
     base_url_3 = "http://babel-11-17:8084/v1/completions"
     base_url_4 = "http://shire-1-1:8083/v1/completions"
+
+    judge_name = "gpt4o-mini"
+    judge_base_url = ""
     cnn_summarizer = CNNDailySummarization("abisee/cnn_dailymail", "3.0.0", 32, model_1, base_url_1,
-                                           model_2, base_url_2, router)
+                                           model_2, base_url_2, router, judge_router, judge_name, judge_base_url)
     system_prompt_task = ""
     system_prompt_preference = ""
     final_data = cnn_summarizer.get_preference(1, 1)
 
     data_df = pd.DataFrame(final_data)
     data_df.to_csv(f"{prefix}/data/mixed_preference_data", index=False, header=0, sep="\t")
-
