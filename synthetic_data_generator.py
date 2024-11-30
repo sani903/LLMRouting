@@ -50,4 +50,4 @@ for _ in range(1000):
 
 prefix = os.getcwd()
 data_df = pd.DataFrame(final_data)
-data_df.to_csv(f"{prefix}/data/synthethic_mixed_preference_data", index=False, header=0, sep="\t")
+data_df.to_csv(f"{prefix}/data/synthetic_mixed_preference_data", index=False, header=0, sep="\t")
