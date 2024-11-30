@@ -182,7 +182,6 @@ if __name__ == "__main__":
 
     hf_dataset = HFDataset.from_generator(data_generator)
 
-    # Split dataset into training and evaluation sets (60% train, 40% eval)
     hf_dataset = hf_dataset.train_test_split(test_size=0.2)
 
     # Check dataset for NaNs
@@ -251,10 +250,7 @@ if __name__ == "__main__":
         print(f"Error wrapping model with PEFT: {e}")
         raise e
 
-    # **Force the entire model to float32 to ensure dtype consistency**
     model = model.to(torch.bfloat16)
-    # Alternatively, you can use:
-    # model = model.float()
 
     # Print trainable parameters
     print_trainable_parameters(model)
