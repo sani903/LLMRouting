@@ -185,7 +185,7 @@ if __name__ == "__main__":
     tokenizer.add_tokens(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"], special_tokens=True)
 
     # Prepare dataset
-    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=2048)
+    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=512)
 
     # Convert to HuggingFace Dataset for compatibility with Trainer
     def data_generator():
