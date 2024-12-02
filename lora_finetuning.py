@@ -23,9 +23,36 @@ from transformers import TrainerCallback, EarlyStoppingCallback
 from transformers import Trainer, PreTrainedModel
 from typing import Optional, Dict, Union, Any, Tuple
 
+from prompt_format import PromptFormat
+
 # Enable cuDNN benchmarking for potential speedups
 torch.backends.cudnn.benchmark = True
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+PROMPT_FORMAT_CONFIGS = {
+    # "meta-llama/Meta-Llama-3-8B": {
+    #     "system": "<|start_header_id|>system<|end_header_id|>\n\n{instruction}<|eot_id|>",
+    #     "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n{instruction}<|eot_id|>",
+    #     "trailing_assistant": "",
+    #     "user": "<|start_header_id|>user<|end_header_id|>\n\n{instruction}<|eot_id|>",
+    #     "system_in_user": False,
+    #     "bos": "<|begin_of_text|>",
+    #     "default_system_message": "",
+    # },
+    "meta-llama/Meta-Llama-3-8B-Instruct":{
+        "system": "<|start_header_id|>system<|end_header_id|>\n\n{instruction}<|eot_id|>",
+        "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n{instruction}<|eot_id|>",
+        "trailing_assistant": "",
+        "user": "<|start_header_id|>user<|end_header_id|>\n\n{instruction}<|eot_id|>",
+        "system_in_user": False,
+        "bos": "<|begin_of_text|>",
+        "default_system_message": "",
+    },
+}
+
+def load_prompt_format(model_id):
+    prompt_format_dict = PROMPT_FORMAT_CONFIGS[model_id]
+    return PromptFormat(**prompt_format_dict, is_generation=True)
 
 # Define a callback to record loss
 class LossRecorderCallback(TrainerCallback):
@@ -57,11 +84,11 @@ def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: 
     probabilities = F.softmax(special_token_logits, dim=-1)  # Shape: (batch_size, 5)
 
     # Sum probabilities for labels: 0 (tokens 1,2,3) and 1 (tokens 4,5)
-    prob_0 = probabilities[:, :3].sum(dim=1)  # Shape: (batch_size,)
-    prob_1 = probabilities[:, 3:].sum(dim=1)  # Shape: (batch_size,)
+    prob_1 = probabilities[:, :3].sum(dim=1)  # Shape: (batch_size,)
+    prob_0 = probabilities[:, 3:].sum(dim=1)  # Shape: (batch_size,)
 
     # Combine probabilities
-    combined_probs = torch.stack([prob_0, prob_1], dim=1)  # Shape: (batch_size, 2)
+    combined_probs = torch.stack([prob_0, prob_1], dim=1)  # probability_0 is basically probability that stronger model will win for the given query 
     labels_one_hot = F.one_hot(labels.long(), num_classes=2).float()
 
     # Calculate binary cross-entropy loss
@@ -92,7 +119,7 @@ class CustomTrainer(Trainer):
 
 # Define a custom Dataset class
 class PreferenceData(Dataset):
-    def __init__(self, queries, preferences, tokenizer, max_length=512):
+    def __init__(self, queries, preferences, tokenizer, max_length=2048):
         self.queries = queries.tolist()
         self.preferences = preferences.tolist()
         self.tokenizer = tokenizer
@@ -107,16 +134,17 @@ class PreferenceData(Dataset):
         query = str(self.queries[idx])
         preference = int(self.preferences[idx])
 
-        if preference == 0:
-            special_tokens = ["[[1]]", "[[2]]", "[[3]]"]
-        else:
-            special_tokens = ["[[4]]", "[[5]]"]
+        prompt_format = load_prompt_format("meta-llama/Meta-Llama-3-8B-Instruct")
 
-        special_token = random.choice(special_tokens)
-        query_with_token = f"{query} {special_token}"
+        system_message = "[Instruction]\nBased on the question provided below, predict the score an expert evaluator would give to an AI assistant's response, considering its helpfulness, relevance, adherence to facts, depth, creativity, and detail. Your prediction should infer the level of proficiency needed to address the question effectively. Use a scale from 1 to 5, where a higher score indicates a higher anticipated quality of response. Provide your prediction as: \"[[predicted rating]]\".\n\nScore criteria:\n- **4-5**: The AI assistant can produce a very strong answer, showing deep understanding, creativity, detailed insight, and high relevance.\n- **3**: The AI assistant can provide an adequate answer with moderate detail, relevance, and factual accuracy.\n- **1-2**: The AI assistant will struggle to produce a strong answer due to the question's difficulty, vagueness, or the assistant's limitations."
+        classifier_message = "\n[Question]\n{question}\n\nPrediction:\n"
 
+        messages = [{"role": "system", "content": system_message}]
+        messages.append({"role": "user", "content": classifier_message.format(question=query)})
+
+        final_prompt = prompt_format.generate_prompt(messages)
         inputs = self.tokenizer(
-            query_with_token,
+            final_prompt,
             truncation=True,
             max_length=self.max_length,
             return_tensors='pt',
@@ -185,7 +213,7 @@ if __name__ == "__main__":
     tokenizer.add_tokens(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"], special_tokens=True)
 
     # Prepare dataset
-    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=512)
+    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=2048)
 
     # Convert to HuggingFace Dataset for compatibility with Trainer
     def data_generator():
@@ -270,7 +298,7 @@ if __name__ == "__main__":
         save_strategy="epoch",        # Save checkpoint at the end of each epoch
         per_device_train_batch_size=4,  # Adjusted for memory constraints
         per_device_eval_batch_size=4,
-        num_train_epochs=1,
+        num_train_epochs=2,
         learning_rate=1e-4,            # Adjusted learning rate
         weight_decay=0.01,
         save_total_limit=1,
