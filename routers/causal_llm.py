@@ -12,6 +12,11 @@ from transformers import (
 from peft import PeftModel
 
 torch.backends.cudnn.benchmark = True
+torch.cuda.empty_cache()
+torch.cuda.set_per_process_memory_fraction(0.9) 
+
+print(f"Allocated GPU Memory: {torch.cuda.memory_allocated() / 1e9} GB")
+print(f"Reserved GPU Memory: {torch.cuda.memory_reserved() / 1e9} GB")
 
 # 1. Define the Dataset Class
 class EvaluationData(Dataset):
@@ -38,8 +43,8 @@ class EvaluationData(Dataset):
 if __name__ == "__main__":
     # Load data
     prefix = os.getcwd()
-    data_path = os.path.join(prefix, "data", "chatbot_arena_preference_data.tsv")
-    data_df = pd.read_csv(data_path, sep="\t", header=0)
+    data_path = os.path.join(prefix, "data", "chatbot_arena_preference_data_validate.tsv")
+    data_df = pd.read_csv(data_path, sep="\t", header=0)[:50]
 
     # Define directories
     base_model_name = "meta-llama/Meta-Llama-3-8B-Instruct"  # Original base model
@@ -91,7 +96,7 @@ if __name__ == "__main__":
         )
     except Exception as e:
         print(f"Error loading LoRA adapters: {e}")
-        model = base_model  # Fallback to base model if no adapters are found
+        raise(e)
 
     model.eval()
     # Prepare the dataset
@@ -100,7 +105,7 @@ if __name__ == "__main__":
     # Define TrainingArguments with optimized settings
     training_args = TrainingArguments(
         output_dir=os.path.join(prefix, "results"),           # Output directory
-        per_device_eval_batch_size=2,                         # Reduce batch size as needed
+        per_device_eval_batch_size=1,                         # Reduce batch size as needed
         dataloader_num_workers=2,                             # Fewer workers to save CPU memory
         no_cuda=False,                                        # Ensure CUDA is used
         fp16=False,                                           # Disable FP16 if not needed
@@ -123,7 +128,6 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error during prediction: {e}")
         raise e
-412
     # Convert logits to predicted labels
     try:
         # Get special token IDs
