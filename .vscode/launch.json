@@ -10,6 +10,13 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "module": "lora_finetuning",
+        },
+        {
+            "name": "Python: Evaluation",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "module": "routers.causal_llm",
         }
     ]
 }
