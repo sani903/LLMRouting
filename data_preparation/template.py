@@ -4,12 +4,12 @@ import pandas as pd
 import os
 import numpy as np
 
-from router.gemini_router import GeminiRouter
-from router.llm import LLM
-from router.ollama import OllamaRouter
-from router.open_ai_router import OpenAIRouter
-from router.transformers_router import TransformerRouter
-from router.vllm_router import VLLMRouter
+from internal_router.gemini_router import GeminiRouter
+from internal_router.llm import LLM
+from internal_router.ollama import OllamaRouter
+from internal_router.open_ai_router import OpenAIRouter
+from internal_router.transformers_router import TransformerRouter
+from internal_router.vllm_router import VLLMRouter
 
 
 class CNNDataset(Dataset):
