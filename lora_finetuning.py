@@ -61,34 +61,22 @@ def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: 
 
     # Combine probabilities
     combined_probs = torch.stack([prob_0, prob_1], dim=1)  # Shape: (batch_size, 2)
+    labels_one_hot = F.one_hot(labels.long(), num_classes=2).float()
 
     # Calculate binary cross-entropy loss
-    loss = F.binary_cross_entropy(combined_probs, labels.float())
+    loss = F.binary_cross_entropy(combined_probs, labels_one_hot)
 
     return loss
 
 # Define a custom Trainer class
 class CustomTrainer(Trainer):
-    def __init__(self, *args, checkpoint_dir='/opt/ml/checkpoints', **kwargs):
-        super().__init__(*args, **kwargs)
-        self.checkpoint_dir = checkpoint_dir
-        os.makedirs(self.checkpoint_dir, exist_ok=True)
-
-    def save_model(self, output_dir: Optional[str] = None, _internal_call: bool = False):
-        output_dir = output_dir or self.checkpoint_dir
-        os.makedirs(output_dir, exist_ok=True)
-        super().save_model(output_dir, _internal_call)
-
-    def _save(self, output_dir: Optional[str] = None, state_dict: Optional[Dict[str, torch.Tensor]] = None):
-        output_dir = output_dir or self.checkpoint_dir
-        os.makedirs(output_dir, exist_ok=True)
-        return super()._save(output_dir, state_dict)
-
-    def _move_model_to_device(self, model: PreTrainedModel, device: torch.device):
-        # Do nothing, as the model is already distributed
-        pass
-
-    def compute_loss(self, model: PreTrainedModel, inputs: Dict[str, torch.Tensor], return_outputs: bool = False) -> Union[torch.Tensor, Tuple[torch.Tensor, Any]]:
+    def compute_loss(
+        self,
+        model: PreTrainedModel,
+        inputs: Dict[str, torch.Tensor],
+        return_outputs: bool = False,
+        **kwargs  # Accept additional keyword arguments
+    ) -> Union[torch.Tensor, Tuple[torch.Tensor, Any]]:
         labels = inputs.pop("labels")
         outputs = model(**inputs)
         logits = outputs.logits  # Shape: (batch_size, seq_length, vocab_size)
@@ -99,6 +87,7 @@ class CustomTrainer(Trainer):
         loss = custom_loss_function(logits, labels, self.tokenizer)
 
         return (loss, outputs) if return_outputs else loss
+
 
 # Define a custom Dataset class
 class PreferenceData(Dataset):
