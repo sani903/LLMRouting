@@ -25,6 +25,7 @@ from typing import Optional, Dict, Union, Any, Tuple
 
 # Enable cuDNN benchmarking for potential speedups
 torch.backends.cudnn.benchmark = True
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Define a callback to record loss
 class LossRecorderCallback(TrainerCallback):
@@ -81,17 +82,17 @@ class CustomTrainer(Trainer):
         outputs = model(**inputs)
         logits = outputs.logits  # Shape: (batch_size, seq_length, vocab_size)
 
-        if self.tokenizer is None:
+        if self.processing_class is None:
             raise ValueError("Tokenizer is not initialized.")
 
-        loss = custom_loss_function(logits, labels, self.tokenizer)
+        loss = custom_loss_function(logits, labels, self.processing_class)
 
         return (loss, outputs) if return_outputs else loss
 
 
 # Define a custom Dataset class
 class PreferenceData(Dataset):
-    def __init__(self, queries, preferences, tokenizer, max_length=256):
+    def __init__(self, queries, preferences, tokenizer, max_length=512):
         self.queries = queries.tolist()
         self.preferences = preferences.tolist()
         self.tokenizer = tokenizer
@@ -104,7 +105,7 @@ class PreferenceData(Dataset):
         # [Insert the corrected __getitem__ method here]
         # As provided above
         query = str(self.queries[idx])
-        preference = int(self.preferences[idx]) - 1  # 0 or 1
+        preference = int(self.preferences[idx])
 
         if preference == 0:
             special_tokens = ["[[1]]", "[[2]]", "[[3]]"]
@@ -160,7 +161,7 @@ def check_for_nan_parameters(model: PreTrainedModel):
 if __name__ == "__main__":
     # Load data
     prefix = os.getcwd()
-    path = f"{prefix}/data/synthetic_mixed_preference_data.tsv"
+    path = f"{prefix}/data/chatbot_arena_preference_data.tsv"
     data_df = pd.read_csv(path, sep="\t", header=0)
 
     # Initialize tokenizer
@@ -184,7 +185,7 @@ if __name__ == "__main__":
     tokenizer.add_tokens(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"], special_tokens=True)
 
     # Prepare dataset
-    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=256)
+    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=512)
 
     # Convert to HuggingFace Dataset for compatibility with Trainer
     def data_generator():
