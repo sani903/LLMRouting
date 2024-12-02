@@ -19,8 +19,12 @@ class ChatBotArenaDataset:
             for line in f:
                 entry = json.loads(line)
                 # Extract the prompt string from the list
-                original = json.loads(entry['prompt'])[0]
-                original = original.replace("\n", "").replace(" ", " ").strip()
+                try:
+                    prompt_list = json.loads(entry['prompt'])
+                except json.JSONDecodeError:
+                    print(f"Invalid JSON in 'prompt': {prompt_list}")
+                    continue
+                original = " ".join(prompt_list).replace("\n", " ").strip()
                 model_a = entry['strong']
                 model_b = entry['weak']
                 preference = entry['label']
