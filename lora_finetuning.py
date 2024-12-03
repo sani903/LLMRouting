@@ -18,6 +18,7 @@ from datasets import Dataset as HFDataset
 from evaluate import load
 from peft import get_peft_model, LoraConfig, TaskType
 import matplotlib.pyplot as plt
+import wandb
 
 from transformers import TrainerCallback, EarlyStoppingCallback
 from transformers import Trainer, PreTrainedModel
@@ -54,22 +55,6 @@ def load_prompt_format(model_id):
     prompt_format_dict = PROMPT_FORMAT_CONFIGS[model_id]
     return PromptFormat(**prompt_format_dict, is_generation=True)
 
-# Define a callback to record loss
-class LossRecorderCallback(TrainerCallback):
-    def __init__(self):
-        self.train_losses = []
-        self.eval_losses = []
-        self.steps = []
-        self.eval_steps = []
-
-    def on_log(self, args, state, control, logs=None, **kwargs):
-        if logs is not None:
-            if 'loss' in logs:
-                self.train_losses.append(logs['loss'])
-                self.steps.append(state.global_step)
-            if 'eval_loss' in logs:
-                self.eval_losses.append(logs['eval_loss'])
-                self.eval_steps.append(state.global_step)
 
 # Define the custom loss function
 def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: PreTrainedTokenizerBase) -> torch.Tensor:
@@ -94,7 +79,7 @@ def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: 
     # Calculate binary cross-entropy loss
     loss = F.binary_cross_entropy(combined_probs, labels_one_hot)
 
-    return loss
+    return loss, combined_probs
 
 # Define a custom Trainer class
 class CustomTrainer(Trainer):
@@ -112,7 +97,13 @@ class CustomTrainer(Trainer):
         if self.processing_class is None:
             raise ValueError("Tokenizer is not initialized.")
 
-        loss = custom_loss_function(logits, labels, self.processing_class)
+        loss, combined_probs = custom_loss_function(logits, labels, self.processing_class)
+
+        wandb.log({
+            'loss': loss.item(),
+            'combined_probs_0': combined_probs[0][0].item(),
+            'combined_probs_1': combined_probs[0][1].item()
+        }, step=self.state.global_step)
 
         return (loss, outputs) if return_outputs else loss
 
@@ -194,6 +185,17 @@ if __name__ == "__main__":
 
     # Initialize tokenizer
     model_name = "meta-llama/Meta-Llama-3-8B-Instruct"  # Ensure this is the correct model name
+    wandb.init(
+        project="preference_model_training",
+        name="run_1",
+        config={
+            "learning_rate": 1e-4,
+            "epochs": 1,
+            "batch_size": 1,
+            "model_name": model_name,
+        },
+        resume="allow",
+    )
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
     except OSError:
@@ -213,7 +215,7 @@ if __name__ == "__main__":
     tokenizer.add_tokens(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"], special_tokens=True)
 
     # Prepare dataset
-    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=2048)
+    dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=512)
 
     # Convert to HuggingFace Dataset for compatibility with Trainer
     def data_generator():
@@ -223,7 +225,7 @@ if __name__ == "__main__":
     hf_dataset = HFDataset.from_generator(data_generator)
 
     # Split dataset into training and evaluation sets (80% train, 20% eval)
-    hf_dataset = hf_dataset.train_test_split(test_size=0.2)
+    hf_dataset = hf_dataset.train_test_split(test_size=0.1)
 
     # Check dataset for NaNs
     check_dataset_for_nan(hf_dataset['train'])
@@ -231,6 +233,7 @@ if __name__ == "__main__":
     # Define quantization configuration
     quantization_config = BitsAndBytesConfig(
         load_in_8bit=True,  # Enable 8-bit quantization for memory efficiency
+        llm_int8_enable_fp32_cpu_offload=True, # Offload parts to CPU if necessary
     )
 
     # Load the pre-trained model
@@ -246,6 +249,8 @@ if __name__ == "__main__":
             quantization_config=quantization_config,
             device_map='auto',
         )
+        # model.gradient_checkpointing_enable() -> this caused detachment of loss and loss.required_grad became false
+
     except Exception as e:
         print(f"Error loading pre-trained LLaMA model: {e}")
         raise e
@@ -259,7 +264,7 @@ if __name__ == "__main__":
 
     # Prepare LoRA configuration
     peft_config = LoraConfig(
-        task_type=TaskType.SEQ_CLS,
+        task_type=TaskType.CAUSAL_LM,
         inference_mode=False,
         r=8,
         lora_alpha=32,
@@ -296,29 +301,29 @@ if __name__ == "__main__":
         output_dir="./results",
         evaluation_strategy="epoch",  # Evaluate at the end of each epoch
         save_strategy="epoch",        # Save checkpoint at the end of each epoch
-        per_device_train_batch_size=4,  # Adjusted for memory constraints
-        per_device_eval_batch_size=4,
+        per_device_train_batch_size=1,  # Adjusted for memory constraints
+        per_device_eval_batch_size=1,
         num_train_epochs=2,
         learning_rate=1e-4,            # Adjusted learning rate
         weight_decay=0.01,
         save_total_limit=1,
         load_best_model_at_end=True,
         logging_steps=15,
-        gradient_accumulation_steps=4,
+        gradient_accumulation_steps=16,
         fp16=False,                    # Disable FP16 training for stability
         bf16=True,                     # Enable BF16 training for speed
-        log_level='debug',
+        log_level='warning',
         max_grad_norm=1.0,
         logging_strategy="steps",
         logging_first_step=True,
         logging_dir="./logs",
-        report_to=["none"],
-        dataloader_num_workers=4,      # Increase based on CPU cores
+        report_to=[],
+        dataloader_num_workers=2,      # Increase based on CPU cores
         dataloader_pin_memory=True,
     )
 
     # Initialize the loss recorder callback
-    loss_recorder = LossRecorderCallback()
+    # loss_recorder = LossRecorderCallback()
 
     # Initialize the CustomTrainer with all required arguments
     trainer = CustomTrainer(
@@ -329,7 +334,7 @@ if __name__ == "__main__":
         tokenizer=tokenizer,
         data_collator=data_collator,
         compute_metrics=compute_metrics,
-        callbacks=[loss_recorder, EarlyStoppingCallback(early_stopping_patience=2)],
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
     )
 
     try:
@@ -340,15 +345,3 @@ if __name__ == "__main__":
 
     # Check for NaNs in parameters
     check_for_nan_parameters(model)
-
-    # Plot training and evaluation losses
-    plt.figure(figsize=(10, 5))
-    plt.plot(loss_recorder.steps, loss_recorder.train_losses, label='Training Loss')
-    plt.plot(loss_recorder.eval_steps, loss_recorder.eval_losses, label='Evaluation Loss', linestyle='--')
-    plt.xlabel('Training Steps')
-    plt.ylabel('Loss')
-    plt.title('Training and Evaluation Loss Curve')
-    plt.legend()
-    plt.grid(True)
-    plt.savefig("curve.png")
-    plt.show()
