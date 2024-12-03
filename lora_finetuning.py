@@ -20,7 +20,7 @@ from peft import get_peft_model, LoraConfig, TaskType
 import matplotlib.pyplot as plt
 import wandb
 
-from transformers import TrainerCallback, EarlyStoppingCallback
+from transformers import TrainerCallback, EarlyStoppingCallback, TrainerState, TrainerControl
 from transformers import Trainer, PreTrainedModel
 from typing import Optional, Dict, Union, Any, Tuple
 
@@ -50,6 +50,40 @@ PROMPT_FORMAT_CONFIGS = {
         "default_system_message": "",
     },
 }
+
+class SimpleCallback(TrainerCallback):
+    def on_step_end(self, args, state, control, **kwargs):
+        # print("Callback: on_step_end triggered.")
+        pass
+
+
+class GradientMonitorCallback(TrainerCallback):
+    def __init__(self, tokenizer: PreTrainedTokenizerBase, special_tokens: list):
+        super().__init__()
+        self.token_ids = tokenizer.convert_tokens_to_ids(special_tokens)
+        self.special_tokens = special_tokens
+    
+    def on_pre_optimizer_step(
+        self,
+        args: TrainingArguments,
+        state: TrainerState,
+        control: TrainerControl,
+        **kwargs
+    ):
+        print("GradientMonitorCallback: on_pre_optimizer_step triggered.")
+        model = kwargs['model']
+        embedding_layer = model.get_input_embeddings()
+        embeddings = embedding_layer.weight
+    
+        if embeddings.grad is None:
+            print("GradientMonitorCallback: Embeddings gradients are None.")
+        else:
+            # Extract gradients for special tokens
+            special_gradients = embeddings.grad[self.token_ids]  # Shape: (5, embedding_dim)
+            for token, grad in zip(self.special_tokens, special_gradients):
+                grad_norm = grad.norm().item()
+                print(f"GradientMonitorCallback: {token} gradient norm: {grad_norm}")
+
 
 def load_prompt_format(model_id):
     prompt_format_dict = PROMPT_FORMAT_CONFIGS[model_id]
@@ -83,6 +117,16 @@ def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: 
 
 # Define a custom Trainer class
 class CustomTrainer(Trainer):
+    def create_optimizer(self):
+        if self.optimizer is None:
+            optimizer_grouped_parameters = [
+                {
+                    "params": [p for n, p in self.model.named_parameters() if p.requires_grad],
+                    "weight_decay": self.args.weight_decay,
+                },
+            ]
+            optimizer_cls, optimizer_kwargs = Trainer.get_optimizer_cls_and_kwargs(self.args)
+            self.optimizer = optimizer_cls(optimizer_grouped_parameters, **optimizer_kwargs)
     def compute_loss(
         self,
         model: PreTrainedModel,
@@ -104,7 +148,12 @@ class CustomTrainer(Trainer):
             'combined_probs_0': combined_probs[0][0].item(),
             'combined_probs_1': combined_probs[0][1].item()
         }, step=self.state.global_step)
-
+        for token in ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]:
+            token_id = self.processing_class.convert_tokens_to_ids(token)
+            embedding = model.get_input_embeddings().weight[token_id]
+            if not embedding.requires_grad:
+                print(f"Enabling requried grad for '{token}' which was not trainable.")
+                embedding.requires_grad = True
         return (loss, outputs) if return_outputs else loss
 
 
@@ -144,6 +193,9 @@ class PreferenceData(Dataset):
 
         inputs = {k: v.squeeze(0) for k, v in inputs.items()}
         inputs['labels'] = torch.tensor(preference, dtype=torch.float)
+
+        print(final_prompt)
+        print(preference)
 
         return inputs
 
@@ -246,10 +298,12 @@ if __name__ == "__main__":
         model = LlamaForCausalLM.from_pretrained(
             model_name,
             config=config,
-            quantization_config=quantization_config,
+            # quantization_config=quantization_config,
             device_map='auto',
+            torch_dtype=torch.bfloat16,
         )
         # model.gradient_checkpointing_enable() -> this caused detachment of loss and loss.required_grad became false
+        # model.get_input_embeddings().weight.requires_grad = True
 
     except Exception as e:
         print(f"Error loading pre-trained LLaMA model: {e}")
@@ -273,16 +327,33 @@ if __name__ == "__main__":
     )
 
     # Apply PEFT to the model
-    try:
-        model = get_peft_model(model, peft_config)
-    except Exception as e:
-        print(f"Error wrapping model with PEFT: {e}")
-        raise e
+    # try:
+    #     model = get_peft_model(model, peft_config)
+    # except Exception as e:
+    #     print(f"Error wrapping model with PEFT: {e}")
+    #     raise e
 
     # Ensure the entire model uses BF16 for consistency
-    model = model.to(torch.bfloat16)
+    # model = model.to(torch.bfloat16)
+
+    for param in model.parameters():
+        param.requires_grad = False
+
+    special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
+    token_ids = tokenizer.convert_tokens_to_ids(special_tokens)
+
+    embedding_layer = model.base_model.get_input_embeddings()
+    embedding_layer.weight.requires_grad = True
+    # for token_id in token_ids:
+    #     embedding_layer.weight[token_id].requires_grad = True 
 
     # Print trainable parameters
+    for token in ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]:
+        token_id = tokenizer.convert_tokens_to_ids(token)
+        embedding = model.get_input_embeddings().weight[token_id]
+        if not embedding.requires_grad:
+            print(f"Enabling requried grad for '{token}' which was not trainable.")
+            embedding.requires_grad = True
     print_trainable_parameters(model)
 
     # Prepare data collator
@@ -303,13 +374,13 @@ if __name__ == "__main__":
         save_strategy="epoch",        # Save checkpoint at the end of each epoch
         per_device_train_batch_size=1,  # Adjusted for memory constraints
         per_device_eval_batch_size=1,
-        num_train_epochs=2,
+        num_train_epochs=1,
         learning_rate=1e-4,            # Adjusted learning rate
         weight_decay=0.01,
         save_total_limit=1,
         load_best_model_at_end=True,
         logging_steps=15,
-        gradient_accumulation_steps=16,
+        gradient_accumulation_steps=8,
         fp16=False,                    # Disable FP16 training for stability
         bf16=True,                     # Enable BF16 training for speed
         log_level='warning',
@@ -334,12 +405,23 @@ if __name__ == "__main__":
         tokenizer=tokenizer,
         data_collator=data_collator,
         compute_metrics=compute_metrics,
-        callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
+        callbacks=[SimpleCallback(), GradientMonitorCallback(tokenizer=tokenizer, special_tokens=special_tokens), EarlyStoppingCallback(early_stopping_patience=2)],
     )
+    trainer.create_optimizer()
+    for idx, group in enumerate(trainer.optimizer.param_groups):
+        print(f"Optimizer group {idx}:")
+        for param in group['params']:
+            print(f" - Parameter requires_grad: {param.requires_grad}, Shape: {param.shape}")
 
     try:
         # Start the training process
         trainer.train()
+
+            # After training has started, the optimizer is initialized
+        for idx, group in enumerate(trainer.optimizer.param_groups):
+            print(f"Optimizer group {idx}:")
+            for param in group['params']:
+                print(f" - Parameter requires_grad: {param.requires_grad}, Shape: {param.shape}")
     except Exception as e:
         print(f"An error occurred during training: {e}")
 
