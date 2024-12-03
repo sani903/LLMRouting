@@ -24,23 +24,14 @@ from transformers import TrainerCallback, EarlyStoppingCallback, TrainerState, T
 from transformers import Trainer, PreTrainedModel
 from typing import Optional, Dict, Union, Any, Tuple
 
-from prompt_format import PromptFormat
+from prompt_format import PromptFormat  # Ensure this is correctly implemented
 
 # Enable cuDNN benchmarking for potential speedups
 torch.backends.cudnn.benchmark = True
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 PROMPT_FORMAT_CONFIGS = {
-    # "meta-llama/Meta-Llama-3-8B": {
-    #     "system": "<|start_header_id|>system<|end_header_id|>\n\n{instruction}<|eot_id|>",
-    #     "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n{instruction}<|eot_id|>",
-    #     "trailing_assistant": "",
-    #     "user": "<|start_header_id|>user<|end_header_id|>\n\n{instruction}<|eot_id|>",
-    #     "system_in_user": False,
-    #     "bos": "<|begin_of_text|>",
-    #     "default_system_message": "",
-    # },
-    "meta-llama/Meta-Llama-3-8B-Instruct":{
+    "meta-llama/Meta-Llama-3-8B-Instruct": {
         "system": "<|start_header_id|>system<|end_header_id|>\n\n{instruction}<|eot_id|>",
         "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n{instruction}<|eot_id|>",
         "trailing_assistant": "",
@@ -52,9 +43,8 @@ PROMPT_FORMAT_CONFIGS = {
 }
 
 class SimpleCallback(TrainerCallback):
-    def on_step_end(self, args, state, control, **kwargs):
-        # print("Callback: on_step_end triggered.")
-        pass
+    def on_step_end(self, args: TrainingArguments, state: TrainerState, control: TrainerControl, **kwargs):
+        pass  # Optional: Implement if needed
 
 class GradientMonitorCallback(TrainerCallback):
     def __init__(self, tokenizer: PreTrainedTokenizerBase, special_tokens: list):
@@ -102,31 +92,49 @@ def load_prompt_format(model_id):
     prompt_format_dict = PROMPT_FORMAT_CONFIGS[model_id]
     return PromptFormat(**prompt_format_dict, is_generation=True)
 
+# Define the custom loss function for multi-class classification
+def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: PreTrainedTokenizerBase) -> Tuple[torch.Tensor, torch.Tensor]:
+    # Define special tokens
+    special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
+    special_token_ids = tokenizer.convert_tokens_to_ids(special_tokens)
 
-# Define the custom loss function
-def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: PreTrainedTokenizerBase) -> torch.Tensor:
-    # Get the indices of the special tokens
-    special_token_ids = tokenizer.convert_tokens_to_ids(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"])
+    # Extract logits for the special tokens at the last position
+    # Shape: (batch_size, 5)
+    special_token_logits = logits[:, -1, special_token_ids]
 
-    # Extract logits for the last token's special tokens
-    # Assuming the model generates the special tokens at the last position
-    special_token_logits = logits[:, -1, special_token_ids]  # Shape: (batch_size, 5)
+    labels_one_hot = F.one_hot(labels.long(), num_classes=5).float()
 
-    # Apply softmax to get probabilities
+    loss = F.binary_cross_entropy_with_logits(special_token_logits, labels_one_hot)
+    
+    # Compute probabilities for logging
     probabilities = F.softmax(special_token_logits, dim=-1)  # Shape: (batch_size, 5)
 
-    # Sum probabilities for labels: 0 (tokens 1,2,3) and 1 (tokens 4,5)
-    prob_1 = probabilities[:, :3].sum(dim=1)  # Shape: (batch_size,)
-    prob_0 = probabilities[:, 3:].sum(dim=1)  # Shape: (batch_size,)
+    return loss, probabilities
 
-    # Combine probabilities
-    combined_probs = torch.stack([prob_0, prob_1], dim=1)  # probability_0 is basically probability that stronger model will win for the given query 
-    labels_one_hot = F.one_hot(labels.long(), num_classes=2).float()
 
-    # Calculate binary cross-entropy loss
-    loss = F.binary_cross_entropy(combined_probs, labels_one_hot)
+# def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: PreTrainedTokenizerBase) -> torch.Tensor:
+#     # Get the indices of the special tokens
+#     special_token_ids = tokenizer.convert_tokens_to_ids(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"])
 
-    return loss, combined_probs
+#     # Extract logits for the last token's special tokens
+#     # Assuming the model generates the special tokens at the last position
+#     special_token_logits = logits[:, -1, special_token_ids]  # Shape: (batch_size, 5)
+
+#     # Apply softmax to get probabilities
+#     probabilities = F.softmax(special_token_logits, dim=-1)  # Shape: (batch_size, 5)
+
+#     # Sum probabilities for labels: 0 (tokens 1,2,3) and 1 (tokens 4,5)
+#     prob_1 = probabilities[:, :3].sum(dim=1)  # Shape: (batch_size,)
+#     prob_0 = probabilities[:, 3:].sum(dim=1)  # Shape: (batch_size,)
+
+#     # Combine probabilities
+#     combined_probs = torch.stack([prob_0, prob_1], dim=1)  # probability_0 is basically probability that stronger model will win for the given query 
+#     labels_one_hot = F.one_hot(labels.long(), num_classes=2).float()
+
+#     # Calculate binary cross-entropy loss
+#     loss = F.binary_cross_entropy(combined_probs, labels_one_hot)
+
+#     return loss, combined_probs
 
 # Define a custom Trainer class
 class CustomTrainer(Trainer):
@@ -151,24 +159,20 @@ class CustomTrainer(Trainer):
         outputs = model(**inputs)
         logits = outputs.logits  # Shape: (batch_size, seq_length, vocab_size)
 
-        if self.processing_class is None:
-            raise ValueError("Tokenizer is not initialized.")
+        # Use the updated multi-class loss function
+        loss, probabilities = custom_loss_function(logits, labels, self.tokenizer)
 
-        loss, combined_probs = custom_loss_function(logits, labels, self.processing_class)
-
+        # Log metrics to Weights & Biases
         wandb.log({
             'loss': loss.item(),
-            'combined_probs_0': combined_probs[0][0].item(),
-            'combined_probs_1': combined_probs[0][1].item()
+            'prob_1': probabilities[0][0].item(),
+            'prob_2': probabilities[0][1].item(),
+            'prob_3': probabilities[0][2].item(),
+            'prob_4': probabilities[0][3].item(),
+            'prob_5': probabilities[0][4].item(),
         }, step=self.state.global_step)
-        # for token in ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]:
-        #     token_id = self.processing_class.convert_tokens_to_ids(token)
-        #     embedding = model.get_input_embeddings().weight[token_id]
-        #     if not embedding.requires_grad:
-        #         print(f"Enabling requried grad for '{token}' which was not trainable.")
-        #         embedding.requires_grad = True
-        return (loss, outputs) if return_outputs else loss
 
+        return (loss, outputs) if return_outputs else loss
 
 # Define a custom Dataset class
 class PreferenceData(Dataset):
@@ -182,14 +186,31 @@ class PreferenceData(Dataset):
         return len(self.preferences)
 
     def __getitem__(self, idx):
-        # [Insert the corrected __getitem__ method here]
-        # As provided above
         query = str(self.queries[idx])
-        preference = int(self.preferences[idx])
+        preference = int(self.preferences[idx])  # Expecting values from 1 to 5
+
+        if preference == 0:
+            preference = random.choice([1, 2, 3])
+        elif preference == 1:
+            preference = random.choice([4, 5])
 
         prompt_format = load_prompt_format("meta-llama/Meta-Llama-3-8B-Instruct")
 
-        system_message = "[Instruction]\nBased on the question provided below, predict the score an expert evaluator would give to an AI assistant's response, considering its helpfulness, relevance, adherence to facts, depth, creativity, and detail. Your prediction should infer the level of proficiency needed to address the question effectively. Use a scale from 1 to 5, where a higher score indicates a higher anticipated quality of response. Provide your prediction as: \"[[predicted rating]]\".\n\nScore criteria:\n- **4-5**: The AI assistant can produce a very strong answer, showing deep understanding, creativity, detailed insight, and high relevance.\n- **3**: The AI assistant can provide an adequate answer with moderate detail, relevance, and factual accuracy.\n- **1-2**: The AI assistant will struggle to produce a strong answer due to the question's difficulty, vagueness, or the assistant's limitations."
+        system_message = (
+            "[Instruction]\n"
+            "Based on the question provided below, predict the score an "
+            "expert evaluator would give to an AI assistant's response, "
+            "considering its helpfulness, relevance, adherence to facts, "
+            "depth, creativity, and detail. Your prediction should infer the "
+            "level of proficiency needed to address the question effectively. "
+            "Use a scale from 1 to 5, where a higher score indicates a higher "
+            "anticipated quality of response. Provide your prediction as: \"[[predicted rating]]\".\n\n"
+            "Score criteria:\n"
+            "- **4-5**: The AI assistant can produce a very strong answer, "
+            "showing deep understanding, creativity, detailed insight, and high relevance.\n"
+            "- **3**: The AI assistant can provide an adequate answer with moderate detail, relevance, and factual accuracy.\n"
+            "- **1-2**: The AI assistant will struggle to produce a strong answer due to the question's difficulty, vagueness, or the assistant's limitations.\n"
+        )
         classifier_message = "\n[Question]\n{question}\n\nPrediction:\n"
 
         messages = [{"role": "system", "content": system_message}]
@@ -205,25 +226,24 @@ class PreferenceData(Dataset):
         )
 
         inputs = {k: v.squeeze(0) for k, v in inputs.items()}
-    
 
-        inputs['labels'] = torch.tensor(preference, dtype=torch.float)
-
+        class_index = preference - 1
+        inputs['labels'] = torch.tensor(class_index, dtype=torch.float)
 
         return inputs
 
 # Function to print trainable parameters
 def print_trainable_parameters(model: PreTrainedModel):
     trainable_params = 0
-    all_param = 0
+    all_params = 0
     for name, param in model.named_parameters():
-        all_param += param.numel()
+        all_params += param.numel()
         if param.requires_grad:
             print(f"Parameter '{name}' is trainable.")
             trainable_params += param.numel()
     print(
-        f"Trainable params: {trainable_params} | All params: {all_param} | "
-        f"Trainable%: {100 * trainable_params / all_param:.2f}%"
+        f"Trainable params: {trainable_params} | All params: {all_params} | "
+        f"Trainable%: {100 * trainable_params / all_params:.2f}%"
     )
 
 # Function to check dataset for NaNs
@@ -277,7 +297,8 @@ if __name__ == "__main__":
         tokenizer.add_special_tokens({'pad_token': '<pad>'})
 
     # Add special tokens
-    tokenizer.add_tokens(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"], special_tokens=True)
+    special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
+    tokenizer.add_tokens(special_tokens, special_tokens=True)
 
     # Prepare dataset
     dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=512)
@@ -289,35 +310,32 @@ if __name__ == "__main__":
 
     hf_dataset = HFDataset.from_generator(data_generator)
 
-    # Split dataset into training and evaluation sets (80% train, 20% eval)
+    # Split dataset into training and evaluation sets (90% train, 10% eval)
     hf_dataset = hf_dataset.train_test_split(test_size=0.1)
 
     # Check dataset for NaNs
     check_dataset_for_nan(hf_dataset['train'])
 
-    # Define quantization configuration
+    # Define quantization configuration (optional)
     quantization_config = BitsAndBytesConfig(
         load_in_8bit=True,  # Enable 8-bit quantization for memory efficiency
-        llm_int8_enable_fp32_cpu_offload=True, # Offload parts to CPU if necessary
+        llm_int8_enable_fp32_cpu_offload=True,  # Offload parts to CPU if necessary
     )
 
     # Load the pre-trained model
     try:
         config = LlamaConfig.from_pretrained(
             model_name,
-            num_labels=2,
+            num_labels=5,
             output_hidden_states=True,  # Enable hidden states for custom loss
         )
         model = LlamaForCausalLM.from_pretrained(
             model_name,
             config=config,
-            # quantization_config=quantization_config,
+            # quantization_config=quantization_config,  # Currently commented out
             device_map='auto',
             torch_dtype=torch.bfloat16,
         )
-        # model.gradient_checkpointing_enable() -> this caused detachment of loss and loss.required_grad became false
-        # model.get_input_embeddings().weight.requires_grad = True
-
     except Exception as e:
         print(f"Error loading pre-trained LLaMA model: {e}")
         raise e
@@ -329,44 +347,39 @@ if __name__ == "__main__":
         print(f"Error resizing token embeddings: {e}")
         raise e
 
-    # Prepare LoRA configuration
+    # Prepare LoRA configuration (optional)
     peft_config = LoraConfig(
         task_type=TaskType.CAUSAL_LM,
         inference_mode=False,
         r=8,
         lora_alpha=32,
         lora_dropout=0.1,
-        target_modules=["q_proj", "v_proj"],  # Adjust based on model's module names
+        target_modules=["self_attn.q_proj", "self_attn.v_proj"],  # Adjust based on model's module names
     )
 
-    # Apply PEFT to the model
-    try:
-        model = get_peft_model(model, peft_config)
-    except Exception as e:
-        print(f"Error wrapping model with PEFT: {e}")
-        raise e
+    # Apply PEFT to the model (optional)
+    # try:
+    #     model = get_peft_model(model, peft_config)
+    # except Exception as e:
+    #     print(f"Error wrapping model with PEFT: {e}")
+    #     raise e
 
-    # Ensure the entire model uses BF16 for consistency
-    model = model.to(torch.bfloat16)
-
+    # Freeze all parameters except the embeddings
     for param in model.parameters():
         param.requires_grad = False
 
-    special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
-    token_ids = tokenizer.convert_tokens_to_ids(special_tokens)
-
-    embedding_layer = model.base_model.get_input_embeddings()
+    # Unfreeze the embedding layer
+    embedding_layer = model.get_input_embeddings()
     embedding_layer.weight.requires_grad = True
-    # for token_id in token_ids:
-    #     embedding_layer.weight[token_id].requires_grad = True 
+
+    for token in ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]:
+        token_id = tokenizer.convert_tokens_to_ids(token)
+        embedding = model.get_input_embeddings().weight[token_id]
+        if not embedding.requires_grad:
+            print(f"Enabling requried grad for '{token}' which was not trainable.")
+            embedding.requires_grad = True
 
     # Print trainable parameters
-    # for token in ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]:
-    #     token_id = tokenizer.convert_tokens_to_ids(token)
-    #     embedding = model.get_input_embeddings().weight[token_id]
-    #     if not embedding.requires_grad:
-    #         print(f"Enabling requried grad for '{token}' which was not trainable.")
-    #         embedding.requires_grad = True
     print_trainable_parameters(model)
 
     # Prepare data collator
@@ -401,15 +414,15 @@ if __name__ == "__main__":
         logging_strategy="steps",
         logging_first_step=True,
         logging_dir="./logs",
-        report_to=[],
+        report_to=[],                   # Disable default logging (since using wandb)
         dataloader_num_workers=2,      # Increase based on CPU cores
         dataloader_pin_memory=True,
     )
 
-    # Initialize the loss recorder callback
-    # loss_recorder = LossRecorderCallback()
+    # Initialize the GradientMonitorCallback with tokenizer and special tokens
+    gradient_monitor = GradientMonitorCallback(tokenizer=tokenizer, special_tokens=special_tokens)
 
-    # Initialize the CustomTrainer with all required arguments
+    # Initialize the CustomTrainer with all required arguments and callbacks
     trainer = CustomTrainer(
         model=model,
         args=training_args,
@@ -418,9 +431,13 @@ if __name__ == "__main__":
         tokenizer=tokenizer,
         data_collator=data_collator,
         compute_metrics=compute_metrics,
-        callbacks=[SimpleCallback(), GradientMonitorCallback(tokenizer=tokenizer, special_tokens=special_tokens), EarlyStoppingCallback(early_stopping_patience=2)],
+        callbacks=[SimpleCallback(), gradient_monitor, EarlyStoppingCallback(early_stopping_patience=2)],
     )
+
+    # Explicitly create the optimizer before accessing it
     # trainer.create_optimizer()
+
+    # Now, safely access and print the optimizer's parameter groups
     # for idx, group in enumerate(trainer.optimizer.param_groups):
     #     print(f"Optimizer group {idx}:")
     #     for param in group['params']:
@@ -429,12 +446,6 @@ if __name__ == "__main__":
     try:
         # Start the training process
         trainer.train()
-
-            # After training has started, the optimizer is initialized
-        # for idx, group in enumerate(trainer.optimizer.param_groups):
-        #     print(f"Optimizer group {idx}:")
-        #     for param in group['params']:
-        #         print(f" - Parameter requires_grad: {param.requires_grad}, Shape: {param.shape}")
     except Exception as e:
         print(f"An error occurred during training: {e}")
 
