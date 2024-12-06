@@ -1,0 +1,1001 @@
+original	gold_output	dataset	metadata	model_1_output	model_2_output	preference
+What is 98 + 99?	197	arithmetic	type=arithmetic, difficulty=easy	197	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 20 + 48?	68	arithmetic	type=arithmetic, difficulty=medium	68	incorrect answer	1
+What is 37 + 1?	38	arithmetic	type=arithmetic, difficulty=easy	38	incorrect answer	1
+If John has 4 apples and gives 35 to Sarah, how many does he have left?	-31	word_problem	type=word_problem, difficulty=hard	-31	incorrect answer	1
+What is 77 + 60?	137	arithmetic	type=arithmetic, difficulty=easy	137	incorrect answer	1
+If John has 19 apples and gives 3 to Sarah, how many does he have left?	16	word_problem	type=word_problem, difficulty=hard	16	incorrect answer	1
+If John has 25 apples and gives 8 to Sarah, how many does he have left?	17	word_problem	type=word_problem, difficulty=easy	17	incorrect answer	1
+If John has 50 apples and gives 23 to Sarah, how many does he have left?	27	word_problem	type=word_problem, difficulty=hard	27	incorrect answer	1
+What is 4 + 49?	53	arithmetic	type=arithmetic, difficulty=medium	53	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 48 + 39?	87	arithmetic	type=arithmetic, difficulty=hard	87	incorrect answer	1
+If John has 16 apples and gives 41 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=easy	incorrect answer	-25	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 3 apples and gives 25 to Sarah, how many does he have left?	-22	word_problem	type=word_problem, difficulty=medium	incorrect answer	-22	2
+If John has 10 apples and gives 47 to Sarah, how many does he have left?	-37	word_problem	type=word_problem, difficulty=easy	incorrect answer	-37	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 31 + 99?	130	arithmetic	type=arithmetic, difficulty=easy	130	incorrect answer	1
+What is 34 + 90?	124	arithmetic	type=arithmetic, difficulty=hard	124	incorrect answer	1
+If John has 43 apples and gives 8 to Sarah, how many does he have left?	35	word_problem	type=word_problem, difficulty=easy	35	incorrect answer	1
+What is 100 + 36?	136	arithmetic	type=arithmetic, difficulty=hard	136	incorrect answer	1
+What is 71 + 87?	158	arithmetic	type=arithmetic, difficulty=hard	158	incorrect answer	1
+What is 36 + 40?	76	arithmetic	type=arithmetic, difficulty=hard	76	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 13 apples and gives 6 to Sarah, how many does he have left?	7	word_problem	type=word_problem, difficulty=medium	7	incorrect answer	1
+If John has 16 apples and gives 46 to Sarah, how many does he have left?	-30	word_problem	type=word_problem, difficulty=hard	-30	incorrect answer	1
+What is 22 + 84?	106	arithmetic	type=arithmetic, difficulty=hard	106	incorrect answer	1
+What is 50 + 88?	138	arithmetic	type=arithmetic, difficulty=hard	138	incorrect answer	1
+If John has 33 apples and gives 12 to Sarah, how many does he have left?	21	word_problem	type=word_problem, difficulty=medium	21	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 12 apples and gives 49 to Sarah, how many does he have left?	-37	word_problem	type=word_problem, difficulty=medium	-37	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 66 + 53?	119	arithmetic	type=arithmetic, difficulty=hard	119	incorrect answer	1
+If John has 45 apples and gives 19 to Sarah, how many does he have left?	26	word_problem	type=word_problem, difficulty=medium	26	incorrect answer	1
+What is 22 + 93?	115	arithmetic	type=arithmetic, difficulty=medium	115	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 53 + 83?	136	arithmetic	type=arithmetic, difficulty=hard	136	incorrect answer	1
+If John has 6 apples and gives 5 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=hard	incorrect answer	1	2
+If John has 21 apples and gives 19 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=hard	incorrect answer	2	2
+If John has 35 apples and gives 1 to Sarah, how many does he have left?	34	word_problem	type=word_problem, difficulty=easy	34	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 55 + 47?	102	arithmetic	type=arithmetic, difficulty=medium	102	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 95 + 2?	97	arithmetic	type=arithmetic, difficulty=easy	97	incorrect answer	1
+What is 15 + 89?	104	arithmetic	type=arithmetic, difficulty=medium	104	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 64 + 83?	147	arithmetic	type=arithmetic, difficulty=medium	147	incorrect answer	1
+What is 38 + 43?	81	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	81	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 47 apples and gives 36 to Sarah, how many does he have left?	11	word_problem	type=word_problem, difficulty=medium	11	incorrect answer	1
+What is 19 + 74?	93	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	93	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 27 apples and gives 33 to Sarah, how many does he have left?	-6	word_problem	type=word_problem, difficulty=medium	incorrect answer	-6	2
+What is 18 + 91?	109	arithmetic	type=arithmetic, difficulty=hard	109	incorrect answer	1
+What is 72 + 27?	99	arithmetic	type=arithmetic, difficulty=medium	99	incorrect answer	1
+What is 3 + 88?	91	arithmetic	type=arithmetic, difficulty=medium	91	incorrect answer	1
+What is 69 + 21?	90	arithmetic	type=arithmetic, difficulty=easy	90	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 16 apples and gives 41 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=hard	-25	incorrect answer	1
+If John has 16 apples and gives 12 to Sarah, how many does he have left?	4	word_problem	type=word_problem, difficulty=medium	4	incorrect answer	1
+If John has 17 apples and gives 38 to Sarah, how many does he have left?	-21	word_problem	type=word_problem, difficulty=hard	-21	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 45 + 70?	115	arithmetic	type=arithmetic, difficulty=medium	115	incorrect answer	1
+If John has 49 apples and gives 17 to Sarah, how many does he have left?	32	word_problem	type=word_problem, difficulty=hard	32	incorrect answer	1
+What is 17 + 24?	41	arithmetic	type=arithmetic, difficulty=medium	41	incorrect answer	1
+What is 77 + 96?	173	arithmetic	type=arithmetic, difficulty=hard	173	incorrect answer	1
+If John has 13 apples and gives 31 to Sarah, how many does he have left?	-18	word_problem	type=word_problem, difficulty=medium	-18	incorrect answer	1
+What is 74 + 41?	115	arithmetic	type=arithmetic, difficulty=medium	115	incorrect answer	1
+What is 10 + 40?	50	arithmetic	type=arithmetic, difficulty=easy	50	incorrect answer	1
+What is 75 + 82?	157	arithmetic	type=arithmetic, difficulty=easy	157	incorrect answer	1
+If John has 30 apples and gives 5 to Sarah, how many does he have left?	25	word_problem	type=word_problem, difficulty=hard	25	incorrect answer	1
+If John has 4 apples and gives 13 to Sarah, how many does he have left?	-9	word_problem	type=word_problem, difficulty=medium	-9	incorrect answer	1
+What is 4 + 79?	83	arithmetic	type=arithmetic, difficulty=easy	83	incorrect answer	1
+What is 43 + 1?	44	arithmetic	type=arithmetic, difficulty=medium	44	incorrect answer	1
+If John has 37 apples and gives 36 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=medium	1	incorrect answer	1
+What is 12 + 28?	40	arithmetic	type=arithmetic, difficulty=easy	40	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If John has 16 apples and gives 1 to Sarah, how many does he have left?	15	word_problem	type=word_problem, difficulty=easy	incorrect answer	15	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 40 + 79?	119	arithmetic	type=arithmetic, difficulty=medium	119	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 39 apples and gives 15 to Sarah, how many does he have left?	24	word_problem	type=word_problem, difficulty=medium	incorrect answer	24	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 21 apples and gives 50 to Sarah, how many does he have left?	-29	word_problem	type=word_problem, difficulty=medium	-29	incorrect answer	1
+If John has 28 apples and gives 2 to Sarah, how many does he have left?	26	word_problem	type=word_problem, difficulty=medium	incorrect answer	26	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 41 + 46?	87	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	87	2
+What is 88 + 13?	101	arithmetic	type=arithmetic, difficulty=hard	101	incorrect answer	1
+If John has 42 apples and gives 11 to Sarah, how many does he have left?	31	word_problem	type=word_problem, difficulty=easy	31	incorrect answer	1
+If John has 31 apples and gives 33 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=hard	-2	incorrect answer	1
+If John has 44 apples and gives 46 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=easy	-2	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 37 apples and gives 36 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=medium	incorrect answer	1	2
+If John has 30 apples and gives 24 to Sarah, how many does he have left?	6	word_problem	type=word_problem, difficulty=hard	incorrect answer	6	2
+What is 48 + 84?	132	arithmetic	type=arithmetic, difficulty=hard	132	incorrect answer	1
+If John has 14 apples and gives 20 to Sarah, how many does he have left?	-6	word_problem	type=word_problem, difficulty=easy	-6	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 1 + 93?	94	arithmetic	type=arithmetic, difficulty=medium	94	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 90 + 90?	180	arithmetic	type=arithmetic, difficulty=hard	180	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 35 apples and gives 3 to Sarah, how many does he have left?	32	word_problem	type=word_problem, difficulty=medium	incorrect answer	32	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 71 + 35?	106	arithmetic	type=arithmetic, difficulty=medium	106	incorrect answer	1
+If John has 24 apples and gives 48 to Sarah, how many does he have left?	-24	word_problem	type=word_problem, difficulty=easy	-24	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 43 apples and gives 30 to Sarah, how many does he have left?	13	word_problem	type=word_problem, difficulty=easy	13	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 29 apples and gives 36 to Sarah, how many does he have left?	-7	word_problem	type=word_problem, difficulty=hard	-7	incorrect answer	1
+What is 15 + 68?	83	arithmetic	type=arithmetic, difficulty=hard	83	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 41 apples and gives 11 to Sarah, how many does he have left?	30	word_problem	type=word_problem, difficulty=hard	30	incorrect answer	1
+If John has 32 apples and gives 44 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=medium	-12	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 17 + 82?	99	arithmetic	type=arithmetic, difficulty=hard	99	incorrect answer	1
+What is 86 + 9?	95	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	95	2
+What is 31 + 76?	107	arithmetic	type=arithmetic, difficulty=easy	107	incorrect answer	1
+If John has 28 apples and gives 38 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=easy	-10	incorrect answer	1
+If John has 28 apples and gives 9 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=hard	incorrect answer	19	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 11 apples and gives 21 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=easy	-10	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 6 apples and gives 4 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=hard	2	incorrect answer	1
+If John has 5 apples and gives 38 to Sarah, how many does he have left?	-33	word_problem	type=word_problem, difficulty=hard	-33	incorrect answer	1
+If John has 1 apples and gives 32 to Sarah, how many does he have left?	-31	word_problem	type=word_problem, difficulty=hard	-31	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 88 + 55?	143	arithmetic	type=arithmetic, difficulty=medium	143	incorrect answer	1
+If John has 36 apples and gives 11 to Sarah, how many does he have left?	25	word_problem	type=word_problem, difficulty=medium	25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 27 apples and gives 14 to Sarah, how many does he have left?	13	word_problem	type=word_problem, difficulty=easy	13	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 36 + 20?	56	arithmetic	type=arithmetic, difficulty=medium	56	incorrect answer	1
+If John has 6 apples and gives 25 to Sarah, how many does he have left?	-19	word_problem	type=word_problem, difficulty=medium	-19	incorrect answer	1
+What is 11 + 97?	108	arithmetic	type=arithmetic, difficulty=medium	108	incorrect answer	1
+What is 92 + 6?	98	arithmetic	type=arithmetic, difficulty=easy	98	incorrect answer	1
+If John has 42 apples and gives 26 to Sarah, how many does he have left?	16	word_problem	type=word_problem, difficulty=hard	16	incorrect answer	1
+If John has 9 apples and gives 34 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=hard	-25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If John has 9 apples and gives 19 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=medium	-10	incorrect answer	1
+If John has 13 apples and gives 48 to Sarah, how many does he have left?	-35	word_problem	type=word_problem, difficulty=easy	-35	incorrect answer	1
+If John has 5 apples and gives 50 to Sarah, how many does he have left?	-45	word_problem	type=word_problem, difficulty=hard	-45	incorrect answer	1
+If John has 48 apples and gives 45 to Sarah, how many does he have left?	3	word_problem	type=word_problem, difficulty=easy	incorrect answer	3	2
+If John has 50 apples and gives 36 to Sarah, how many does he have left?	14	word_problem	type=word_problem, difficulty=easy	14	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 43 apples and gives 45 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=easy	-2	incorrect answer	1
+What is 25 + 30?	55	arithmetic	type=arithmetic, difficulty=medium	55	incorrect answer	1
+If John has 27 apples and gives 12 to Sarah, how many does he have left?	15	word_problem	type=word_problem, difficulty=hard	15	incorrect answer	1
+If John has 1 apples and gives 44 to Sarah, how many does he have left?	-43	word_problem	type=word_problem, difficulty=medium	incorrect answer	-43	2
+If John has 8 apples and gives 23 to Sarah, how many does he have left?	-15	word_problem	type=word_problem, difficulty=medium	incorrect answer	-15	2
+If John has 2 apples and gives 16 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=medium	-14	incorrect answer	1
+What is 29 + 31?	60	arithmetic	type=arithmetic, difficulty=medium	60	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 26 + 75?	101	arithmetic	type=arithmetic, difficulty=medium	101	incorrect answer	1
+If John has 9 apples and gives 2 to Sarah, how many does he have left?	7	word_problem	type=word_problem, difficulty=medium	incorrect answer	7	2
+If John has 26 apples and gives 38 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=hard	-12	incorrect answer	1
+What is 26 + 42?	68	arithmetic	type=arithmetic, difficulty=easy	68	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 42 + 9?	51	arithmetic	type=arithmetic, difficulty=medium	51	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 14 + 73?	87	arithmetic	type=arithmetic, difficulty=medium	87	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 90 + 80?	170	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	170	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 20 apples and gives 13 to Sarah, how many does he have left?	7	word_problem	type=word_problem, difficulty=easy	7	incorrect answer	1
+What is 41 + 54?	95	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	95	2
+If John has 27 apples and gives 48 to Sarah, how many does he have left?	-21	word_problem	type=word_problem, difficulty=medium	-21	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 17 apples and gives 26 to Sarah, how many does he have left?	-9	word_problem	type=word_problem, difficulty=easy	-9	incorrect answer	1
+If John has 15 apples and gives 27 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=medium	-12	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 7 + 55?	62	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	62	2
+If John has 38 apples and gives 2 to Sarah, how many does he have left?	36	word_problem	type=word_problem, difficulty=medium	36	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 33 apples and gives 17 to Sarah, how many does he have left?	16	word_problem	type=word_problem, difficulty=medium	16	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 43 apples and gives 28 to Sarah, how many does he have left?	15	word_problem	type=word_problem, difficulty=hard	15	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+What is 82 + 45?	127	arithmetic	type=arithmetic, difficulty=medium	127	incorrect answer	1
+If John has 31 apples and gives 32 to Sarah, how many does he have left?	-1	word_problem	type=word_problem, difficulty=hard	-1	incorrect answer	1
+What is 83 + 54?	137	arithmetic	type=arithmetic, difficulty=hard	137	incorrect answer	1
+What is 96 + 38?	134	arithmetic	type=arithmetic, difficulty=hard	134	incorrect answer	1
+If John has 11 apples and gives 35 to Sarah, how many does he have left?	-24	word_problem	type=word_problem, difficulty=hard	-24	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 17 apples and gives 27 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=easy	incorrect answer	-10	2
+What is 65 + 44?	109	arithmetic	type=arithmetic, difficulty=medium	109	incorrect answer	1
+If John has 10 apples and gives 7 to Sarah, how many does he have left?	3	word_problem	type=word_problem, difficulty=medium	3	incorrect answer	1
+What is 35 + 27?	62	arithmetic	type=arithmetic, difficulty=easy	62	incorrect answer	1
+If John has 27 apples and gives 14 to Sarah, how many does he have left?	13	word_problem	type=word_problem, difficulty=hard	incorrect answer	13	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 24 apples and gives 21 to Sarah, how many does he have left?	3	word_problem	type=word_problem, difficulty=medium	incorrect answer	3	2
+If John has 36 apples and gives 36 to Sarah, how many does he have left?	0	word_problem	type=word_problem, difficulty=medium	0	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 8 + 28?	36	arithmetic	type=arithmetic, difficulty=medium	36	incorrect answer	1
+If John has 33 apples and gives 25 to Sarah, how many does he have left?	8	word_problem	type=word_problem, difficulty=medium	8	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 29 apples and gives 17 to Sarah, how many does he have left?	12	word_problem	type=word_problem, difficulty=easy	12	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 18 apples and gives 17 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=easy	1	incorrect answer	1
+If John has 12 apples and gives 39 to Sarah, how many does he have left?	-27	word_problem	type=word_problem, difficulty=easy	-27	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 9 + 66?	75	arithmetic	type=arithmetic, difficulty=medium	75	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 16 apples and gives 41 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=hard	incorrect answer	-25	2
+If John has 18 apples and gives 31 to Sarah, how many does he have left?	-13	word_problem	type=word_problem, difficulty=easy	-13	incorrect answer	1
+If John has 46 apples and gives 34 to Sarah, how many does he have left?	12	word_problem	type=word_problem, difficulty=easy	12	incorrect answer	1
+What is 92 + 8?	100	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	100	2
+If John has 16 apples and gives 38 to Sarah, how many does he have left?	-22	word_problem	type=word_problem, difficulty=easy	-22	incorrect answer	1
+What is 46 + 56?	102	arithmetic	type=arithmetic, difficulty=easy	102	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 34 apples and gives 41 to Sarah, how many does he have left?	-7	word_problem	type=word_problem, difficulty=hard	-7	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 60 + 87?	147	arithmetic	type=arithmetic, difficulty=easy	147	incorrect answer	1
+If John has 35 apples and gives 25 to Sarah, how many does he have left?	10	word_problem	type=word_problem, difficulty=easy	10	incorrect answer	1
+What is 16 + 1?	17	arithmetic	type=arithmetic, difficulty=easy	17	incorrect answer	1
+If John has 48 apples and gives 14 to Sarah, how many does he have left?	34	word_problem	type=word_problem, difficulty=easy	34	incorrect answer	1
+If John has 23 apples and gives 32 to Sarah, how many does he have left?	-9	word_problem	type=word_problem, difficulty=medium	-9	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 27 apples and gives 38 to Sarah, how many does he have left?	-11	word_problem	type=word_problem, difficulty=easy	-11	incorrect answer	1
+If John has 29 apples and gives 26 to Sarah, how many does he have left?	3	word_problem	type=word_problem, difficulty=medium	3	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 32 apples and gives 15 to Sarah, how many does he have left?	17	word_problem	type=word_problem, difficulty=medium	17	incorrect answer	1
+What is 19 + 53?	72	arithmetic	type=arithmetic, difficulty=hard	72	incorrect answer	1
+What is 28 + 94?	122	arithmetic	type=arithmetic, difficulty=hard	122	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 95 + 44?	139	arithmetic	type=arithmetic, difficulty=easy	139	incorrect answer	1
+If John has 18 apples and gives 16 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=hard	2	incorrect answer	1
+What is 83 + 16?	99	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	99	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+What is 78 + 23?	101	arithmetic	type=arithmetic, difficulty=medium	101	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 48 apples and gives 42 to Sarah, how many does he have left?	6	word_problem	type=word_problem, difficulty=hard	6	incorrect answer	1
+What is 88 + 6?	94	arithmetic	type=arithmetic, difficulty=medium	94	incorrect answer	1
+What is 14 + 4?	18	arithmetic	type=arithmetic, difficulty=easy	18	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 24 apples and gives 4 to Sarah, how many does he have left?	20	word_problem	type=word_problem, difficulty=hard	20	incorrect answer	1
+What is 88 + 51?	139	arithmetic	type=arithmetic, difficulty=easy	139	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 16 apples and gives 37 to Sarah, how many does he have left?	-21	word_problem	type=word_problem, difficulty=medium	incorrect answer	-21	2
+If John has 38 apples and gives 14 to Sarah, how many does he have left?	24	word_problem	type=word_problem, difficulty=medium	24	incorrect answer	1
+What is 55 + 39?	94	arithmetic	type=arithmetic, difficulty=medium	94	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 29 apples and gives 33 to Sarah, how many does he have left?	-4	word_problem	type=word_problem, difficulty=medium	-4	incorrect answer	1
+If John has 48 apples and gives 28 to Sarah, how many does he have left?	20	word_problem	type=word_problem, difficulty=hard	20	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 30 + 79?	109	arithmetic	type=arithmetic, difficulty=hard	109	incorrect answer	1
+What is 21 + 26?	47	arithmetic	type=arithmetic, difficulty=hard	47	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 26 apples and gives 31 to Sarah, how many does he have left?	-5	word_problem	type=word_problem, difficulty=easy	incorrect answer	-5	2
+What is 6 + 76?	82	arithmetic	type=arithmetic, difficulty=hard	82	incorrect answer	1
+If John has 23 apples and gives 4 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=easy	19	incorrect answer	1
+What is 61 + 90?	151	arithmetic	type=arithmetic, difficulty=easy	151	incorrect answer	1
+What is 69 + 29?	98	arithmetic	type=arithmetic, difficulty=easy	98	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 2 apples and gives 37 to Sarah, how many does he have left?	-35	word_problem	type=word_problem, difficulty=hard	-35	incorrect answer	1
+What is 15 + 23?	38	arithmetic	type=arithmetic, difficulty=medium	38	incorrect answer	1
+If John has 38 apples and gives 12 to Sarah, how many does he have left?	26	word_problem	type=word_problem, difficulty=hard	26	incorrect answer	1
+If John has 50 apples and gives 18 to Sarah, how many does he have left?	32	word_problem	type=word_problem, difficulty=hard	32	incorrect answer	1
+What is 92 + 50?	142	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	142	2
+If John has 47 apples and gives 2 to Sarah, how many does he have left?	45	word_problem	type=word_problem, difficulty=hard	45	incorrect answer	1
+What is 9 + 18?	27	arithmetic	type=arithmetic, difficulty=hard	27	incorrect answer	1
+If John has 29 apples and gives 25 to Sarah, how many does he have left?	4	word_problem	type=word_problem, difficulty=easy	incorrect answer	4	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 9 + 39?	48	arithmetic	type=arithmetic, difficulty=hard	48	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 61 + 62?	123	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	123	2
+What is 13 + 44?	57	arithmetic	type=arithmetic, difficulty=medium	57	incorrect answer	1
+What is 82 + 55?	137	arithmetic	type=arithmetic, difficulty=medium	137	incorrect answer	1
+What is 84 + 42?	126	arithmetic	type=arithmetic, difficulty=easy	126	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 40 apples and gives 18 to Sarah, how many does he have left?	22	word_problem	type=word_problem, difficulty=medium	incorrect answer	22	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If John has 43 apples and gives 48 to Sarah, how many does he have left?	-5	word_problem	type=word_problem, difficulty=easy	-5	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 27 + 78?	105	arithmetic	type=arithmetic, difficulty=easy	105	incorrect answer	1
+What is 54 + 37?	91	arithmetic	type=arithmetic, difficulty=medium	91	incorrect answer	1
+If John has 41 apples and gives 26 to Sarah, how many does he have left?	15	word_problem	type=word_problem, difficulty=hard	15	incorrect answer	1
+What is 10 + 66?	76	arithmetic	type=arithmetic, difficulty=hard	76	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 16 + 38?	54	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	54	2
+What is 11 + 68?	79	arithmetic	type=arithmetic, difficulty=easy	79	incorrect answer	1
+What is 9 + 9?	18	arithmetic	type=arithmetic, difficulty=hard	18	incorrect answer	1
+What is 27 + 58?	85	arithmetic	type=arithmetic, difficulty=easy	85	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 96 + 92?	188	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	188	2
+What is 62 + 39?	101	arithmetic	type=arithmetic, difficulty=medium	101	incorrect answer	1
+If John has 6 apples and gives 16 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=easy	-10	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 14 apples and gives 23 to Sarah, how many does he have left?	-9	word_problem	type=word_problem, difficulty=medium	-9	incorrect answer	1
+If John has 49 apples and gives 13 to Sarah, how many does he have left?	36	word_problem	type=word_problem, difficulty=hard	36	incorrect answer	1
+What is 18 + 44?	62	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	62	2
+If John has 41 apples and gives 31 to Sarah, how many does he have left?	10	word_problem	type=word_problem, difficulty=hard	incorrect answer	10	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 45 apples and gives 1 to Sarah, how many does he have left?	44	word_problem	type=word_problem, difficulty=hard	44	incorrect answer	1
+If John has 43 apples and gives 6 to Sarah, how many does he have left?	37	word_problem	type=word_problem, difficulty=medium	incorrect answer	37	2
+What is 100 + 74?	174	arithmetic	type=arithmetic, difficulty=medium	174	incorrect answer	1
+If John has 29 apples and gives 47 to Sarah, how many does he have left?	-18	word_problem	type=word_problem, difficulty=easy	-18	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 43 + 11?	54	arithmetic	type=arithmetic, difficulty=medium	54	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 30 apples and gives 36 to Sarah, how many does he have left?	-6	word_problem	type=word_problem, difficulty=hard	-6	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 47 apples and gives 49 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=medium	-2	incorrect answer	1
+If John has 49 apples and gives 38 to Sarah, how many does he have left?	11	word_problem	type=word_problem, difficulty=hard	11	incorrect answer	1
+If John has 46 apples and gives 9 to Sarah, how many does he have left?	37	word_problem	type=word_problem, difficulty=easy	37	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 76 + 70?	146	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	146	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 35 + 60?	95	arithmetic	type=arithmetic, difficulty=hard	95	incorrect answer	1
+What is 54 + 74?	128	arithmetic	type=arithmetic, difficulty=medium	128	incorrect answer	1
+If John has 10 apples and gives 1 to Sarah, how many does he have left?	9	word_problem	type=word_problem, difficulty=hard	incorrect answer	9	2
+If John has 40 apples and gives 43 to Sarah, how many does he have left?	-3	word_problem	type=word_problem, difficulty=easy	incorrect answer	-3	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 48 + 36?	84	arithmetic	type=arithmetic, difficulty=easy	84	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 18 + 35?	53	arithmetic	type=arithmetic, difficulty=easy	53	incorrect answer	1
+What is 64 + 11?	75	arithmetic	type=arithmetic, difficulty=easy	75	incorrect answer	1
+What is 60 + 87?	147	arithmetic	type=arithmetic, difficulty=medium	147	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 55 + 33?	88	arithmetic	type=arithmetic, difficulty=easy	88	incorrect answer	1
+If John has 34 apples and gives 24 to Sarah, how many does he have left?	10	word_problem	type=word_problem, difficulty=easy	incorrect answer	10	2
+If John has 16 apples and gives 35 to Sarah, how many does he have left?	-19	word_problem	type=word_problem, difficulty=hard	incorrect answer	-19	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 8 + 2?	10	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	10	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 42 apples and gives 41 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=hard	1	incorrect answer	1
+What is 70 + 99?	169	arithmetic	type=arithmetic, difficulty=easy	169	incorrect answer	1
+What is 55 + 33?	88	arithmetic	type=arithmetic, difficulty=easy	88	incorrect answer	1
+What is 51 + 53?	104	arithmetic	type=arithmetic, difficulty=medium	104	incorrect answer	1
+If John has 28 apples and gives 42 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=easy	-14	incorrect answer	1
+If John has 10 apples and gives 38 to Sarah, how many does he have left?	-28	word_problem	type=word_problem, difficulty=medium	-28	incorrect answer	1
+What is 65 + 11?	76	arithmetic	type=arithmetic, difficulty=easy	76	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 69 + 61?	130	arithmetic	type=arithmetic, difficulty=medium	130	incorrect answer	1
+What is 68 + 33?	101	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	101	2
+If John has 50 apples and gives 6 to Sarah, how many does he have left?	44	word_problem	type=word_problem, difficulty=hard	44	incorrect answer	1
+If John has 16 apples and gives 45 to Sarah, how many does he have left?	-29	word_problem	type=word_problem, difficulty=easy	-29	incorrect answer	1
+What is 46 + 87?	133	arithmetic	type=arithmetic, difficulty=medium	133	incorrect answer	1
+If John has 30 apples and gives 47 to Sarah, how many does he have left?	-17	word_problem	type=word_problem, difficulty=hard	-17	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 6 + 71?	77	arithmetic	type=arithmetic, difficulty=medium	77	incorrect answer	1
+If John has 47 apples and gives 24 to Sarah, how many does he have left?	23	word_problem	type=word_problem, difficulty=easy	23	incorrect answer	1
+What is 93 + 25?	118	arithmetic	type=arithmetic, difficulty=hard	118	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+What is 61 + 91?	152	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	152	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 57 + 25?	82	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	82	2
+If John has 25 apples and gives 36 to Sarah, how many does he have left?	-11	word_problem	type=word_problem, difficulty=hard	incorrect answer	-11	2
+If John has 46 apples and gives 2 to Sarah, how many does he have left?	44	word_problem	type=word_problem, difficulty=medium	44	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 89 + 69?	158	arithmetic	type=arithmetic, difficulty=easy	158	incorrect answer	1
+If John has 30 apples and gives 48 to Sarah, how many does he have left?	-18	word_problem	type=word_problem, difficulty=medium	incorrect answer	-18	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 1 apples and gives 9 to Sarah, how many does he have left?	-8	word_problem	type=word_problem, difficulty=hard	-8	incorrect answer	1
+If John has 17 apples and gives 41 to Sarah, how many does he have left?	-24	word_problem	type=word_problem, difficulty=easy	-24	incorrect answer	1
+What is 84 + 82?	166	arithmetic	type=arithmetic, difficulty=medium	166	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 17 + 40?	57	arithmetic	type=arithmetic, difficulty=hard	57	incorrect answer	1
+If John has 15 apples and gives 23 to Sarah, how many does he have left?	-8	word_problem	type=word_problem, difficulty=easy	-8	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If John has 38 apples and gives 12 to Sarah, how many does he have left?	26	word_problem	type=word_problem, difficulty=hard	incorrect answer	26	2
+What is 42 + 84?	126	arithmetic	type=arithmetic, difficulty=easy	126	incorrect answer	1
+What is 21 + 12?	33	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	33	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 40 apples and gives 20 to Sarah, how many does he have left?	20	word_problem	type=word_problem, difficulty=easy	20	incorrect answer	1
+What is 77 + 82?	159	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	159	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 45 apples and gives 36 to Sarah, how many does he have left?	9	word_problem	type=word_problem, difficulty=easy	9	incorrect answer	1
+If John has 45 apples and gives 37 to Sarah, how many does he have left?	8	word_problem	type=word_problem, difficulty=medium	8	incorrect answer	1
+If John has 9 apples and gives 50 to Sarah, how many does he have left?	-41	word_problem	type=word_problem, difficulty=easy	-41	incorrect answer	1
+If John has 37 apples and gives 49 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=medium	-12	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 48 apples and gives 43 to Sarah, how many does he have left?	5	word_problem	type=word_problem, difficulty=medium	5	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 24 apples and gives 16 to Sarah, how many does he have left?	8	word_problem	type=word_problem, difficulty=medium	8	incorrect answer	1
+What is 53 + 51?	104	arithmetic	type=arithmetic, difficulty=hard	104	incorrect answer	1
+What is 78 + 2?	80	arithmetic	type=arithmetic, difficulty=medium	80	incorrect answer	1
+What is 91 + 90?	181	arithmetic	type=arithmetic, difficulty=medium	181	incorrect answer	1
+If John has 29 apples and gives 18 to Sarah, how many does he have left?	11	word_problem	type=word_problem, difficulty=easy	11	incorrect answer	1
+What is 96 + 60?	156	arithmetic	type=arithmetic, difficulty=medium	156	incorrect answer	1
+If John has 17 apples and gives 32 to Sarah, how many does he have left?	-15	word_problem	type=word_problem, difficulty=medium	-15	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 59 + 5?	64	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	64	2
+If John has 49 apples and gives 9 to Sarah, how many does he have left?	40	word_problem	type=word_problem, difficulty=hard	40	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 97 + 13?	110	arithmetic	type=arithmetic, difficulty=hard	110	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 19 apples and gives 33 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=medium	-14	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 29 + 58?	87	arithmetic	type=arithmetic, difficulty=hard	87	incorrect answer	1
+What is 52 + 63?	115	arithmetic	type=arithmetic, difficulty=easy	115	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 25 apples and gives 34 to Sarah, how many does he have left?	-9	word_problem	type=word_problem, difficulty=medium	-9	incorrect answer	1
+What is 33 + 9?	42	arithmetic	type=arithmetic, difficulty=easy	42	incorrect answer	1
+If John has 31 apples and gives 43 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=hard	-12	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 55 + 18?	73	arithmetic	type=arithmetic, difficulty=medium	73	incorrect answer	1
+What is 46 + 75?	121	arithmetic	type=arithmetic, difficulty=easy	121	incorrect answer	1
+What is 88 + 54?	142	arithmetic	type=arithmetic, difficulty=medium	142	incorrect answer	1
+If John has 13 apples and gives 15 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=easy	incorrect answer	-2	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 53 + 86?	139	arithmetic	type=arithmetic, difficulty=hard	139	incorrect answer	1
+If John has 35 apples and gives 49 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=medium	-14	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 36 + 100?	136	arithmetic	type=arithmetic, difficulty=easy	136	incorrect answer	1
+What is 78 + 44?	122	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	122	2
+If John has 17 apples and gives 2 to Sarah, how many does he have left?	15	word_problem	type=word_problem, difficulty=easy	15	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 11 apples and gives 21 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=easy	incorrect answer	-10	2
+If John has 36 apples and gives 28 to Sarah, how many does he have left?	8	word_problem	type=word_problem, difficulty=medium	incorrect answer	8	2
+If John has 38 apples and gives 50 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=medium	-12	incorrect answer	1
+If John has 13 apples and gives 24 to Sarah, how many does he have left?	-11	word_problem	type=word_problem, difficulty=easy	-11	incorrect answer	1
+What is 10 + 84?	94	arithmetic	type=arithmetic, difficulty=medium	94	incorrect answer	1
+If John has 45 apples and gives 37 to Sarah, how many does he have left?	8	word_problem	type=word_problem, difficulty=easy	8	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+What is 67 + 87?	154	arithmetic	type=arithmetic, difficulty=hard	154	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 54 + 81?	135	arithmetic	type=arithmetic, difficulty=easy	135	incorrect answer	1
+What is 68 + 19?	87	arithmetic	type=arithmetic, difficulty=hard	87	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 89 + 7?	96	arithmetic	type=arithmetic, difficulty=hard	96	incorrect answer	1
+If John has 32 apples and gives 37 to Sarah, how many does he have left?	-5	word_problem	type=word_problem, difficulty=easy	-5	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 44 apples and gives 16 to Sarah, how many does he have left?	28	word_problem	type=word_problem, difficulty=hard	28	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 24 + 59?	83	arithmetic	type=arithmetic, difficulty=medium	83	incorrect answer	1
+If John has 48 apples and gives 34 to Sarah, how many does he have left?	14	word_problem	type=word_problem, difficulty=easy	14	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 24 apples and gives 39 to Sarah, how many does he have left?	-15	word_problem	type=word_problem, difficulty=hard	-15	incorrect answer	1
+What is 43 + 47?	90	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	90	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 34 apples and gives 46 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=medium	-12	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 76 + 40?	116	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	116	2
+What is 73 + 7?	80	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	80	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 37 apples and gives 18 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=easy	19	incorrect answer	1
+What is 15 + 87?	102	arithmetic	type=arithmetic, difficulty=medium	102	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 6 apples and gives 15 to Sarah, how many does he have left?	-9	word_problem	type=word_problem, difficulty=easy	-9	incorrect answer	1
+If John has 4 apples and gives 25 to Sarah, how many does he have left?	-21	word_problem	type=word_problem, difficulty=easy	-21	incorrect answer	1
+If John has 48 apples and gives 25 to Sarah, how many does he have left?	23	word_problem	type=word_problem, difficulty=easy	23	incorrect answer	1
+If John has 33 apples and gives 11 to Sarah, how many does he have left?	22	word_problem	type=word_problem, difficulty=medium	22	incorrect answer	1
+What is 60 + 10?	70	arithmetic	type=arithmetic, difficulty=hard	70	incorrect answer	1
+If John has 8 apples and gives 32 to Sarah, how many does he have left?	-24	word_problem	type=word_problem, difficulty=easy	-24	incorrect answer	1
+If John has 35 apples and gives 43 to Sarah, how many does he have left?	-8	word_problem	type=word_problem, difficulty=medium	-8	incorrect answer	1
+What is 49 + 47?	96	arithmetic	type=arithmetic, difficulty=medium	96	incorrect answer	1
+What is 18 + 45?	63	arithmetic	type=arithmetic, difficulty=hard	63	incorrect answer	1
+If John has 12 apples and gives 32 to Sarah, how many does he have left?	-20	word_problem	type=word_problem, difficulty=easy	-20	incorrect answer	1
+If John has 48 apples and gives 36 to Sarah, how many does he have left?	12	word_problem	type=word_problem, difficulty=hard	incorrect answer	12	2
+If John has 43 apples and gives 21 to Sarah, how many does he have left?	22	word_problem	type=word_problem, difficulty=hard	22	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 42 + 86?	128	arithmetic	type=arithmetic, difficulty=hard	128	incorrect answer	1
+What is 100 + 20?	120	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	120	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 2 apples and gives 24 to Sarah, how many does he have left?	-22	word_problem	type=word_problem, difficulty=easy	-22	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+What is 78 + 2?	80	arithmetic	type=arithmetic, difficulty=hard	80	incorrect answer	1
+If John has 23 apples and gives 12 to Sarah, how many does he have left?	11	word_problem	type=word_problem, difficulty=medium	11	incorrect answer	1
+If John has 2 apples and gives 5 to Sarah, how many does he have left?	-3	word_problem	type=word_problem, difficulty=medium	-3	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 34 + 82?	116	arithmetic	type=arithmetic, difficulty=medium	116	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+What is 97 + 52?	149	arithmetic	type=arithmetic, difficulty=medium	149	incorrect answer	1
+If John has 4 apples and gives 26 to Sarah, how many does he have left?	-22	word_problem	type=word_problem, difficulty=medium	-22	incorrect answer	1
+What is 3 + 8?	11	arithmetic	type=arithmetic, difficulty=medium	11	incorrect answer	1
+If John has 9 apples and gives 49 to Sarah, how many does he have left?	-40	word_problem	type=word_problem, difficulty=medium	-40	incorrect answer	1
+If John has 45 apples and gives 10 to Sarah, how many does he have left?	35	word_problem	type=word_problem, difficulty=medium	35	incorrect answer	1
+If John has 2 apples and gives 43 to Sarah, how many does he have left?	-41	word_problem	type=word_problem, difficulty=easy	-41	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 18 apples and gives 49 to Sarah, how many does he have left?	-31	word_problem	type=word_problem, difficulty=easy	-31	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 95 + 1?	96	arithmetic	type=arithmetic, difficulty=medium	96	incorrect answer	1
+What is 61 + 52?	113	arithmetic	type=arithmetic, difficulty=hard	113	incorrect answer	1
+If John has 22 apples and gives 47 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=medium	-25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 10 + 65?	75	arithmetic	type=arithmetic, difficulty=easy	75	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 7 apples and gives 34 to Sarah, how many does he have left?	-27	word_problem	type=word_problem, difficulty=easy	-27	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 20 + 54?	74	arithmetic	type=arithmetic, difficulty=medium	74	incorrect answer	1
+If John has 47 apples and gives 19 to Sarah, how many does he have left?	28	word_problem	type=word_problem, difficulty=easy	28	incorrect answer	1
+What is 64 + 5?	69	arithmetic	type=arithmetic, difficulty=medium	69	incorrect answer	1
+If John has 41 apples and gives 47 to Sarah, how many does he have left?	-6	word_problem	type=word_problem, difficulty=hard	-6	incorrect answer	1
+If John has 50 apples and gives 13 to Sarah, how many does he have left?	37	word_problem	type=word_problem, difficulty=hard	incorrect answer	37	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If John has 29 apples and gives 29 to Sarah, how many does he have left?	0	word_problem	type=word_problem, difficulty=easy	0	incorrect answer	1
+If John has 24 apples and gives 10 to Sarah, how many does he have left?	14	word_problem	type=word_problem, difficulty=easy	incorrect answer	14	2
+If John has 39 apples and gives 40 to Sarah, how many does he have left?	-1	word_problem	type=word_problem, difficulty=easy	-1	incorrect answer	1
+What is 47 + 40?	87	arithmetic	type=arithmetic, difficulty=easy	87	incorrect answer	1
+If John has 31 apples and gives 44 to Sarah, how many does he have left?	-13	word_problem	type=word_problem, difficulty=easy	-13	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 32 + 86?	118	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	118	2
+What is 89 + 26?	115	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	115	2
+What is 42 + 1?	43	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	43	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 58 + 49?	107	arithmetic	type=arithmetic, difficulty=easy	107	incorrect answer	1
+If John has 27 apples and gives 31 to Sarah, how many does he have left?	-4	word_problem	type=word_problem, difficulty=hard	-4	incorrect answer	1
+What is 18 + 76?	94	arithmetic	type=arithmetic, difficulty=hard	94	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 17 apples and gives 40 to Sarah, how many does he have left?	-23	word_problem	type=word_problem, difficulty=easy	-23	incorrect answer	1
+If John has 18 apples and gives 38 to Sarah, how many does he have left?	-20	word_problem	type=word_problem, difficulty=hard	-20	incorrect answer	1
+What is 6 + 5?	11	arithmetic	type=arithmetic, difficulty=easy	11	incorrect answer	1
+If John has 21 apples and gives 48 to Sarah, how many does he have left?	-27	word_problem	type=word_problem, difficulty=hard	-27	incorrect answer	1
+If John has 11 apples and gives 18 to Sarah, how many does he have left?	-7	word_problem	type=word_problem, difficulty=hard	incorrect answer	-7	2
+What is 77 + 83?	160	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	160	2
+What is 36 + 38?	74	arithmetic	type=arithmetic, difficulty=medium	74	incorrect answer	1
+If John has 42 apples and gives 26 to Sarah, how many does he have left?	16	word_problem	type=word_problem, difficulty=medium	incorrect answer	16	2
+What is 66 + 61?	127	arithmetic	type=arithmetic, difficulty=medium	127	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 59 + 91?	150	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	150	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 29 apples and gives 38 to Sarah, how many does he have left?	-9	word_problem	type=word_problem, difficulty=medium	-9	incorrect answer	1
+If John has 42 apples and gives 2 to Sarah, how many does he have left?	40	word_problem	type=word_problem, difficulty=hard	40	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 50 apples and gives 21 to Sarah, how many does he have left?	29	word_problem	type=word_problem, difficulty=hard	29	incorrect answer	1
+If John has 33 apples and gives 46 to Sarah, how many does he have left?	-13	word_problem	type=word_problem, difficulty=easy	-13	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 18 apples and gives 16 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=easy	2	incorrect answer	1
+If John has 21 apples and gives 12 to Sarah, how many does he have left?	9	word_problem	type=word_problem, difficulty=medium	incorrect answer	9	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 36 apples and gives 3 to Sarah, how many does he have left?	33	word_problem	type=word_problem, difficulty=medium	33	incorrect answer	1
+What is 62 + 97?	159	arithmetic	type=arithmetic, difficulty=easy	159	incorrect answer	1
+If John has 40 apples and gives 2 to Sarah, how many does he have left?	38	word_problem	type=word_problem, difficulty=medium	incorrect answer	38	2
+What is 89 + 65?	154	arithmetic	type=arithmetic, difficulty=hard	154	incorrect answer	1
+What is 83 + 64?	147	arithmetic	type=arithmetic, difficulty=hard	147	incorrect answer	1
+If John has 37 apples and gives 45 to Sarah, how many does he have left?	-8	word_problem	type=word_problem, difficulty=easy	-8	incorrect answer	1
+If John has 50 apples and gives 25 to Sarah, how many does he have left?	25	word_problem	type=word_problem, difficulty=medium	25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 49 apples and gives 19 to Sarah, how many does he have left?	30	word_problem	type=word_problem, difficulty=hard	incorrect answer	30	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 28 + 21?	49	arithmetic	type=arithmetic, difficulty=medium	49	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 74 + 19?	93	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	93	2
+If John has 33 apples and gives 7 to Sarah, how many does he have left?	26	word_problem	type=word_problem, difficulty=hard	incorrect answer	26	2
+What is 69 + 3?	72	arithmetic	type=arithmetic, difficulty=hard	72	incorrect answer	1
+If John has 26 apples and gives 39 to Sarah, how many does he have left?	-13	word_problem	type=word_problem, difficulty=hard	-13	incorrect answer	1
+If John has 2 apples and gives 40 to Sarah, how many does he have left?	-38	word_problem	type=word_problem, difficulty=medium	-38	incorrect answer	1
+What is 12 + 67?	79	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	79	2
+What is 24 + 3?	27	arithmetic	type=arithmetic, difficulty=hard	27	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 11 + 14?	25	arithmetic	type=arithmetic, difficulty=hard	25	incorrect answer	1
+If John has 48 apples and gives 8 to Sarah, how many does he have left?	40	word_problem	type=word_problem, difficulty=easy	40	incorrect answer	1
+What is 70 + 99?	169	arithmetic	type=arithmetic, difficulty=hard	169	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 33 + 56?	89	arithmetic	type=arithmetic, difficulty=medium	89	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 48 apples and gives 28 to Sarah, how many does he have left?	20	word_problem	type=word_problem, difficulty=easy	incorrect answer	20	2
+What is 88 + 97?	185	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	185	2
+What is 91 + 31?	122	arithmetic	type=arithmetic, difficulty=easy	122	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 44 apples and gives 3 to Sarah, how many does he have left?	41	word_problem	type=word_problem, difficulty=hard	41	incorrect answer	1
+What is 73 + 38?	111	arithmetic	type=arithmetic, difficulty=medium	111	incorrect answer	1
+If John has 10 apples and gives 20 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=medium	incorrect answer	-10	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 57 + 20?	77	arithmetic	type=arithmetic, difficulty=medium	77	incorrect answer	1
+If John has 43 apples and gives 20 to Sarah, how many does he have left?	23	word_problem	type=word_problem, difficulty=easy	23	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 45 apples and gives 43 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=hard	2	incorrect answer	1
+What is 90 + 1?	91	arithmetic	type=arithmetic, difficulty=hard	91	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 45 apples and gives 46 to Sarah, how many does he have left?	-1	word_problem	type=word_problem, difficulty=medium	-1	incorrect answer	1
+If John has 6 apples and gives 11 to Sarah, how many does he have left?	-5	word_problem	type=word_problem, difficulty=easy	incorrect answer	-5	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 72 + 44?	116	arithmetic	type=arithmetic, difficulty=medium	116	incorrect answer	1
+If John has 39 apples and gives 9 to Sarah, how many does he have left?	30	word_problem	type=word_problem, difficulty=medium	30	incorrect answer	1
+If John has 44 apples and gives 16 to Sarah, how many does he have left?	28	word_problem	type=word_problem, difficulty=hard	incorrect answer	28	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 96 + 41?	137	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	137	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 45 apples and gives 46 to Sarah, how many does he have left?	-1	word_problem	type=word_problem, difficulty=hard	-1	incorrect answer	1
+What is 9 + 16?	25	arithmetic	type=arithmetic, difficulty=medium	25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 46 apples and gives 27 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=medium	19	incorrect answer	1
+If John has 35 apples and gives 49 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=easy	-14	incorrect answer	1
+If John has 50 apples and gives 17 to Sarah, how many does he have left?	33	word_problem	type=word_problem, difficulty=medium	33	incorrect answer	1
+If John has 44 apples and gives 25 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=easy	19	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 21 apples and gives 21 to Sarah, how many does he have left?	0	word_problem	type=word_problem, difficulty=easy	0	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 3 apples and gives 21 to Sarah, how many does he have left?	-18	word_problem	type=word_problem, difficulty=medium	-18	incorrect answer	1
+If John has 25 apples and gives 35 to Sarah, how many does he have left?	-10	word_problem	type=word_problem, difficulty=medium	-10	incorrect answer	1
+If John has 24 apples and gives 38 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=hard	-14	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 69 + 82?	151	arithmetic	type=arithmetic, difficulty=easy	151	incorrect answer	1
+If John has 45 apples and gives 43 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=hard	2	incorrect answer	1
+What is 72 + 57?	129	arithmetic	type=arithmetic, difficulty=medium	129	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 3 apples and gives 33 to Sarah, how many does he have left?	-30	word_problem	type=word_problem, difficulty=easy	-30	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 9 apples and gives 45 to Sarah, how many does he have left?	-36	word_problem	type=word_problem, difficulty=easy	-36	incorrect answer	1
+If John has 38 apples and gives 16 to Sarah, how many does he have left?	22	word_problem	type=word_problem, difficulty=medium	incorrect answer	22	2
+What is 65 + 63?	128	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	128	2
+If John has 8 apples and gives 35 to Sarah, how many does he have left?	-27	word_problem	type=word_problem, difficulty=hard	-27	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 34 apples and gives 6 to Sarah, how many does he have left?	28	word_problem	type=word_problem, difficulty=hard	28	incorrect answer	1
+What is 70 + 81?	151	arithmetic	type=arithmetic, difficulty=easy	151	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 53 + 98?	151	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	151	2
+If John has 44 apples and gives 27 to Sarah, how many does he have left?	17	word_problem	type=word_problem, difficulty=medium	incorrect answer	17	2
+If John has 17 apples and gives 32 to Sarah, how many does he have left?	-15	word_problem	type=word_problem, difficulty=medium	-15	incorrect answer	1
+If John has 14 apples and gives 8 to Sarah, how many does he have left?	6	word_problem	type=word_problem, difficulty=easy	6	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 47 + 52?	99	arithmetic	type=arithmetic, difficulty=medium	99	incorrect answer	1
+What is 73 + 55?	128	arithmetic	type=arithmetic, difficulty=medium	128	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 42 + 97?	139	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	139	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 49 apples and gives 18 to Sarah, how many does he have left?	31	word_problem	type=word_problem, difficulty=medium	31	incorrect answer	1
+If John has 7 apples and gives 19 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=hard	-12	incorrect answer	1
+What is 31 + 8?	39	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	39	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 24 apples and gives 29 to Sarah, how many does he have left?	-5	word_problem	type=word_problem, difficulty=medium	-5	incorrect answer	1
+If John has 48 apples and gives 14 to Sarah, how many does he have left?	34	word_problem	type=word_problem, difficulty=medium	34	incorrect answer	1
+If John has 2 apples and gives 8 to Sarah, how many does he have left?	-6	word_problem	type=word_problem, difficulty=medium	-6	incorrect answer	1
+If John has 7 apples and gives 9 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=medium	-2	incorrect answer	1
+What is 17 + 58?	75	arithmetic	type=arithmetic, difficulty=hard	75	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 24 + 50?	74	arithmetic	type=arithmetic, difficulty=hard	74	incorrect answer	1
+What is 18 + 18?	36	arithmetic	type=arithmetic, difficulty=hard	36	incorrect answer	1
+If John has 14 apples and gives 10 to Sarah, how many does he have left?	4	word_problem	type=word_problem, difficulty=easy	4	incorrect answer	1
+What is 72 + 8?	80	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	80	2
+What is 46 + 46?	92	arithmetic	type=arithmetic, difficulty=easy	92	incorrect answer	1
+If John has 7 apples and gives 38 to Sarah, how many does he have left?	-31	word_problem	type=word_problem, difficulty=medium	incorrect answer	-31	2
+What is 30 + 47?	77	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	77	2
+What is 93 + 48?	141	arithmetic	type=arithmetic, difficulty=medium	141	incorrect answer	1
+If John has 6 apples and gives 31 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=easy	-25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+What is 87 + 58?	145	arithmetic	type=arithmetic, difficulty=hard	145	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 15 apples and gives 6 to Sarah, how many does he have left?	9	word_problem	type=word_problem, difficulty=hard	9	incorrect answer	1
+What is 3 + 94?	97	arithmetic	type=arithmetic, difficulty=easy	97	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 19 apples and gives 3 to Sarah, how many does he have left?	16	word_problem	type=word_problem, difficulty=hard	16	incorrect answer	1
+What is 65 + 69?	134	arithmetic	type=arithmetic, difficulty=medium	134	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 50 apples and gives 13 to Sarah, how many does he have left?	37	word_problem	type=word_problem, difficulty=easy	37	incorrect answer	1
+What is 45 + 82?	127	arithmetic	type=arithmetic, difficulty=hard	127	incorrect answer	1
+What is 35 + 34?	69	arithmetic	type=arithmetic, difficulty=easy	69	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 26 + 94?	120	arithmetic	type=arithmetic, difficulty=easy	120	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 69 + 65?	134	arithmetic	type=arithmetic, difficulty=hard	134	incorrect answer	1
+If John has 47 apples and gives 28 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=medium	19	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 15 apples and gives 30 to Sarah, how many does he have left?	-15	word_problem	type=word_problem, difficulty=hard	-15	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 18 apples and gives 8 to Sarah, how many does he have left?	10	word_problem	type=word_problem, difficulty=hard	10	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 2 apples and gives 47 to Sarah, how many does he have left?	-45	word_problem	type=word_problem, difficulty=easy	incorrect answer	-45	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 54 + 41?	95	arithmetic	type=arithmetic, difficulty=medium	95	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If John has 33 apples and gives 19 to Sarah, how many does he have left?	14	word_problem	type=word_problem, difficulty=hard	14	incorrect answer	1
+What is 86 + 97?	183	arithmetic	type=arithmetic, difficulty=easy	183	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+What is 15 + 65?	80	arithmetic	type=arithmetic, difficulty=medium	80	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 72 + 15?	87	arithmetic	type=arithmetic, difficulty=medium	87	incorrect answer	1
+What is 80 + 77?	157	arithmetic	type=arithmetic, difficulty=hard	157	incorrect answer	1
+If John has 4 apples and gives 22 to Sarah, how many does he have left?	-18	word_problem	type=word_problem, difficulty=easy	incorrect answer	-18	2
+If John has 45 apples and gives 15 to Sarah, how many does he have left?	30	word_problem	type=word_problem, difficulty=easy	30	incorrect answer	1
+If John has 39 apples and gives 29 to Sarah, how many does he have left?	10	word_problem	type=word_problem, difficulty=easy	10	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 69 + 40?	109	arithmetic	type=arithmetic, difficulty=medium	109	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 91 + 90?	181	arithmetic	type=arithmetic, difficulty=medium	181	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 5 + 6?	11	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	11	2
+If John has 29 apples and gives 43 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=easy	-14	incorrect answer	1
+What is 59 + 23?	82	arithmetic	type=arithmetic, difficulty=hard	82	incorrect answer	1
+If John has 14 apples and gives 49 to Sarah, how many does he have left?	-35	word_problem	type=word_problem, difficulty=easy	-35	incorrect answer	1
+If John has 42 apples and gives 16 to Sarah, how many does he have left?	26	word_problem	type=word_problem, difficulty=medium	26	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 3 apples and gives 5 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=hard	-2	incorrect answer	1
+If John has 35 apples and gives 8 to Sarah, how many does he have left?	27	word_problem	type=word_problem, difficulty=medium	27	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 48 apples and gives 11 to Sarah, how many does he have left?	37	word_problem	type=word_problem, difficulty=easy	37	incorrect answer	1
+What is 59 + 95?	154	arithmetic	type=arithmetic, difficulty=medium	154	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 66 + 29?	95	arithmetic	type=arithmetic, difficulty=easy	95	incorrect answer	1
+What is 64 + 72?	136	arithmetic	type=arithmetic, difficulty=easy	136	incorrect answer	1
+If John has 9 apples and gives 4 to Sarah, how many does he have left?	5	word_problem	type=word_problem, difficulty=hard	5	incorrect answer	1
+If John has 22 apples and gives 47 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=medium	-25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 88 + 100?	188	arithmetic	type=arithmetic, difficulty=easy	188	incorrect answer	1
+What is 5 + 86?	91	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	91	2
+If John has 32 apples and gives 50 to Sarah, how many does he have left?	-18	word_problem	type=word_problem, difficulty=medium	-18	incorrect answer	1
+If John has 48 apples and gives 17 to Sarah, how many does he have left?	31	word_problem	type=word_problem, difficulty=hard	31	incorrect answer	1
+What is 98 + 77?	175	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	175	2
+What is 16 + 65?	81	arithmetic	type=arithmetic, difficulty=medium	81	incorrect answer	1
+What is 9 + 95?	104	arithmetic	type=arithmetic, difficulty=medium	104	incorrect answer	1
+If John has 13 apples and gives 39 to Sarah, how many does he have left?	-26	word_problem	type=word_problem, difficulty=hard	-26	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 29 + 36?	65	arithmetic	type=arithmetic, difficulty=hard	65	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 39 apples and gives 20 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=easy	19	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 3 apples and gives 5 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=medium	-2	incorrect answer	1
+If John has 48 apples and gives 43 to Sarah, how many does he have left?	5	word_problem	type=word_problem, difficulty=easy	5	incorrect answer	1
+If John has 9 apples and gives 8 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=medium	1	incorrect answer	1
+What is 9 + 86?	95	arithmetic	type=arithmetic, difficulty=hard	95	incorrect answer	1
+What is 67 + 81?	148	arithmetic	type=arithmetic, difficulty=easy	148	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 27 apples and gives 12 to Sarah, how many does he have left?	15	word_problem	type=word_problem, difficulty=hard	15	incorrect answer	1
+What is 77 + 78?	155	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	155	2
+If John has 47 apples and gives 39 to Sarah, how many does he have left?	8	word_problem	type=word_problem, difficulty=easy	8	incorrect answer	1
+If John has 8 apples and gives 20 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=medium	-12	incorrect answer	1
+If John has 17 apples and gives 6 to Sarah, how many does he have left?	11	word_problem	type=word_problem, difficulty=medium	incorrect answer	11	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 52 + 52?	104	arithmetic	type=arithmetic, difficulty=medium	104	incorrect answer	1
+If John has 15 apples and gives 42 to Sarah, how many does he have left?	-27	word_problem	type=word_problem, difficulty=medium	incorrect answer	-27	2
+What is 33 + 66?	99	arithmetic	type=arithmetic, difficulty=medium	99	incorrect answer	1
+If John has 11 apples and gives 50 to Sarah, how many does he have left?	-39	word_problem	type=word_problem, difficulty=hard	-39	incorrect answer	1
+If John has 5 apples and gives 44 to Sarah, how many does he have left?	-39	word_problem	type=word_problem, difficulty=easy	-39	incorrect answer	1
+If John has 14 apples and gives 15 to Sarah, how many does he have left?	-1	word_problem	type=word_problem, difficulty=hard	-1	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 58 + 64?	122	arithmetic	type=arithmetic, difficulty=medium	122	incorrect answer	1
+What is 36 + 91?	127	arithmetic	type=arithmetic, difficulty=medium	127	incorrect answer	1
+If John has 37 apples and gives 18 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=hard	19	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 10 + 44?	54	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	54	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 23 apples and gives 49 to Sarah, how many does he have left?	-26	word_problem	type=word_problem, difficulty=medium	-26	incorrect answer	1
+What is 28 + 39?	67	arithmetic	type=arithmetic, difficulty=hard	67	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 8 apples and gives 6 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=easy	2	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If John has 33 apples and gives 8 to Sarah, how many does he have left?	25	word_problem	type=word_problem, difficulty=hard	incorrect answer	25	2
+If John has 23 apples and gives 13 to Sarah, how many does he have left?	10	word_problem	type=word_problem, difficulty=medium	10	incorrect answer	1
+What is 72 + 55?	127	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	127	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 16 apples and gives 13 to Sarah, how many does he have left?	3	word_problem	type=word_problem, difficulty=medium	incorrect answer	3	2
+If John has 41 apples and gives 25 to Sarah, how many does he have left?	16	word_problem	type=word_problem, difficulty=hard	16	incorrect answer	1
+What is 82 + 4?	86	arithmetic	type=arithmetic, difficulty=easy	86	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 10 apples and gives 48 to Sarah, how many does he have left?	-38	word_problem	type=word_problem, difficulty=hard	-38	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 53 + 25?	78	arithmetic	type=arithmetic, difficulty=medium	78	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 4 + 15?	19	arithmetic	type=arithmetic, difficulty=easy	19	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 41 apples and gives 47 to Sarah, how many does he have left?	-6	word_problem	type=word_problem, difficulty=medium	incorrect answer	-6	2
+If John has 1 apples and gives 9 to Sarah, how many does he have left?	-8	word_problem	type=word_problem, difficulty=hard	incorrect answer	-8	2
+What is 88 + 62?	150	arithmetic	type=arithmetic, difficulty=easy	150	incorrect answer	1
+What is 22 + 46?	68	arithmetic	type=arithmetic, difficulty=medium	68	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 86 + 2?	88	arithmetic	type=arithmetic, difficulty=easy	88	incorrect answer	1
+If John has 11 apples and gives 36 to Sarah, how many does he have left?	-25	word_problem	type=word_problem, difficulty=easy	-25	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 5 apples and gives 4 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=hard	1	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 33 apples and gives 10 to Sarah, how many does he have left?	23	word_problem	type=word_problem, difficulty=medium	23	incorrect answer	1
+What is 56 + 32?	88	arithmetic	type=arithmetic, difficulty=medium	88	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 25 apples and gives 5 to Sarah, how many does he have left?	20	word_problem	type=word_problem, difficulty=medium	20	incorrect answer	1
+If John has 16 apples and gives 39 to Sarah, how many does he have left?	-23	word_problem	type=word_problem, difficulty=easy	-23	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 64 + 93?	157	arithmetic	type=arithmetic, difficulty=easy	157	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 92 + 70?	162	arithmetic	type=arithmetic, difficulty=hard	162	incorrect answer	1
+What is 47 + 42?	89	arithmetic	type=arithmetic, difficulty=medium	89	incorrect answer	1
+If John has 43 apples and gives 42 to Sarah, how many does he have left?	1	word_problem	type=word_problem, difficulty=medium	incorrect answer	1	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 59 + 8?	67	arithmetic	type=arithmetic, difficulty=easy	67	incorrect answer	1
+What is 67 + 76?	143	arithmetic	type=arithmetic, difficulty=hard	143	incorrect answer	1
+If John has 39 apples and gives 42 to Sarah, how many does he have left?	-3	word_problem	type=word_problem, difficulty=easy	-3	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 1 apples and gives 28 to Sarah, how many does he have left?	-27	word_problem	type=word_problem, difficulty=easy	incorrect answer	-27	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+What is 37 + 56?	93	arithmetic	type=arithmetic, difficulty=medium	93	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 92 + 25?	117	arithmetic	type=arithmetic, difficulty=hard	117	incorrect answer	1
+If John has 4 apples and gives 7 to Sarah, how many does he have left?	-3	word_problem	type=word_problem, difficulty=medium	-3	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 54 + 31?	85	arithmetic	type=arithmetic, difficulty=hard	85	incorrect answer	1
+What is 59 + 91?	150	arithmetic	type=arithmetic, difficulty=medium	150	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 38 apples and gives 24 to Sarah, how many does he have left?	14	word_problem	type=word_problem, difficulty=medium	14	incorrect answer	1
+What is 11 + 53?	64	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	64	2
+What is 88 + 67?	155	arithmetic	type=arithmetic, difficulty=easy	155	incorrect answer	1
+If John has 10 apples and gives 7 to Sarah, how many does he have left?	3	word_problem	type=word_problem, difficulty=hard	3	incorrect answer	1
+What is 72 + 34?	106	arithmetic	type=arithmetic, difficulty=hard	106	incorrect answer	1
+If John has 46 apples and gives 48 to Sarah, how many does he have left?	-2	word_problem	type=word_problem, difficulty=medium	-2	incorrect answer	1
+What is 52 + 8?	60	arithmetic	type=arithmetic, difficulty=hard	60	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+If John has 22 apples and gives 43 to Sarah, how many does he have left?	-21	word_problem	type=word_problem, difficulty=hard	-21	incorrect answer	1
+If John has 17 apples and gives 5 to Sarah, how many does he have left?	12	word_problem	type=word_problem, difficulty=easy	12	incorrect answer	1
+What is 15 + 56?	71	arithmetic	type=arithmetic, difficulty=hard	71	incorrect answer	1
+What is 64 + 20?	84	arithmetic	type=arithmetic, difficulty=medium	84	incorrect answer	1
+If John has 6 apples and gives 34 to Sarah, how many does he have left?	-28	word_problem	type=word_problem, difficulty=hard	incorrect answer	-28	2
+If John has 9 apples and gives 41 to Sarah, how many does he have left?	-32	word_problem	type=word_problem, difficulty=easy	-32	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 20 apples and gives 41 to Sarah, how many does he have left?	-21	word_problem	type=word_problem, difficulty=medium	-21	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 15 apples and gives 38 to Sarah, how many does he have left?	-23	word_problem	type=word_problem, difficulty=easy	incorrect answer	-23	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 7 apples and gives 48 to Sarah, how many does he have left?	-41	word_problem	type=word_problem, difficulty=medium	-41	incorrect answer	1
+If John has 43 apples and gives 15 to Sarah, how many does he have left?	28	word_problem	type=word_problem, difficulty=hard	28	incorrect answer	1
+If John has 19 apples and gives 35 to Sarah, how many does he have left?	-16	word_problem	type=word_problem, difficulty=medium	-16	incorrect answer	1
+If John has 19 apples and gives 12 to Sarah, how many does he have left?	7	word_problem	type=word_problem, difficulty=easy	7	incorrect answer	1
+If John has 8 apples and gives 42 to Sarah, how many does he have left?	-34	word_problem	type=word_problem, difficulty=hard	-34	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 65 + 2?	67	arithmetic	type=arithmetic, difficulty=easy	67	incorrect answer	1
+What is 21 + 10?	31	arithmetic	type=arithmetic, difficulty=easy	31	incorrect answer	1
+If John has 30 apples and gives 25 to Sarah, how many does he have left?	5	word_problem	type=word_problem, difficulty=easy	5	incorrect answer	1
+What is 37 + 17?	54	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	54	2
+What is 9 + 17?	26	arithmetic	type=arithmetic, difficulty=easy	incorrect answer	26	2
+If John has 39 apples and gives 47 to Sarah, how many does he have left?	-8	word_problem	type=word_problem, difficulty=easy	incorrect answer	-8	2
+If John has 43 apples and gives 48 to Sarah, how many does he have left?	-5	word_problem	type=word_problem, difficulty=easy	-5	incorrect answer	1
+What is 95 + 76?	171	arithmetic	type=arithmetic, difficulty=easy	171	incorrect answer	1
+What is 64 + 85?	149	arithmetic	type=arithmetic, difficulty=easy	149	incorrect answer	1
+What is 5 + 23?	28	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	28	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 41 + 48?	89	arithmetic	type=arithmetic, difficulty=hard	89	incorrect answer	1
+If John has 2 apples and gives 23 to Sarah, how many does he have left?	-21	word_problem	type=word_problem, difficulty=easy	-21	incorrect answer	1
+If John has 37 apples and gives 11 to Sarah, how many does he have left?	26	word_problem	type=word_problem, difficulty=hard	26	incorrect answer	1
+If John has 22 apples and gives 49 to Sarah, how many does he have left?	-27	word_problem	type=word_problem, difficulty=hard	-27	incorrect answer	1
+What is 56 + 76?	132	arithmetic	type=arithmetic, difficulty=easy	132	incorrect answer	1
+If John has 15 apples and gives 50 to Sarah, how many does he have left?	-35	word_problem	type=word_problem, difficulty=medium	-35	incorrect answer	1
+What is 62 + 94?	156	arithmetic	type=arithmetic, difficulty=hard	156	incorrect answer	1
+If John has 3 apples and gives 47 to Sarah, how many does he have left?	-44	word_problem	type=word_problem, difficulty=medium	-44	incorrect answer	1
+If John has 18 apples and gives 37 to Sarah, how many does he have left?	-19	word_problem	type=word_problem, difficulty=hard	-19	incorrect answer	1
+If John has 43 apples and gives 35 to Sarah, how many does he have left?	8	word_problem	type=word_problem, difficulty=hard	8	incorrect answer	1
+What is 56 + 66?	122	arithmetic	type=arithmetic, difficulty=hard	122	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 25 apples and gives 47 to Sarah, how many does he have left?	-22	word_problem	type=word_problem, difficulty=hard	-22	incorrect answer	1
+What is 20 + 83?	103	arithmetic	type=arithmetic, difficulty=medium	103	incorrect answer	1
+What is 2 + 73?	75	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	75	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 24 apples and gives 44 to Sarah, how many does he have left?	-20	word_problem	type=word_problem, difficulty=medium	-20	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 20 apples and gives 11 to Sarah, how many does he have left?	9	word_problem	type=word_problem, difficulty=medium	9	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 43 + 40?	83	arithmetic	type=arithmetic, difficulty=medium	83	incorrect answer	1
+If John has 10 apples and gives 24 to Sarah, how many does he have left?	-14	word_problem	type=word_problem, difficulty=medium	incorrect answer	-14	2
+What is 4 + 18?	22	arithmetic	type=arithmetic, difficulty=hard	22	incorrect answer	1
+If John has 7 apples and gives 18 to Sarah, how many does he have left?	-11	word_problem	type=word_problem, difficulty=easy	incorrect answer	-11	2
+What is 35 + 42?	77	arithmetic	type=arithmetic, difficulty=medium	77	incorrect answer	1
+If John has 28 apples and gives 9 to Sarah, how many does he have left?	19	word_problem	type=word_problem, difficulty=easy	19	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+What is 88 + 24?	112	arithmetic	type=arithmetic, difficulty=easy	112	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 7 + 56?	63	arithmetic	type=arithmetic, difficulty=hard	63	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+What is 4 + 95?	99	arithmetic	type=arithmetic, difficulty=hard	99	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 12 apples and gives 47 to Sarah, how many does he have left?	-35	word_problem	type=word_problem, difficulty=easy	-35	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	incorrect answer	No	2
+What is 60 + 84?	144	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	144	2
+If John has 36 apples and gives 36 to Sarah, how many does he have left?	0	word_problem	type=word_problem, difficulty=hard	0	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 33 apples and gives 8 to Sarah, how many does he have left?	25	word_problem	type=word_problem, difficulty=medium	25	incorrect answer	1
+If John has 9 apples and gives 32 to Sarah, how many does he have left?	-23	word_problem	type=word_problem, difficulty=hard	-23	incorrect answer	1
+What is 34 + 77?	111	arithmetic	type=arithmetic, difficulty=easy	111	incorrect answer	1
+What is 77 + 88?	165	arithmetic	type=arithmetic, difficulty=medium	165	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	incorrect answer	No	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 3 apples and gives 40 to Sarah, how many does he have left?	-37	word_problem	type=word_problem, difficulty=easy	-37	incorrect answer	1
+What is 15 + 27?	42	arithmetic	type=arithmetic, difficulty=hard	42	incorrect answer	1
+If John has 49 apples and gives 27 to Sarah, how many does he have left?	22	word_problem	type=word_problem, difficulty=easy	22	incorrect answer	1
+If John has 3 apples and gives 37 to Sarah, how many does he have left?	-34	word_problem	type=word_problem, difficulty=medium	-34	incorrect answer	1
+What is 40 + 53?	93	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	93	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+What is 93 + 85?	178	arithmetic	type=arithmetic, difficulty=easy	178	incorrect answer	1
+If John has 2 apples and gives 14 to Sarah, how many does he have left?	-12	word_problem	type=word_problem, difficulty=medium	-12	incorrect answer	1
+What is 92 + 23?	115	arithmetic	type=arithmetic, difficulty=medium	115	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 40 apples and gives 5 to Sarah, how many does he have left?	35	word_problem	type=word_problem, difficulty=hard	incorrect answer	35	2
+What is 52 + 18?	70	arithmetic	type=arithmetic, difficulty=medium	70	incorrect answer	1
+What is 4 + 83?	87	arithmetic	type=arithmetic, difficulty=easy	87	incorrect answer	1
+What is 83 + 40?	123	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	123	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+What is 88 + 94?	182	arithmetic	type=arithmetic, difficulty=easy	182	incorrect answer	1
+What is 15 + 7?	22	arithmetic	type=arithmetic, difficulty=medium	incorrect answer	22	2
+What is 36 + 82?	118	arithmetic	type=arithmetic, difficulty=easy	118	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 19 apples and gives 30 to Sarah, how many does he have left?	-11	word_problem	type=word_problem, difficulty=medium	-11	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	incorrect answer	No	2
+If John has 19 apples and gives 19 to Sarah, how many does he have left?	0	word_problem	type=word_problem, difficulty=medium	0	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
+If John has 49 apples and gives 47 to Sarah, how many does he have left?	2	word_problem	type=word_problem, difficulty=medium	2	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=hard	No	incorrect answer	1
+If John has 6 apples and gives 2 to Sarah, how many does he have left?	4	word_problem	type=word_problem, difficulty=medium	incorrect answer	4	2
+What is 78 + 96?	174	arithmetic	type=arithmetic, difficulty=hard	incorrect answer	174	2
+If John has 41 apples and gives 9 to Sarah, how many does he have left?	32	word_problem	type=word_problem, difficulty=hard	32	incorrect answer	1
+What is 99 + 66?	165	arithmetic	type=arithmetic, difficulty=medium	165	incorrect answer	1
+If John has 1 apples and gives 24 to Sarah, how many does he have left?	-23	word_problem	type=word_problem, difficulty=medium	-23	incorrect answer	1
+If John has 15 apples and gives 44 to Sarah, how many does he have left?	-29	word_problem	type=word_problem, difficulty=easy	incorrect answer	-29	2
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=medium	No	incorrect answer	1
+If John has 37 apples and gives 8 to Sarah, how many does he have left?	29	word_problem	type=word_problem, difficulty=medium	29	incorrect answer	1
+What is 14 + 59?	73	arithmetic	type=arithmetic, difficulty=hard	73	incorrect answer	1
+What is 93 + 79?	172	arithmetic	type=arithmetic, difficulty=easy	172	incorrect answer	1
+What is 100 + 50?	150	arithmetic	type=arithmetic, difficulty=medium	150	incorrect answer	1
+If all cats are animals and some animals are dogs, are all cats dogs?	No	logic	type=logic, difficulty=easy	No	incorrect answer	1
