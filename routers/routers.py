@@ -117,27 +117,81 @@ class CausalLLMRouter(Router):
             return 1 - output["binary_prob"]
         
 class PreferenceData(Dataset):
-    def __init__(self, data_df, tokenizer):
+    def __init__(self, data_df, tokenizer, max_length=512):
         self.data_df = data_df
         self.tokenizer = tokenizer
+        self.max_length = max_length
 
     def __len__(self):
         return len(self.data_df)
 
     def __getitem__(self, idx):
-        final_prompt = self.data_df.iloc[idx]
+        # Extract the messages for this item
+        final_prompts = self.data_df.iloc[idx]
 
-        #fill the right things here if required
+        # Extract the system, user, and assistant messages
+        system_msg = next(msg["content"] for msg in final_prompts if msg["role"] == "system")
+        user_msg = next(msg["content"] for msg in final_prompts if msg["role"] == "user")
+        assistant_msg = next(msg["content"] for msg in final_prompts if msg["role"] == "assistant")
 
-        return 
+        # Combine into a single text input (excluding the assistant's response)
+        prompt_text = f"{system_msg.strip()}\n{user_msg.strip()}\nPrediction:\n"
 
+        # Tokenize the prompt
+        tokenized_prompt = self.tokenizer(
+            prompt_text,
+            return_tensors="pt",
+            padding="max_length",
+            truncation=True,
+            max_length=self.max_length - 1  # Reserve space for the rating token
+        )
 
-def prepare_ft_messages(dataset_df: pd.DataFrame, label_key: str) -> pd.DataFrame:
+        # Tokenize the assistant's rating
+        rating_token = assistant_msg.strip()
+        rating_tokenized = self.tokenizer(
+            rating_token,
+            add_special_tokens=False
+        )["input_ids"]
+
+        # Ensure rating_tokenized is a single token
+        if len(rating_tokenized) != 1:
+            raise ValueError(f"Rating token '{rating_token}' is not a single token. Ensure it's added as a special token.")
+
+        # Concatenate prompt and rating tokens
+        input_ids = tokenized_prompt["input_ids"][0].tolist() + rating_tokenized
+        attention_mask = tokenized_prompt["attention_mask"][0].tolist() + [1] * len(rating_tokenized)
+
+        # Truncate to max_length if necessary
+        input_ids = input_ids[:self.max_length]
+        attention_mask = attention_mask[:self.max_length]
+
+        # Convert to tensors
+        input_ids = torch.tensor(input_ids).unsqueeze(0)  # Shape: [1, max_length]
+        attention_mask = torch.tensor(attention_mask).unsqueeze(0)
+
+        # Initialize labels with -100
+        labels = torch.full_like(input_ids, -100)
+
+        # Assign the rating token ID to the label at the last position
+        labels[0, -len(rating_tokenized):] = torch.tensor(rating_tokenized)
+
+        # Squeeze the batch dimension
+        input_ids = input_ids.squeeze(0)         # Shape: [max_length]
+        attention_mask = attention_mask.squeeze(0)
+        labels = labels.squeeze(0)
+
+        return {
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "labels": labels
+        }
+
+def prepare_ft_messages(system_file, classifier_file, dataset_df: pd.DataFrame, label_key: str) -> pd.DataFrame:
     """
     Add messages for fine-tuning using the dataset dataframe, system message, and classifier message.
     """
-    with open(f"assets/system_ft.txt", "r") as f1, open(
-        f"assets/classifier_ft.txt", "r"
+    with open(system_file, "r") as f1, open(
+        classifier_file, "r"
     ) as f2:
         system_message = f1.read()
         classifier_message = f2.read()
@@ -145,11 +199,12 @@ def prepare_ft_messages(dataset_df: pd.DataFrame, label_key: str) -> pd.DataFram
     # Create API formatted 'messages' column for each row in the dataset dataframe
     dataset_df["messages"] =  dataset_df.apply(
         lambda row: to_openai_api_messages(
-            [
-                classifier_message.format(question=row["original"]),
+            messages=[
+                row["original"],
                 f"[[{row[label_key]}]]",
             ],
-            system_message,
+            system_message=system_message,
+            classifier_message=classifier_message
         ),
         axis=1,
     )
@@ -171,7 +226,7 @@ if __name__ == "__main__":
     causal_router = CausalLLMRouter(checkpoint_path=checkpoint_path)
     wandb.init(
         project="preference_model_training",
-        name="run_1",
+        name="[WIP causal]",
         config={
             "learning_rate": 1e-4,
             "epochs": 1,
@@ -182,7 +237,8 @@ if __name__ == "__main__":
     )
 
     # Prepare dataset
-    dataset = PreferenceData(prepare_ft_messages(dataset_df=data_df, label_key="score"), causal_router.router_model.tokenizer)
+    
+    dataset = PreferenceData(prepare_ft_messages(f"{prefix}/routers/causal_llm/system_ft_v5.txt", f"{prefix}/routers/causal_llm/classifier_ft_v5.txt", dataset_df=data_df, label_key="score"), causal_router.router_model.tokenizer)
 
     # Convert to HuggingFace Dataset for compatibility with Trainer
     def data_generator():
@@ -206,7 +262,9 @@ if __name__ == "__main__":
 
     # Apply PEFT to the model
     try:
-        model = get_peft_model(causal_router.router_model, peft_config)
+        model = get_peft_model(causal_router.router_model.transformer_model, peft_config)
+        # Replace the internal model with the PEFT-enhanced model
+        causal_router.router_model.transformer_model = model
     except Exception as e:
         print(f"Error wrapping model with PEFT: {e}")
         raise e
