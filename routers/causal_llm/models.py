@@ -62,6 +62,16 @@ class CausalLLMClassifier:
         ), "this is the default value for now."
         print(f"Done loading model in {time.time() - s} seconds.")
 
+    @property
+    def transformer_model(self):
+        """Expose the internal transformer model."""
+        return self.model
+
+    @transformer_model.setter
+    def transformer_model(self, new_model):
+        """Allow setting a new transformer model."""
+        self.model = new_model
+
     def preprocess(self, row):
         """prepare each prompt before feeding it to the model"""
         # add additional fields to the final output (e.g. for later evaluation)
