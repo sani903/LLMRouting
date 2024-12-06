@@ -23,6 +23,8 @@ from transformers import (
     LlamaTokenizer,
     LlamaForCausalLM, PreTrainedTokenizerBase,
 )
+
+from peft import PeftModel
 import torch.nn.functional as F
 from datasets import Dataset as HFDataset
 from evaluate import load
@@ -116,6 +118,80 @@ class CausalLLMRouter(Router):
         else:
             return 1 - output["binary_prob"]
         
+    def train(self, dataset):
+        # Convert to HuggingFace Dataset for compatibility with Trainer
+        def data_generator():
+            for i in range(len(dataset)):
+                yield dataset[i]
+
+        hf_dataset = HFDataset.from_generator(data_generator)
+
+        # Split dataset into training and evaluation sets (80% train, 20% eval)
+        hf_dataset = hf_dataset.train_test_split(test_size=0.1)
+
+        # Prepare data collator
+        data_collator = DataCollatorWithPadding(tokenizer=self.router_model.tokenizer)
+
+        early_stopping = EarlyStoppingCallback(
+            early_stopping_patience=3,  # Stop after 3 evaluations with no improvement
+            early_stopping_threshold=0.0  # Minimum change to qualify as improvement
+        )
+
+        # Define evaluation metric
+        metric = load("accuracy")
+
+        def compute_metrics(eval_pred):
+            logits, labels = eval_pred
+            predictions = torch.argmax(torch.tensor(logits), dim=-1)
+            # Only consider non -100 labels
+            mask = labels != -100
+            true_labels = labels[mask]
+            pred_labels = predictions[mask]
+            return metric.compute(predictions=pred_labels, references=true_labels)
+
+
+        # Set up training arguments
+        training_args = TrainingArguments(
+            output_dir="./results",
+            evaluation_strategy="epoch",  # Evaluate at the end of each epoch
+            save_strategy="epoch",        # Save checkpoint at the end of each epoch
+            per_device_train_batch_size=1,  # Adjusted for memory constraints
+            per_device_eval_batch_size=1,
+            num_train_epochs=1,
+            learning_rate=1e-4,            # Adjusted learning rate
+            weight_decay=0.01,
+            save_total_limit=1,
+            load_best_model_at_end=True,
+            logging_steps=15,
+            gradient_accumulation_steps=8,
+            fp16=False,                    # Disable FP16 training for stability
+            bf16=True,                     # Enable BF16 training for speed
+            log_level='warning',
+            max_grad_norm=1.0,
+            logging_strategy="steps",
+            logging_first_step=True,
+            logging_dir="./logs",
+            report_to=[],
+            dataloader_num_workers=2,      # Increase based on CPU cores
+            dataloader_pin_memory=True,
+        )
+
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            train_dataset=hf_dataset["train"],
+            eval_dataset=hf_dataset["test"],
+            tokenizer=self.router_model.tokenizer,
+            data_collator=data_collator,
+            compute_metrics=compute_metrics,
+            callbacks=[early_stopping],
+        )
+        try:
+            # Start the training process
+            trainer.train()
+        except Exception as e:
+            print(f"An error occurred during training: {e}")
+           
 class PreferenceData(Dataset):
     def __init__(self, data_df, tokenizer, max_length=512):
         self.data_df = data_df
@@ -186,6 +262,8 @@ class PreferenceData(Dataset):
             "labels": labels
         }
 
+
+
 def prepare_ft_messages(system_file, classifier_file, dataset_df: pd.DataFrame, label_key: str) -> pd.DataFrame:
     """
     Add messages for fine-tuning using the dataset dataframe, system message, and classifier message.
@@ -213,123 +291,95 @@ def prepare_ft_messages(system_file, classifier_file, dataset_df: pd.DataFrame, 
 if __name__ == "__main__":
     # Load data
     prefix = os.getcwd()
-    path = f"{prefix}/data/chatbot_arena_preference_data.tsv"
-    data_df = pd.read_csv(path, sep="\t", header=0)
-
-    data_df['score'] = data_df['preference'].apply(
-        lambda preference: random.choice([1, 2, 3]) if preference == 0 else random.choice([4, 5])
-    )
-    checkpoint_path = "routellm/causal_llm_gpt4_augmented"
-
-
-    model_name = "meta-llama/Meta-Llama-3-8B"
-    causal_router = CausalLLMRouter(checkpoint_path=checkpoint_path)
-    wandb.init(
-        project="preference_model_training",
-        name="[WIP causal]",
-        config={
-            "learning_rate": 1e-4,
-            "epochs": 1,
-            "batch_size": 1,
-            "model_name": model_name,
-        },
-        resume="allow",
-    )
-
-    # Prepare dataset
+    huggingface_checkpoint_path = "routellm/causal_llm_gpt4_augmented"
     
-    dataset = PreferenceData(prepare_ft_messages(f"{prefix}/routers/causal_llm/system_ft_v5.txt", f"{prefix}/routers/causal_llm/classifier_ft_v5.txt", dataset_df=data_df, label_key="score"), causal_router.router_model.tokenizer)
+    model_name = "meta-llama/Meta-Llama-3-8B"
 
-    # Convert to HuggingFace Dataset for compatibility with Trainer
-    def data_generator():
-        for i in range(len(dataset)):
-            yield dataset[i]
+    evaluate = True
 
-    hf_dataset = HFDataset.from_generator(data_generator)
+    if not evaluate:
+        path = f"{prefix}/data/chatbot_arena_preference_data.tsv"
+        data_df = pd.read_csv(path, sep="\t", header=0)
 
-    # Split dataset into training and evaluation sets (80% train, 20% eval)
-    hf_dataset = hf_dataset.train_test_split(test_size=0.1)
+        data_df['score'] = data_df['preference'].apply(
+            lambda preference: random.choice([1, 2, 3]) if preference == 0 else random.choice([4, 5])
+        )
+        causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
+        wandb.init(
+            project="preference_model_training",
+            name="causal_train_1",
+            config={
+                "learning_rate": 1e-4,
+                "epochs": 1,
+                "batch_size": 1,
+                "model_name": model_name,
+            },
+            resume="allow",
+        )
 
-    # Prepare LoRA configuration
-    peft_config = LoraConfig(
-        task_type=TaskType.CAUSAL_LM,
-        inference_mode=False,
-        r=8,
-        lora_alpha=32,
-        lora_dropout=0.1,
-        target_modules=["q_proj", "v_proj"],  # Adjust based on model's module names
-    )
+        # Prepare dataset
+        label_key = "score"
 
-    # Apply PEFT to the model
-    try:
-        model = get_peft_model(causal_router.router_model.transformer_model, peft_config)
-        # Replace the internal model with the PEFT-enhanced model
-        causal_router.router_model.transformer_model = model
-    except Exception as e:
-        print(f"Error wrapping model with PEFT: {e}")
-        raise e
+        dataset = PreferenceData(prepare_ft_messages(f"{prefix}/routers/causal_llm/system_ft_v5.txt", f"{prefix}/routers/causal_llm/classifier_ft_v5.txt", dataset_df=data_df, label_key="score"), causal_router.router_model.tokenizer)
 
-    # Prepare data collator
-    data_collator = DataCollatorWithPadding(tokenizer=causal_router.router_model.tokenizer)
+        # Prepare LoRA configuration
+        peft_config = LoraConfig(
+            task_type=TaskType.CAUSAL_LM,
+            inference_mode=False,
+            r=8,
+            lora_alpha=32,
+            lora_dropout=0.1,
+            target_modules=["q_proj", "v_proj"],  # Adjust based on model's module names
+        )
 
-    early_stopping = EarlyStoppingCallback(
-        early_stopping_patience=3,  # Stop after 3 evaluations with no improvement
-        early_stopping_threshold=0.0  # Minimum change to qualify as improvement
-    )
+        # Apply PEFT to the model
+        try:
+            model = get_peft_model(causal_router.router_model.transformer_model, peft_config)
+            # Replace the internal model with the PEFT-enhanced model
+            causal_router.router_model.transformer_model = model
+        except Exception as e:
+            print(f"Error wrapping model with PEFT: {e}")
+            raise e
+        causal_router.train(dataset)
+    else:
+        data_path = os.path.join(prefix, "data", "chatbot_arena_preference_data_validate.tsv")
+        data_df = pd.read_csv(data_path, sep="\t", header=0)
+        peft_trained_checkpoint_path = os.path.join(prefix, "results", "checkpoint-3425")
 
-    # Define evaluation metric
-    metric = load("accuracy")
+        causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
 
-    def compute_metrics(eval_pred):
-        logits, labels = eval_pred
-        predictions = torch.argmax(torch.tensor(logits), dim=-1)
-        # Only consider non -100 labels
-        mask = labels != -100
-        true_labels = labels[mask]
-        pred_labels = predictions[mask]
-        return metric.compute(predictions=pred_labels, references=true_labels)
+        try:
+            # Apply PEFT to the internal model within the classifier
+            peft_model = PeftModel.from_pretrained(causal_router.router_model.transformer_model, peft_trained_checkpoint_path)
+            causal_router.router_model.transformer_model = peft_model 
+            print("PEFT model loaded successfully.")
+        except Exception as e:
+            print(f"Error wrapping model with PEFT: {e}")
+            raise e
+        
+        data_df['win_rate'] = data_df['original'].apply(
+            lambda value: causal_router.calculate_strong_win_rate(value)
+        )
+
+        data_df['prediction'] = data_df['win_rate'] > 0.5
+        accuracy = (data_df["preference"] == data_df["prediction"]).mean()
+        print(f"Accuracy: {accuracy:.4f}")
+
+        # causal_router.evaluate(dataset)
+        # example of getting result for an example
+        # win_rate = causal_router.calculate_strong_win_rate("what is 3 + 4?")
+        # threshold = 0.5
+        # if win_rate > threshold:
+        #     prediction = 0
+        # else:
+        #     prediction = 1
 
 
-    # Set up training arguments
-    training_args = TrainingArguments(
-        output_dir="./results",
-        evaluation_strategy="epoch",  # Evaluate at the end of each epoch
-        save_strategy="epoch",        # Save checkpoint at the end of each epoch
-        per_device_train_batch_size=1,  # Adjusted for memory constraints
-        per_device_eval_batch_size=1,
-        num_train_epochs=1,
-        learning_rate=1e-4,            # Adjusted learning rate
-        weight_decay=0.01,
-        save_total_limit=1,
-        load_best_model_at_end=True,
-        logging_steps=15,
-        gradient_accumulation_steps=8,
-        fp16=False,                    # Disable FP16 training for stability
-        bf16=True,                     # Enable BF16 training for speed
-        log_level='warning',
-        max_grad_norm=1.0,
-        logging_strategy="steps",
-        logging_first_step=True,
-        logging_dir="./logs",
-        report_to=[],
-        dataloader_num_workers=2,      # Increase based on CPU cores
-        dataloader_pin_memory=True,
-    )
+        
 
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=hf_dataset["train"],
-        eval_dataset=hf_dataset["test"],
-        tokenizer=causal_router.router_model.tokenizer,
-        data_collator=data_collator,
-        compute_metrics=compute_metrics,
-        callbacks=[early_stopping],
-    )
-    try:
-        # Start the training process
-        trainer.train()
-    except Exception as e:
-        print(f"An error occurred during training: {e}")
 
-    win_rate = causal_router.calculate_strong_win_rate("what is 3 + 4?")
+    
+    
+
+
+    
