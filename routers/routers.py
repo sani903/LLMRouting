@@ -117,21 +117,19 @@ class CausalLLMRouter(Router):
             return 1 - output["binary_prob"]
         
 class PreferenceData(Dataset):
-    def __init__(self, data_df):
+    def __init__(self, data_df, tokenizer):
         self.data_df = data_df
+        self.tokenizer = tokenizer
 
     def __len__(self):
-        return len(self.preferences)
+        return len(self.data_df)
 
     def __getitem__(self, idx):
         final_prompt = self.data_df.iloc[idx]
 
-        inputs = {}
-        inputs["messages"] = final_prompt
-
         #fill the right things here if required
 
-        return inputs
+        return 
 
 
 def prepare_ft_messages(dataset_df: pd.DataFrame, label_key: str) -> pd.DataFrame:
@@ -145,7 +143,7 @@ def prepare_ft_messages(dataset_df: pd.DataFrame, label_key: str) -> pd.DataFram
         classifier_message = f2.read()
 
     # Create API formatted 'messages' column for each row in the dataset dataframe
-    return dataset_df.apply(
+    dataset_df["messages"] =  dataset_df.apply(
         lambda row: to_openai_api_messages(
             [
                 classifier_message.format(question=row["original"]),
@@ -155,6 +153,7 @@ def prepare_ft_messages(dataset_df: pd.DataFrame, label_key: str) -> pd.DataFram
         ),
         axis=1,
     )
+    return dataset_df["messages"]
 
 if __name__ == "__main__":
     # Load data
@@ -162,9 +161,11 @@ if __name__ == "__main__":
     path = f"{prefix}/data/chatbot_arena_preference_data.tsv"
     data_df = pd.read_csv(path, sep="\t", header=0)
 
+    data_df['score'] = data_df['preference'].apply(
+        lambda preference: random.choice([1, 2, 3]) if preference == 0 else random.choice([4, 5])
+    )
     checkpoint_path = "routellm/causal_llm_gpt4_augmented"
 
-    
 
     model_name = "meta-llama/Meta-Llama-3-8B"
     causal_router = CausalLLMRouter(checkpoint_path=checkpoint_path)
@@ -181,7 +182,7 @@ if __name__ == "__main__":
     )
 
     # Prepare dataset
-    dataset = PreferenceData(prepare_ft_messages(dataset_df=data_df, label_key="score"))
+    dataset = PreferenceData(prepare_ft_messages(dataset_df=data_df, label_key="score"), causal_router.router_model.tokenizer)
 
     # Convert to HuggingFace Dataset for compatibility with Trainer
     def data_generator():
@@ -245,6 +246,16 @@ if __name__ == "__main__":
         report_to=[],
         dataloader_num_workers=2,      # Increase based on CPU cores
         dataloader_pin_memory=True,
+    )
+
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=hf_dataset["train"],
+        eval_dataset=hf_dataset["test"],
+        tokenizer=causal_router.router_model.tokenizer,
+        data_collator=data_collator,
+        compute_metrics=compute_metrics,
     )
     try:
         # Start the training process
