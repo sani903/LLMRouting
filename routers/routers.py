@@ -23,6 +23,7 @@ from transformers import (
     LlamaTokenizer,
     LlamaForCausalLM, PreTrainedTokenizerBase,
 )
+from tqdm import tqdm
 
 from peft import PeftModel
 import torch.nn.functional as F
@@ -357,7 +358,8 @@ if __name__ == "__main__":
             print(f"Error wrapping model with PEFT: {e}")
             raise e
         
-        data_df['win_rate'] = data_df['original'].apply(
+        tqdm.pandas(desc="Processing")
+        data_df['win_rate'] = data_df['original'].progress_apply(
             lambda value: causal_router.calculate_strong_win_rate(value)
         )
 
