@@ -47,8 +47,8 @@ if __name__ == "__main__":
     data_df = pd.read_csv(data_path, sep="\t", header=0)[:50]
 
     # Define directories
-    base_model_name = "meta-llama/Meta-Llama-3-8B-Instruct"  # Original base model
-    adapter_dir = os.path.join(prefix, "results", "checkpoint-1522")  # LoRA adapters
+    base_model_name = "meta-llama/Meta-Llama-3-8B"  # Original base model
+    adapter_dir = os.path.join(prefix, "results", "checkpoint-3425")  # LoRA adapters
 
     # Load the tokenizer from the base model directory
     tokenizer = AutoTokenizer.from_pretrained(base_model_name)

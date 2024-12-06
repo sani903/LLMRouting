@@ -24,7 +24,7 @@
             "type": "debugpy",
             "request": "launch",
             "cwd": "${workspaceFolder}",
-            "module": "routers.causal_llm",
+            "module": "routers.generate_preference_data",
         },
         {
             "name": "Python: PURE Finetuning",

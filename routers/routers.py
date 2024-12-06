@@ -272,13 +272,23 @@ if __name__ == "__main__":
     # Prepare data collator
     data_collator = DataCollatorWithPadding(tokenizer=causal_router.router_model.tokenizer)
 
+    early_stopping = EarlyStoppingCallback(
+        early_stopping_patience=3,  # Stop after 3 evaluations with no improvement
+        early_stopping_threshold=0.0  # Minimum change to qualify as improvement
+    )
+
     # Define evaluation metric
     metric = load("accuracy")
 
     def compute_metrics(eval_pred):
         logits, labels = eval_pred
         predictions = torch.argmax(torch.tensor(logits), dim=-1)
-        return metric.compute(predictions=predictions, references=labels)
+        # Only consider non -100 labels
+        mask = labels != -100
+        true_labels = labels[mask]
+        pred_labels = predictions[mask]
+        return metric.compute(predictions=pred_labels, references=true_labels)
+
 
     # Set up training arguments
     training_args = TrainingArguments(
@@ -314,6 +324,7 @@ if __name__ == "__main__":
         tokenizer=causal_router.router_model.tokenizer,
         data_collator=data_collator,
         compute_metrics=compute_metrics,
+        callbacks=[early_stopping],
     )
     try:
         # Start the training process
@@ -321,4 +332,4 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"An error occurred during training: {e}")
 
-    win_rate = model.calculate_strong_win_rate("what is 3 + 4?")
+    win_rate = causal_router.calculate_strong_win_rate("what is 3 + 4?")
