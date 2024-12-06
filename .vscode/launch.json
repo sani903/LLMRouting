@@ -25,6 +25,20 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "module": "routers.causal_llm",
+        },
+        {
+            "name": "Python: PURE Finetuning",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "module": "lora_without_special_tokens_finetuning",
+        },
+        {
+            "name": "Python: RouteLLM Causal",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "module": "routers.routers",
         }
     ]
 }

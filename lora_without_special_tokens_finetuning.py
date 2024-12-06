@@ -18,7 +18,6 @@ from datasets import Dataset as HFDataset
 from evaluate import load
 from peft import get_peft_model, LoraConfig, TaskType
 import matplotlib.pyplot as plt
-import torch.nn.init as init
 import wandb
 
 from transformers import TrainerCallback, EarlyStoppingCallback, TrainerState, TrainerControl
@@ -48,10 +47,8 @@ class SimpleCallback(TrainerCallback):
         pass  # Optional: Implement if needed
 
 class GradientMonitorCallback(TrainerCallback):
-    def __init__(self, tokenizer: PreTrainedTokenizerBase, special_tokens: list):
+    def __init__(self, tokenizer: PreTrainedTokenizerBase):
         super().__init__()
-        self.token_ids = tokenizer.convert_tokens_to_ids(special_tokens)
-        self.special_tokens = special_tokens
 
     def on_pre_optimizer_step(
         self,
@@ -62,22 +59,6 @@ class GradientMonitorCallback(TrainerCallback):
     ):
         print("GradientMonitorCallback: on_pre_optimizer_step triggered.")
         model = kwargs['model']
-        embedding_layer = model.get_input_embeddings()
-        embeddings = embedding_layer.weight
-
-        if embeddings.grad is None:
-            print("GradientMonitorCallback: Embeddings gradients are None.")
-        else:
-            # Extract gradients for special tokens
-            special_gradients = embeddings.grad[self.token_ids]  # Shape: (len(special_tokens), embedding_dim)
-            for token, grad in zip(self.special_tokens, special_gradients):
-                grad_norm = grad.norm().item()
-                print(f"GradientMonitorCallback: {token} gradient norm: {grad_norm}")
-            
-            # Compute overall embedding gradient norm
-            embedding_grad_norm = embeddings.grad.norm().item()
-            print(f"GradientMonitorCallback: Overall embedding gradient norm: {embedding_grad_norm}")
-
         # Calculate the overall gradient norm across all trainable parameters
         total_grad_norm = 0.0
         for name, param in model.named_parameters():
@@ -94,21 +75,52 @@ def load_prompt_format(model_id):
     return PromptFormat(**prompt_format_dict, is_generation=True)
 
 # Define the custom loss function for multi-class classification
-def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: PreTrainedTokenizerBase) -> Tuple[torch.Tensor, torch.Tensor]:
-    # Define special tokens
-    special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
-    special_token_ids = tokenizer.convert_tokens_to_ids(special_tokens)
+# def custom_loss_function(logits: torch.Tensor, labels: torch.Tensor, tokenizer: PreTrainedTokenizerBase) -> Tuple[torch.Tensor, torch.Tensor]:
+#     # Define special tokens
+#     # special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
+#     label_tokens = ["1", "2", "3", "4", "5"]
+#     special_token_ids = tokenizer.convert_tokens_to_ids(label_tokens)
 
-    # Extract logits for the special tokens at the last position
-    # Shape: (batch_size, 5)
-    special_token_logits = logits[:, -1, special_token_ids]
+#     # Extract logits for the special tokens at the last position
+#     # Shape: (batch_size, 5)
+#     special_token_logits = logits[:, -1, special_token_ids]
 
-    labels_one_hot = F.one_hot(labels.long(), num_classes=5).float()
+#     labels_one_hot = F.one_hot(labels.long(), num_classes=5).float()
 
-    loss = F.binary_cross_entropy_with_logits(special_token_logits, labels_one_hot)
+#     loss = F.binary_cross_entropy_with_logits(special_token_logits, labels_one_hot)
     
-    # Compute probabilities for logging
-    probabilities = F.softmax(special_token_logits, dim=-1)  # Shape: (batch_size, 5)
+#     # Compute probabilities for logging
+#     probabilities = F.softmax(special_token_logits, dim=-1)  # Shape: (batch_size, 5)
+
+#     return loss, probabilities
+
+def custom_loss_function(logits, labels, tokenizer):
+    """
+    Custom loss function for a 5-class classification problem.
+
+    Args:
+        logits (torch.Tensor): Logits output from the model, shape (batch_size, seq_length, vocab_size).
+        labels (torch.Tensor): Ground truth labels, shape (batch_size,).
+
+    Returns:
+        Tuple[torch.Tensor, torch.Tensor]: A tuple containing:
+            - loss (torch.Tensor): The computed loss value.
+            - probabilities (torch.Tensor): The predicted probabilities for the 5 classes.
+    """
+    # Assume `label_tokens` contains the token IDs for "1", "2", "3", "4", "5".
+    label_tokens = torch.tensor([tokenizer.convert_tokens_to_ids(str(i)) for i in range(1, 6)], device=logits.device)
+
+    # Extract logits for only the 1-5 tokens.
+    logits_for_labels = logits[:, -1, label_tokens]  # Shape: (batch_size, 5)
+
+    # Compute probabilities using softmax.
+    probabilities = F.softmax(logits_for_labels, dim=-1)  # Shape: (batch_size, 5)
+
+    # Adjust labels to match indices of `label_tokens`.
+    labels_adjusted = (labels - 1).to(torch.long)
+
+    # Compute cross-entropy loss.
+    loss = F.cross_entropy(logits_for_labels, labels_adjusted)
 
     return loss, probabilities
 
@@ -228,7 +240,7 @@ class PreferenceData(Dataset):
 
         inputs = {k: v.squeeze(0) for k, v in inputs.items()}
 
-        class_index = preference - 1
+        class_index = preference
         inputs['labels'] = torch.tensor(class_index, dtype=torch.float)
 
         return inputs
@@ -314,7 +326,7 @@ if __name__ == "__main__":
     model_name = "meta-llama/Meta-Llama-3-8B-Instruct"  # Ensure this is the correct model name
     wandb.init(
         project="preference_model_training",
-        name="run_1",
+        name="run_without_special_tokens",
         config={
             "learning_rate": 1e-4,
             "epochs": 1,
@@ -339,8 +351,8 @@ if __name__ == "__main__":
         tokenizer.add_special_tokens({'pad_token': '<pad>'})
 
     # Add special tokens
-    special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
-    tokenizer.add_tokens(special_tokens, special_tokens=True)
+    # special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
+    # tokenizer.add_tokens(special_tokens, special_tokens=True)
 
     # Prepare dataset
     dataset = PreferenceData(data_df["original"], data_df["preference"], tokenizer, max_length=512)
@@ -388,14 +400,6 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error resizing token embeddings: {e}")
         raise e
-    
-    # Optional: Customize initialization of new token embeddings
-    embedding_layer = model.get_input_embeddings()
-    special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
-    token_ids = tokenizer.convert_tokens_to_ids(special_tokens)
-    for token_id in token_ids:
-        with torch.no_grad():
-            init.normal_(embedding_layer.weight[token_id], mean=0.0, std=0.02)
 
     # Prepare LoRA configuration (optional)
     peft_config = LoraConfig(
@@ -419,9 +423,9 @@ if __name__ == "__main__":
     #     param.requires_grad = False
 
     # Unfreeze the embedding layer
-    embedding_layer = model.get_input_embeddings()
-    embedding_layer.weight.requires_grad = True
-
+    # embedding_layer = model.get_input_embeddings()
+    # embedding_layer.weight.requires_grad = True
+    # special_tokens = ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]
     # enable_grad_for_special_tokens(model, tokenizer, special_tokens)
 
     # for token in ["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"]:
@@ -447,7 +451,7 @@ if __name__ == "__main__":
 
     # Set up training arguments
     training_args = TrainingArguments(
-        output_dir="./results",
+        output_dir="./without_special_tokens_results",
         evaluation_strategy="epoch",  # Evaluate at the end of each epoch
         save_strategy="epoch",        # Save checkpoint at the end of each epoch
         per_device_train_batch_size=1,  # Adjusted for memory constraints
@@ -472,7 +476,7 @@ if __name__ == "__main__":
     )
 
     # Initialize the GradientMonitorCallback with tokenizer and special tokens
-    gradient_monitor = GradientMonitorCallback(tokenizer=tokenizer, special_tokens=special_tokens)
+    gradient_monitor = GradientMonitorCallback(tokenizer=tokenizer)
 
     # Initialize the CustomTrainer with all required arguments and callbacks
     trainer = CustomTrainer(
