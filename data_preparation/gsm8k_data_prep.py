@@ -15,7 +15,7 @@ def load_jsonlines(file_name: str):
 
 
 prefix = os.getcwd()
-test_data = load_jsonlines(f"{prefix}/data/train_gsm8k.jsonl")
+test_data = load_jsonlines(f"{prefix}/data/test_gsm8k.jsonl")
 
 
 
@@ -37,13 +37,11 @@ def nshot_chats(nshot_data: list, n: int, question: str) -> dict:
 
     random.seed(42)
     for qna in random.sample(nshot_data, n):
-        chats.append({"role": "system", "content": "### Example Start ###"})
 
         chats.append(
             {"role": "user", "content": question_prompt(qna["question"])})
         chats.append(
             {"role": "assistant", "content": answer_prompt(qna["answer"])})
-        chats.append({"role": "system", "content": "### Example End ###"})
 
 
     chats.append({"role": "user", "content": question_prompt(question)+" Let's think step by step. At the end, you MUST write the answer as an integer after '####'."})
@@ -66,17 +64,20 @@ def extract_ans_from_response(answer: str, eos=None):
         return answer
 N_SHOT = 8
 
-
-csv_file_path = f"{prefix}/data/train_gsm8k_queries_llama3.1.csv"
+all_prompts = []
+csv_file_path = f"{prefix}/data/test_gsm8k_queries_llama3.1.json"
 with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
     csv_writer = csv.writer(csvfile)
     csv_writer.writerow(['prompt'])
 
     for qna in tqdm(test_data):
         messages = nshot_chats(nshot_data=test_data, n=N_SHOT, question=qna['question'])
-        prompt = messages  # Get the last message as the prompt
         
         # Write to CSV
-        csv_writer.writerow([prompt])
+        # csv_writer.writerow([prompt])
+        all_prompts.append({"prompt": messages})
+
+with open(csv_file_path, 'w', encoding='utf-8') as jsonfile:
+    json.dump(all_prompts, jsonfile, ensure_ascii=False, indent=4)
 
 print(f"Results saved to {csv_file_path}")

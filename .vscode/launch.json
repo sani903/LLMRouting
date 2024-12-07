@@ -39,6 +39,13 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "module": "routers.routers",
+        },
+        {
+            "name": "Python: gsm8k postprocess",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "module": "data_preparation.gsm8k_postprocess",
         }
     ]
 }
