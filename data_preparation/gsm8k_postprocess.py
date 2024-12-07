@@ -18,8 +18,8 @@ def extract_ans_from_response(answer: str, eos=None):
 if __name__ == '__main__':
     prefix = os.getcwd()
 
-    data_path = f"{prefix}/data/train_gsm8k_metallama_3.2_1b_responses.tsv"
-    out_path = f"{prefix}/data/train_gsm8k_metallama_3.2_1b_processed.tsv"
+    data_path = f"{prefix}/data/test_gsm8k_Mistral_7B_Instruct_v0.3_responses.tsv"
+    out_path = f"{prefix}/data/test_gsm8k_Mistral_7B_Instruct_v0.3_processed.tsv"
 
     df = pd.read_csv(data_path, sep="\t", header=0)
 
