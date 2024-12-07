@@ -153,29 +153,34 @@ class CausalLLMRouter(Router):
 
         # Set up training arguments
         training_args = TrainingArguments(
-            output_dir="./results",
-            evaluation_strategy="epoch",  # Evaluate at the end of each epoch
-            save_strategy="epoch",        # Save checkpoint at the end of each epoch
-            per_device_train_batch_size=1,  # Adjusted for memory constraints
+            output_dir="./results_chatbot_filtered_augmented",
+            evaluation_strategy="steps",   # Evaluate at specific step intervals
+            eval_steps=500,                # Adjust the number based on dataset size and desired frequency
+            save_strategy="steps",         # Optionally save checkpoints at the same step interval
+            save_steps=500,
+            per_device_train_batch_size=1,
             per_device_eval_batch_size=1,
             num_train_epochs=1,
-            learning_rate=1e-4,            # Adjusted learning rate
+            learning_rate=1e-4,
             weight_decay=0.01,
             save_total_limit=1,
             load_best_model_at_end=True,
+            metric_for_best_model="eval_loss",
+            greater_is_better=False,
             logging_steps=15,
             gradient_accumulation_steps=8,
-            fp16=False,                    # Disable FP16 training for stability
-            bf16=True,                     # Enable BF16 training for speed
+            fp16=False,
+            bf16=True,
             log_level='warning',
             max_grad_norm=1.0,
             logging_strategy="steps",
             logging_first_step=True,
             logging_dir="./logs",
             report_to=[],
-            dataloader_num_workers=2,      # Increase based on CPU cores
+            dataloader_num_workers=2,
             dataloader_pin_memory=True,
         )
+
 
         trainer = Trainer(
             model=model,
@@ -296,10 +301,10 @@ if __name__ == "__main__":
     
     model_name = "meta-llama/Meta-Llama-3-8B"
 
-    evaluate = True
+    evaluate = False
 
     if not evaluate:
-        path = f"{prefix}/data/chatbot_arena_preference_data.tsv"
+        path = f"{prefix}/data/chatbot_arena_mistral_llama_augmented_preference_data.tsv"
         data_df = pd.read_csv(path, sep="\t", header=0)
 
         data_df['score'] = data_df['preference'].apply(
@@ -375,13 +380,3 @@ if __name__ == "__main__":
         #     prediction = 0
         # else:
         #     prediction = 1
-
-
-        
-
-
-    
-    
-
-
-    
