@@ -46,6 +46,13 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "module": "data_preparation.gsm8k_postprocess",
+        },
+        {
+            "name": "Python: chatbot arena",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "module": "data_preparation.chatbot_arena",
         }
     ]
 }
