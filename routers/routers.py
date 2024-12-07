@@ -128,7 +128,7 @@ class CausalLLMRouter(Router):
         hf_dataset = HFDataset.from_generator(data_generator)
 
         # Split dataset into training and evaluation sets (80% train, 20% eval)
-        hf_dataset = hf_dataset.train_test_split(test_size=0.1)
+        # hf_dataset = hf_dataset.train_test_split(test_size=0.05)
 
         # Prepare data collator
         data_collator = DataCollatorWithPadding(tokenizer=self.router_model.tokenizer)
@@ -154,19 +154,15 @@ class CausalLLMRouter(Router):
         # Set up training arguments
         training_args = TrainingArguments(
             output_dir="./results_chatbot_filtered_augmented",
-            evaluation_strategy="steps",   # Evaluate at specific step intervals
-            eval_steps=500,                # Adjust the number based on dataset size and desired frequency
-            save_strategy="steps",         # Optionally save checkpoints at the same step interval
-            save_steps=500,
+            evaluation_strategy="no", 
+            save_strategy="epoch",         # Save the model at the end of each epoch
             per_device_train_batch_size=1,
             per_device_eval_batch_size=1,
             num_train_epochs=1,
             learning_rate=1e-4,
             weight_decay=0.01,
             save_total_limit=1,
-            load_best_model_at_end=True,
-            metric_for_best_model="eval_loss",
-            greater_is_better=False,
+            load_best_model_at_end=False,  # No evaluation, so disable loading best model
             logging_steps=15,
             gradient_accumulation_steps=8,
             fp16=False,
@@ -176,27 +172,36 @@ class CausalLLMRouter(Router):
             logging_strategy="steps",
             logging_first_step=True,
             logging_dir="./logs",
-            report_to=[],
+            report_to=["wandb"],                       
             dataloader_num_workers=2,
             dataloader_pin_memory=True,
         )
 
 
+
         trainer = Trainer(
             model=model,
             args=training_args,
-            train_dataset=hf_dataset["train"],
-            eval_dataset=hf_dataset["test"],
+            train_dataset=hf_dataset,
+            # eval_dataset=hf_dataset["test"],
             tokenizer=self.router_model.tokenizer,
             data_collator=data_collator,
-            compute_metrics=compute_metrics,
-            callbacks=[early_stopping],
+            # compute_metrics=compute_metrics,
+            # callbacks=[early_stopping],
         )
         try:
             # Start the training process
             trainer.train()
         except Exception as e:
             print(f"An error occurred during training: {e}")
+            # Attempt to save the current state of the model
+            try:
+                trainer.save_model("./interrupted_training_checkpoint_1")
+                print("Model saved successfully before interruption.")
+            except Exception as save_error:
+                print(f"Failed to save the model: {save_error}")
+            # Optionally, re-raise the exception if you want the program to exit
+            raise e
            
 class PreferenceData(Dataset):
     def __init__(self, data_df, tokenizer, max_length=512):
@@ -301,7 +306,7 @@ if __name__ == "__main__":
     
     model_name = "meta-llama/Meta-Llama-3-8B"
 
-    evaluate = False
+    evaluate = True
 
     if not evaluate:
         path = f"{prefix}/data/chatbot_arena_mistral_llama_augmented_preference_data.tsv"
@@ -349,8 +354,9 @@ if __name__ == "__main__":
         causal_router.train(dataset)
     else:
         data_path = os.path.join(prefix, "data", "chatbot_arena_preference_data_validate.tsv")
+        out_predictions = os.path.join(prefix, "data", "chatbot_arena_preference_augmented_data_validate.tsv")
         data_df = pd.read_csv(data_path, sep="\t", header=0)
-        peft_trained_checkpoint_path = os.path.join(prefix, "results", "checkpoint-3425")
+        peft_trained_checkpoint_path = os.path.join(prefix, "results_chatbot_filtered_augmented", "checkpoint-3197")
 
         causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
 
@@ -368,9 +374,13 @@ if __name__ == "__main__":
             lambda value: causal_router.calculate_strong_win_rate(value)
         )
 
-        data_df['prediction'] = data_df['win_rate'] > 0.5
+        data_df['prediction'] = (data_df['win_rate'] > 0.5).astype(int)
         accuracy = (data_df["preference"] == data_df["prediction"]).mean()
         print(f"Accuracy: {accuracy:.4f}")
+
+        columns = ['prediction', 'preference', 'original']
+        data_df = data_df[columns]
+        data_df.to_csv(out_predictions, sep='\t', index=False)
 
         # causal_router.evaluate(dataset)
         # example of getting result for an example
