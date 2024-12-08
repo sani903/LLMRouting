@@ -119,89 +119,89 @@ class CausalLLMRouter(Router):
         else:
             return 1 - output["binary_prob"]
         
-    def train(self, dataset):
-        # Convert to HuggingFace Dataset for compatibility with Trainer
-        def data_generator():
-            for i in range(len(dataset)):
-                yield dataset[i]
+def train(dataset, model, tokenizer):
+    # Convert to HuggingFace Dataset for compatibility with Trainer
+    def data_generator():
+        for i in range(len(dataset)):
+            yield dataset[i]
 
-        hf_dataset = HFDataset.from_generator(data_generator)
+    hf_dataset = HFDataset.from_generator(data_generator)
 
-        # Split dataset into training and evaluation sets (80% train, 20% eval)
-        # hf_dataset = hf_dataset.train_test_split(test_size=0.05)
+    # Split dataset into training and evaluation sets (80% train, 20% eval)
+    # hf_dataset = hf_dataset.train_test_split(test_size=0.05)
 
-        # Prepare data collator
-        data_collator = DataCollatorWithPadding(tokenizer=self.router_model.tokenizer)
+    # Prepare data collator
+    data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
-        early_stopping = EarlyStoppingCallback(
-            early_stopping_patience=3,  # Stop after 3 evaluations with no improvement
-            early_stopping_threshold=0.0  # Minimum change to qualify as improvement
-        )
+    early_stopping = EarlyStoppingCallback(
+        early_stopping_patience=3,  # Stop after 3 evaluations with no improvement
+        early_stopping_threshold=0.0  # Minimum change to qualify as improvement
+    )
 
-        # Define evaluation metric
-        metric = load("accuracy")
+    # Define evaluation metric
+    metric = load("accuracy")
 
-        def compute_metrics(eval_pred):
-            logits, labels = eval_pred
-            predictions = torch.argmax(torch.tensor(logits), dim=-1)
-            # Only consider non -100 labels
-            mask = labels != -100
-            true_labels = labels[mask]
-            pred_labels = predictions[mask]
-            return metric.compute(predictions=pred_labels, references=true_labels)
-
-
-        # Set up training arguments
-        training_args = TrainingArguments(
-            output_dir="./results_chatbot_filtered_augmented",
-            evaluation_strategy="no", 
-            save_strategy="epoch",         # Save the model at the end of each epoch
-            per_device_train_batch_size=1,
-            per_device_eval_batch_size=1,
-            num_train_epochs=1,
-            learning_rate=1e-4,
-            weight_decay=0.01,
-            save_total_limit=1,
-            load_best_model_at_end=False,  # No evaluation, so disable loading best model
-            logging_steps=15,
-            gradient_accumulation_steps=8,
-            fp16=False,
-            bf16=True,
-            log_level='warning',
-            max_grad_norm=1.0,
-            logging_strategy="steps",
-            logging_first_step=True,
-            logging_dir="./logs",
-            report_to=["wandb"],                       
-            dataloader_num_workers=2,
-            dataloader_pin_memory=True,
-        )
+    def compute_metrics(eval_pred):
+        logits, labels = eval_pred
+        predictions = torch.argmax(torch.tensor(logits), dim=-1)
+        # Only consider non -100 labels
+        mask = labels != -100
+        true_labels = labels[mask]
+        pred_labels = predictions[mask]
+        return metric.compute(predictions=pred_labels, references=true_labels)
 
 
+    # Set up training arguments
+    training_args = TrainingArguments(
+        output_dir="./results_chatbot_filtered_augmented_no_init",
+        evaluation_strategy="no", 
+        save_strategy="epoch",         # Save the model at the end of each epoch
+        per_device_train_batch_size=1,
+        per_device_eval_batch_size=1,
+        num_train_epochs=1,
+        learning_rate=1e-4,
+        weight_decay=0.01,
+        save_total_limit=1,
+        load_best_model_at_end=False,  # No evaluation, so disable loading best model
+        logging_steps=15,
+        gradient_accumulation_steps=8,
+        fp16=False,
+        bf16=True,
+        log_level='warning',
+        max_grad_norm=1.0,
+        logging_strategy="steps",
+        logging_first_step=True,
+        logging_dir="./logs",
+        report_to=["wandb"],                       
+        dataloader_num_workers=2,
+        dataloader_pin_memory=True,
+    )
 
-        trainer = Trainer(
-            model=model,
-            args=training_args,
-            train_dataset=hf_dataset,
-            # eval_dataset=hf_dataset["test"],
-            tokenizer=self.router_model.tokenizer,
-            data_collator=data_collator,
-            # compute_metrics=compute_metrics,
-            # callbacks=[early_stopping],
-        )
+
+
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=hf_dataset,
+        # eval_dataset=hf_dataset["test"],
+        tokenizer=tokenizer,
+        data_collator=data_collator,
+        # compute_metrics=compute_metrics,
+        # callbacks=[early_stopping],
+    )
+    try:
+        # Start the training process
+        trainer.train()
+    except Exception as e:
+        print(f"An error occurred during training: {e}")
+        # Attempt to save the current state of the model
         try:
-            # Start the training process
-            trainer.train()
-        except Exception as e:
-            print(f"An error occurred during training: {e}")
-            # Attempt to save the current state of the model
-            try:
-                trainer.save_model("./interrupted_training_checkpoint_1")
-                print("Model saved successfully before interruption.")
-            except Exception as save_error:
-                print(f"Failed to save the model: {save_error}")
-            # Optionally, re-raise the exception if you want the program to exit
-            raise e
+            trainer.save_model("./interrupted_training_checkpoint_1")
+            print("Model saved successfully before interruption.")
+        except Exception as save_error:
+            print(f"Failed to save the model: {save_error}")
+        # Optionally, re-raise the exception if you want the program to exit
+        raise e
            
 class PreferenceData(Dataset):
     def __init__(self, data_df, tokenizer, max_length=512):
@@ -299,6 +299,59 @@ def prepare_ft_messages(system_file, classifier_file, dataset_df: pd.DataFrame, 
     )
     return dataset_df["messages"]
 
+def get_actual_model(model_name):
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+    except OSError:
+        # If AutoTokenizer fails, try LlamaTokenizer
+        print(f"AutoTokenizer could not load for model '{model_name}'. Trying LlamaTokenizer.")
+        try:
+            tokenizer = LlamaTokenizer.from_pretrained(model_name)
+        except Exception as e:
+            print(f"Failed to load LlamaTokenizer: {e}")
+            raise e
+
+    # Add pad token if needed
+    if tokenizer.pad_token is None:
+        tokenizer.add_special_tokens({'pad_token': '<pad>'})
+
+    # Add special tokens
+    tokenizer.add_tokens(["[[1]]", "[[2]]", "[[3]]", "[[4]]", "[[5]]"], special_tokens=True)
+    quantization_config = BitsAndBytesConfig(
+        load_in_8bit=True,  # Enable 8-bit quantization for memory efficiency
+        llm_int8_enable_fp32_cpu_offload=True, # Offload parts to CPU if necessary
+    )
+
+    # Load the pre-trained model
+    try:
+        config = LlamaConfig.from_pretrained(
+            model_name,
+            num_labels=2,
+            output_hidden_states=True,  # Enable hidden states for custom loss
+        )
+        model = LlamaForCausalLM.from_pretrained(
+            model_name,
+            config=config,
+            quantization_config=quantization_config,
+            device_map='auto',
+            torch_dtype=torch.bfloat16,
+        )
+        # model.gradient_checkpointing_enable() -> this caused detachment of loss and loss.required_grad became false
+        # model.get_input_embeddings().weight.requires_grad = True
+
+    except Exception as e:
+        print(f"Error loading pre-trained LLaMA model: {e}")
+        raise e
+    
+    try:
+        model.resize_token_embeddings(len(tokenizer))
+    except Exception as e:
+        print(f"Error resizing token embeddings: {e}")
+        raise e
+    
+    return model, tokenizer
+
+
 if __name__ == "__main__":
     # Load data
     prefix = os.getcwd()
@@ -306,7 +359,7 @@ if __name__ == "__main__":
     
     model_name = "meta-llama/Meta-Llama-3-8B"
 
-    evaluate = True
+    evaluate = False
 
     if not evaluate:
         path = f"{prefix}/data/chatbot_arena_mistral_llama_augmented_preference_data.tsv"
@@ -315,7 +368,6 @@ if __name__ == "__main__":
         data_df['score'] = data_df['preference'].apply(
             lambda preference: random.choice([1, 2, 3]) if preference == 0 else random.choice([4, 5])
         )
-        causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
         wandb.init(
             project="preference_model_training",
             name="causal_train_1",
@@ -328,10 +380,16 @@ if __name__ == "__main__":
             resume="allow",
         )
 
+        # causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
+        # model, tokenizer = causal_router.router_model.transformer_model, causal_router.model_router.tokenizer
+        model_name = "meta-llama/Meta-Llama-3-8B-Instruct" 
+        model, tokenizer = get_actual_model(model_name)
+
+        
         # Prepare dataset
         label_key = "score"
 
-        dataset = PreferenceData(prepare_ft_messages(f"{prefix}/routers/causal_llm/system_ft_v5.txt", f"{prefix}/routers/causal_llm/classifier_ft_v5.txt", dataset_df=data_df, label_key="score"), causal_router.router_model.tokenizer)
+        dataset = PreferenceData(prepare_ft_messages(f"{prefix}/routers/causal_llm/system_ft_v5.txt", f"{prefix}/routers/causal_llm/classifier_ft_v5.txt", dataset_df=data_df, label_key="score"), tokenizer)
 
         # Prepare LoRA configuration
         peft_config = LoraConfig(
@@ -345,16 +403,16 @@ if __name__ == "__main__":
 
         # Apply PEFT to the model
         try:
-            model = get_peft_model(causal_router.router_model.transformer_model, peft_config)
+            model = get_peft_model(model, peft_config)
             # Replace the internal model with the PEFT-enhanced model
-            causal_router.router_model.transformer_model = model
+            # causal_router.router_model.transformer_model = model
         except Exception as e:
             print(f"Error wrapping model with PEFT: {e}")
             raise e
-        causal_router.train(dataset)
+        train(dataset, model, tokenizer)
     else:
-        data_path = os.path.join(prefix, "data", "chatbot_arena_preference_data_validate.tsv")
-        out_predictions = os.path.join(prefix, "data", "chatbot_arena_preference_augmented_data_validate.tsv")
+        data_path = os.path.join(prefix, "data", "chatbot_arena_mistral_llama_augmented_preference_data_test.tsv")
+        out_predictions = os.path.join(prefix, "data", "chatbot_arena_mistral_llama_augmented_preference_data_augmented_test_no_init_response.tsv")
         data_df = pd.read_csv(data_path, sep="\t", header=0)
         peft_trained_checkpoint_path = os.path.join(prefix, "results_chatbot_filtered_augmented", "checkpoint-3197")
 
@@ -381,12 +439,3 @@ if __name__ == "__main__":
         columns = ['prediction', 'preference', 'original']
         data_df = data_df[columns]
         data_df.to_csv(out_predictions, sep='\t', index=False)
-
-        # causal_router.evaluate(dataset)
-        # example of getting result for an example
-        # win_rate = causal_router.calculate_strong_win_rate("what is 3 + 4?")
-        # threshold = 0.5
-        # if win_rate > threshold:
-        #     prediction = 0
-        # else:
-        #     prediction = 1
