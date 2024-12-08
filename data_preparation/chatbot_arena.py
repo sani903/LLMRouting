@@ -11,8 +11,8 @@ class ChatBotArenaDataset:
         self.dataset_name = dataset_name
         self.metadata = ""
         self.data_output_dir = data_output_file
-        self.process_dataset(data_output_file, data_out)
-        # self.process_augmented_dataset(data_output_file, data_out)
+        # self.process_dataset(data_output_file, data_out)
+        self.process_augmented_dataset(data_output_file, data_out)
 
     def process_dataset(self, file_path, data_output_file):
         data = []
@@ -44,7 +44,7 @@ class ChatBotArenaDataset:
         print(f"Dataset processed and saved to {data_output_file}")
     
     def get_label(self, row):
-        expression = abs(row['strong'] - row['weak']) >= 0.5
+        expression = abs(row['strong'] - row['weak']) >= 1
         if expression and row['strong'] > row['weak']:
             return 0
         if expression and row['weak'] > row['strong']:
@@ -72,21 +72,21 @@ class ChatBotArenaDataset:
         input_df = input_df[columns_order]
 
         # Save the DataFrame as a TSV file
-        input_df.to_csv(data_output_file, sep='\t', index=False)
+        # input_df.to_csv(data_output_file, sep='\t', index=False)
         print(f"Dataset processed and saved to {data_output_file}")
 
 
 if __name__ == '__main__':
     prefix = os.getcwd()
-    chatbot_arena = ChatBotArenaDataset(
-        "chatbot_arena",
-        f"{prefix}/data/chatbot_arena_validation_split.jsonl",
-        f"{prefix}/data/chatbot_arena_preference_data_validate.tsv"
-    )
+    # chatbot_arena = ChatBotArenaDataset(
+    #     "chatbot_arena",
+    #     f"{prefix}/data/chatbot_arena_validation_split.jsonl",
+    #     f"{prefix}/data/chatbot_arena_preference_data_validate.tsv"
+    # )
 
     # chatbot_arena = ChatBotArenaDataset(
     #     "chatbot_arena",
     #     f"{prefix}/data/chatbot_arena_preference_data.jsonl",
     #     f"{prefix}/data/chatbot_arena_preference_data.tsv"
     # )
-    # chatbot_arena = ChatBotArenaDataset("chatbot_arena", f"{prefix}/data/augmented_chatbot_arena_filtering.csv", f"{prefix}/data/chatbot_arena_mistral_llama_augmented_preference_data.tsv")
+    chatbot_arena = ChatBotArenaDataset("chatbot_arena", f"{prefix}/data/augmented_chatbot_arena_filtering.csv", f"{prefix}/data/chatbot_arena_mistral_llama_augmented_preference_data_test.tsv")
