@@ -15,7 +15,7 @@ quantization_config = BitsAndBytesConfig(load_in_8bit=True)
 # Set CUDA launch blocking for better error tracing
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
-login(token="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")
+login(token="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")
 torch.cuda.empty_cache()
 # Load the dataset
 df = pd.read_csv('train_router.csv', encoding="utf-8")
@@ -27,17 +27,18 @@ for col in df.select_dtypes(include='object').columns:
 # Check for NaN values and fill or drop them if necessary
 df.dropna(inplace=True)  # Replace NaNs with empty strings
 
+cache_dir = '/scratch/ambuja/model'
 # Load model and tokenizer
-model_name = "meta-llama/Llama-3.2-3B-Instruct"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+model_name = "Qwen/Qwen-14B-Chat"
+tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
 
 # Set padding token (using EOS token as padding)
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 
-config = AutoConfig.from_pretrained(model_name)
+config = AutoConfig.from_pretrained(model_name, cache_dir=cache_dir)
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
-model = AutoModelForCausalLM.from_pretrained(model_name, config=config, torch_dtype=torch.float16).to(device).eval()
+model = AutoModelForCausalLM.from_pretrained(model_name, config=config, torch_dtype=torch.float16, cache_dir=cache_dir).to(device).eval()
 
 # Function to calculate log likelihood for the response part (ignoring the prompt part)
 def calculate_log_likelihood_batch(logits, response_ids, prompt_length):
