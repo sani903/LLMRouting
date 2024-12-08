@@ -29,7 +29,7 @@ df.dropna(inplace=True)  # Replace NaNs with empty strings
 
 cache_dir = '/scratch/ambuja/model'
 # Load model and tokenizer
-model_name = "Qwen/Qwen-14B-Chat"
+model_name = "meta-llama/Llama-2-13b-chat"
 tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
 
 # Set padding token (using EOS token as padding)
