@@ -18,7 +18,7 @@ os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 login(token="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")
 torch.cuda.empty_cache()
 # Load the dataset
-df = pd.read_csv('/kaggle/input/gpt4aug/gpt_aug.csv', encoding="utf-8")
+df = pd.read_csv('train_router.csv', encoding="utf-8")
 
 # Decode Unicode escape sequences in all string columns
 # for col in df.select_dtypes(include='object').columns:
@@ -145,19 +145,16 @@ def process_batch(prompts, winning_responses, losing_responses):
 
     return {
         'diff': log_likelihood_diffs,
-        'prompts': prompts
+        'prompts': prompts,
+        'winning_response':winning_responses,
+        'losing_response':losing_responses
     }
 
 # Process the dataset in batches
 batch_size = 1  # Start with a smaller batch size if you're facing OOM errors
 results = []
 
-for i in tqdm(range(6700, len(df), batch_size)):
-    if i == 26481:
-        print(batch['prompt'])
-        print(batch['winning_response'])
-        print(batch['losing_response'])
-        continue
+for i in tqdm(range(0, len(df), batch_size)):
     # print(i)
     batch = df.iloc[i:i + batch_size]
     # Ensure all inputs are correctly formatted as lists of strings
@@ -178,7 +175,7 @@ for i in tqdm(range(6700, len(df), batch_size)):
     torch.cuda.empty_cache()
 
     if (i + batch_size) % 100 == 0 or i + batch_size >= len(df):
-        pd.DataFrame(results).to_csv('/kaggle/working/llama_rest.csv', index=False)
+        pd.DataFrame(results).to_csv('diff1.csv', index=False)
         print(f"Saved results up to row {i + batch_size}")
 
 print("Processing complete. Final results saved.")
