@@ -21,8 +21,8 @@ torch.cuda.empty_cache()
 df = pd.read_csv('train_router.csv', encoding="utf-8")
 
 # Decode Unicode escape sequences in all string columns
-# for col in df.select_dtypes(include='object').columns:
-#     df[col] = df[col].apply(lambda x: x.encode('utf-8').decode('unicode_escape') if isinstance(x, str) else x)
+for col in df.select_dtypes(include='object').columns:
+    df[col] = df[col].apply(lambda x: x.encode('utf-8').decode('unicode_escape') if isinstance(x, str) else x)
 
 # Check for NaN values and fill or drop them if necessary
 df.dropna(inplace=True)  # Replace NaNs with empty strings
