@@ -53,6 +53,13 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "module": "data_preparation.chatbot_arena",
+        },
+        {
+            "name": "Python: Analysis chatbot arena",
+            "type": "debugpy",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "module": "data_preparation.chatbot_arena_analysis",
         }
     ]
 }
