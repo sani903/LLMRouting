@@ -52,7 +52,7 @@ df.dropna(inplace=True)  # Alternatively, use df.fillna('') to replace NaNs with
 cache_dir = '/scratch/ambuja/model'
 
 # Model name
-model_name = "lmsys/vicuna-13b-v1.5"
+model_name = "openchat/openchat_3.5"
 
 # ======================= Tokenizer Setup =======================
 
@@ -231,7 +231,7 @@ for i in tqdm(range(0, len(df), batch_size), desc="Processing Batches"):
     # Save intermediate results periodically
     if (i + batch_size) % 100 == 0 or i + batch_size >= len(df):
         intermediate_df = pd.DataFrame(results)
-        intermediate_df.to_csv('diff1.csv', index=False)
+        intermediate_df.to_csv('/home/ambuja/LLMRouting/diff_openchat.csv', index=False)
         print(f"Saved results up to row {i + batch_size}")
 
 print("Processing complete. Final results saved as 'diff1.csv'.")
