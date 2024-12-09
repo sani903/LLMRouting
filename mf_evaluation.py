@@ -4,9 +4,7 @@ import abc
 from huggingface_hub import PyTorchModelHubMixin
 from openai import OpenAI
 
-OPENAI_CLIENT = OpenAI(
-        api_key="sk-7WI9eKYu_UGeNH2xgZMZkA", base_url="https://cmu.litellm.ai"
-    )
+OPENAI_CLIENT = OpenAI()
 MODEL_IDS = {
     "RWKV-4-Raven-14B": 0,
     "alpaca-13b": 1,
@@ -187,3 +185,29 @@ router = MatrixFactorizationRouter(
     strong_model="llama-3.2-3b",
     weak_model="mistral-7b-v0.3"
 )
+# Read the CSV file
+df = pd.read_csv('gsm8k_responses.csv')
+
+# Initialize a results column
+df['results'] = ''
+
+# Process each row
+for index, row in df.iterrows():
+    prompt = row['prompt']
+    
+    # Calculate the win rate for the strong model (llama-3.2-3b)
+    win_rate = router.calculate_strong_win_rate(prompt)
+    
+    # Determine which model to route to
+    if win_rate > 0.5:
+        routed_model = 'llama-3.2-3b'
+        result = row['llama3.2']
+    else:
+        routed_model = 'mistral-7b-v0.3'
+        result = row['mistral-7b-instruct-v0.3']
+    
+    # Append the result to the results column
+    df.at[index, 'results'] = result
+
+# Save the updated DataFrame to a new CSV file
+df.to_csv('output_file.csv', index=False)
