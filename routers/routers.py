@@ -351,18 +351,22 @@ def get_actual_model(model_name):
     
     return model, tokenizer
 
+def get_actual_result(prediction, model_a_result, model_b_result):
+    if prediction == 0:
+        return int(model_a_result)
+    return int(model_b_result)
 
 if __name__ == "__main__":
     # Load data
     prefix = os.getcwd()
-    huggingface_checkpoint_path = "routellm/causal_llm_gpt4_augmented"
+    huggingface_checkpoint_path = "routellm/causal_llm"
     
     model_name = "meta-llama/Meta-Llama-3-8B"
 
-    evaluate = False
+    evaluate = True
 
     if not evaluate:
-        path = f"{prefix}/data/chatbot_arena_mistral_llama_augmented_preference_data.tsv"
+        path = f"{prefix}/data/chatbot_arena_vincuna_chatglm_augmented.tsv"
         data_df = pd.read_csv(path, sep="\t", header=0)
 
         data_df['score'] = data_df['preference'].apply(
@@ -380,10 +384,10 @@ if __name__ == "__main__":
             resume="allow",
         )
 
-        # causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
-        # model, tokenizer = causal_router.router_model.transformer_model, causal_router.model_router.tokenizer
-        model_name = "meta-llama/Meta-Llama-3-8B-Instruct" 
-        model, tokenizer = get_actual_model(model_name)
+        causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
+        model, tokenizer = causal_router.router_model.transformer_model, causal_router.router_model.tokenizer
+        # model_name = "meta-llama/Meta-Llama-3-8B-Instruct" 
+        # model, tokenizer = get_actual_model(model_name)
 
         
         # Prepare dataset
@@ -396,7 +400,7 @@ if __name__ == "__main__":
             task_type=TaskType.CAUSAL_LM,
             inference_mode=False,
             r=8,
-            lora_alpha=32,
+            lora_alpha=64,
             lora_dropout=0.1,
             target_modules=["q_proj", "v_proj"],  # Adjust based on model's module names
         )
@@ -405,37 +409,40 @@ if __name__ == "__main__":
         try:
             model = get_peft_model(model, peft_config)
             # Replace the internal model with the PEFT-enhanced model
-            # causal_router.router_model.transformer_model = model
+            causal_router.router_model.transformer_model = model
         except Exception as e:
             print(f"Error wrapping model with PEFT: {e}")
             raise e
         train(dataset, model, tokenizer)
     else:
-        data_path = os.path.join(prefix, "data", "chatbot_arena_mistral_llama_augmented_preference_data_test.tsv")
-        out_predictions = os.path.join(prefix, "data", "chatbot_arena_mistral_llama_augmented_preference_data_augmented_test_no_init_response.tsv")
-        data_df = pd.read_csv(data_path, sep="\t", header=0)
-        peft_trained_checkpoint_path = os.path.join(prefix, "results_chatbot_filtered_augmented", "checkpoint-3197")
+        data_path = os.path.join(prefix, "data", "gsm8k_final_preference_mistral_llama.csv")
+        out_predictions = os.path.join(prefix, "data", "gsm8k_final_preference_test_mistral_llama_response_1_routellm_withoutgpt40.tsv")
+        data_df = pd.read_csv(data_path, sep=",", header=0)
+        # peft_trained_checkpoint_path = os.path.join(prefix, "results_chatbot_filtered_augmented", "checkpoint-3197")
 
         causal_router = CausalLLMRouter(checkpoint_path=huggingface_checkpoint_path)
 
-        try:
-            # Apply PEFT to the internal model within the classifier
-            peft_model = PeftModel.from_pretrained(causal_router.router_model.transformer_model, peft_trained_checkpoint_path)
-            causal_router.router_model.transformer_model = peft_model 
-            print("PEFT model loaded successfully.")
-        except Exception as e:
-            print(f"Error wrapping model with PEFT: {e}")
-            raise e
+        # try:
+        #     # Apply PEFT to the internal model within the classifier
+        #     peft_model = PeftModel.from_pretrained(causal_router.router_model.transformer_model, peft_trained_checkpoint_path)
+        #     causal_router.router_model.transformer_model = peft_model 
+        #     print("PEFT model loaded successfully.")
+        # except Exception as e:
+        #     print(f"Error wrapping model with PEFT: {e}")
+        #     raise e
         
         tqdm.pandas(desc="Processing")
-        data_df['win_rate'] = data_df['original'].progress_apply(
+        data_df['win_rate'] = data_df['prompt'].progress_apply(
             lambda value: causal_router.calculate_strong_win_rate(value)
         )
 
-        data_df['prediction'] = (data_df['win_rate'] > 0.5).astype(int)
-        accuracy = (data_df["preference"] == data_df["prediction"]).mean()
+        data_df['prediction'] = (data_df['win_rate'] < 0.5).astype(int)
+        data_df['prediction_result'] = data_df.apply(
+            lambda row: get_actual_result(row['prediction'], row['llama3.2'], row['mistral-7b-instruct-v0.3']), axis=1
+        )
+        accuracy = data_df['prediction_result'].mean()
         print(f"Accuracy: {accuracy:.4f}")
 
-        columns = ['prediction', 'preference', 'original']
+        columns = ['prediction', 'prediction_result', 'mistral-7b-instruct-v0.3', 'llama3.2', 'prompt']
         data_df = data_df[columns]
         data_df.to_csv(out_predictions, sep='\t', index=False)
