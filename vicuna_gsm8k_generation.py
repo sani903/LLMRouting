@@ -78,7 +78,7 @@ def extract_ans_from_response(answer: str, eos=None):
 
 N_SHOT = 8
 test_data = load_jsonlines("test.jsonl")
-csv_file_path = '/home/ambuja/LLMRouting/gsm8k_results_openchat.csv'
+csv_file_path = 'gsm8k_results_vicuna13b.csv'
 
 with open(csv_file_path, 'w', newline='', encoding='utf-8') as csvfile:
     csv_writer = csv.writer(csvfile)
