@@ -1,3 +1,14 @@
+import json
+import random
+
+import numpy as np
+import torch
+from torch import nn
+from torch.nn import functional as F
+from torch.optim import Adam
+from torch.utils.data import DataLoader, Dataset
+from tqdm import tqdm
+from torch.optim import AdamW
 MODEL_IDS = {
     "RWKV-4-Raven-14B": 0,
     "alpaca-13b": 1,
@@ -64,22 +75,6 @@ MODEL_IDS = {
     "zephyr-7b-alpha": 62,
     "zephyr-7b-beta": 63,
 }
-
-import json
-import random
-
-import numpy as np
-import torch
-from torch import nn
-from torch.nn import functional as F
-from torch.optim import Adam
-from torch.utils.data import DataLoader, Dataset
-from tqdm import tqdm
-from torch.optim import AdamW
-
-
-
-# from routellm.routers.matrix_factorization.model import MODEL_IDS
 
 torch.manual_seed(42)
 np.random.seed(42)
@@ -235,8 +230,6 @@ def train_loops_with_logging(
             train_loss_sum += ls.item() * len(models_a)
             n += len(models_a)
         return train_loss_sum / n
-    # print("Initial weights:")
-    # print(net.P.weight.data[:5])
     train_losses = []
     test_losses = []
     test_acces = []
@@ -282,74 +275,8 @@ def train_loops_with_logging(
 
         progress_bar.set_postfix(**info)
         progress_bar.update(1)
-    # print("Final weights:")
-    # print(model.P.weight.data[:5])
 
     progress_bar.close()
-
-
-# if __name__ == "__main__":
-#     # an example of training the model
-#     json_path = "/path/to/pairwise_data.json"
-#     npy_path = "/path/to/prompt/embedding.npy"
-
-#     dim = 128
-#     batch_size = 64
-#     num_epochs = 100
-#     alpha = 0.1
-#     use_proj = True
-#     lr = 3e-4
-#     weight_decay = 1e-5
-
-#     # load and filter data
-#     data = json.load(open(json_path, "r"))
-
-#     filtered_data = [
-#         sample
-#         for sample in data
-#         if sample["winner"] in ["model_a", "model_b"]
-#         and sample["model_a"] != sample["model_b"]
-#     ]
-
-#     # shuffle and prepare train test split
-#     data_shuffled = filtered_data.copy()
-#     random.shuffle(data_shuffled)
-#     train_data = data_shuffled[: int(len(data_shuffled) * 0.95)]
-#     test_data = data_shuffled[int(len(data_shuffled) * 0.95) :]
-
-#     train_data_loader = PairwiseDataset(train_data).get_dataloaders(
-#         batch_size=batch_size, shuffle=True
-#     )
-#     test_data_loader = PairwiseDataset(test_data).get_dataloaders(1024, shuffle=False)
-
-#     model = MFModel_Train(
-#         dim=dim,
-#         num_models=len(MODEL_IDS),
-#         num_prompts=len(data),
-#         use_proj=use_proj,
-#         npy_path=npy_path,
-#     ).to("cuda")
-
-#     train_loops(
-#         model,
-#         train_data_loader,
-#         test_data_loader,
-#         lr=lr,
-#         weight_decay=weight_decay,
-#         alpha=alpha,
-#         num_epochs=num_epochs,
-#         device="cuda",
-#     )
-
-
-import json
-import random
-import torch
-from torch.utils.data import Dataset, DataLoader
-from tqdm import tqdm
-import wandb  # Import W&B for logging
-import numpy as np
-import pandas as pd
 
 # Initialize W&B
 wandb.init(
@@ -369,32 +296,11 @@ wandb.init(
 embeddings = np.load(local_file_path2)
 with open(local_file_path3, "r") as f:
     unique_prompts = json.load(f)
-# df = pd.read_csv(local_file_path4)
-# filtered_df = df[:1000]
-# df = filtered_df[filtered_df["preferred_model"].notna() & (filtered_df["preferred_model"] != "")]
-
-# df["strong"] = df["strong"].astype(float)
-# df["weak"] = df["weak"].astype(float)
-# df = df[abs(df["strong"] - df["weak"]) > 0.0]
-# valid_test_data = df[df['preferred_model'] != -1]
-# test_prompts = valid_test_data['prompts'].tolist()
-# test_annotations = valid_test_data['preferred_model'].tolist()
-# annotation_to_model = {0: "mistral-7b-v0.3", 1: "llama-3.2-3b"}
-# test_data = [
-#     {
-#         "idx": i,  # Add a unique index
-#         "prompts": prompt,
-#         "model_a": annotation_to_model[annotation],
-#         "model_b": "llama-3.2-3b" if annotation == 0 else "mistral-7b-v0.3",
-#         "winner": "model_a",  # Since the annotation tells the winning model
-#     }
-#     for i, (prompt, annotation) in enumerate(zip(test_prompts, test_annotations))
-# ]
 prompt_to_embedding = {prompt: embeddings[i] for i, prompt in enumerate(unique_prompts)}
 new_embeddings = []
 # Paths and parameters
-processed_data_path = local_file_path
-npy_path = local_file_path2
+processed_data_path = local_file_path_data
+npy_path = local_file_path_npy
 dim = wandb.config.dim
 batch_size = wandb.config.batch_size
 num_epochs = wandb.config.num_epochs
@@ -419,11 +325,6 @@ for sample in data:
     else:
         print(f"Embedding for prompt '{prompt}' not found!")
 global_embeddings = torch.tensor(new_embeddings)
-# print(len(global_embeddings))
-# Split the data
-# random.shuffle(data)
-# train_data = [sample for sample in data if sample["prompts"] not in test_prompts]
-# train_data = [sample for sample in data]
 mistral_data = [
     sample for sample in data 
     if {"vicuna-13b", "chatglm-6b"} <= {sample["model_a"], sample["model_b"]}
@@ -441,19 +342,6 @@ mistral_train_data = mistral_data[mistral_test_size:]
 # Combine non-mistral data with mistral train data
 train_data = non_mistral_data + mistral_train_data
 test_data = mistral_test_data
-# print(f"Train data size: {len(train_data)}")
-# print(f"Test data size: {len(test_data)}")
-# from collections import Counter
-# test_winners = Counter(sample['winner'] for sample in test_data)
-# print(f"Test winners distribution: {test_winners}")
-# print(len(test_data))
-# Weight new data higher
-# train_data_weighted = [
-#     sample
-#     for sample in train_data
-#     if "mistral-7b-v0.3" in {sample["model_a"], sample["model_b"]}
-# ]
-# train_data_weighted = train_data_weighted * new_data_weight + non_mistral_data
 
 # Prepare datasets and loaders
 class PairwiseDataset(Dataset):
@@ -465,10 +353,6 @@ class PairwiseDataset(Dataset):
         
         for i, sample in enumerate(data):
             if sample["prompts"] in prompt_to_embedding:
-                # if sample["model_a"] == 'llama 3.2 3b':
-                #     sample["model_a"] = 'llama-3.2-3b'
-                # if sample["model_b"] == 'llama 3.2 3b':
-                #     sample["model_b"] = 'llama-3.2-3b'
                 if random.random() < 0.5:
                     # Keep original order
                     self.models_a.append(MODEL_IDS[sample["model_a"]])
@@ -494,11 +378,7 @@ class PairwiseDataset(Dataset):
 
     def get_dataloaders(self, batch_size, shuffle=True):
         return DataLoader(self, batch_size, shuffle=shuffle)
-# all_indices = set([sample["idx"] for sample in train_data + test_data])
-# idx_mapping = {old_idx: new_idx for new_idx, old_idx in enumerate(sorted(all_indices))}
-# for dataset in [train_data, test_data]:
-#     for sample in dataset:
-#         sample["idx"] = idx_mapping[sample["idx"]]
+        
 train_loader = PairwiseDataset(train_data).get_dataloaders(
     batch_size=batch_size, shuffle=True
 )
@@ -506,12 +386,6 @@ test_loader = PairwiseDataset(test_data).get_dataloaders(
     batch_size=1024, shuffle=False
 )
 
-
-# print(f"Number of overlapping prompts: {len(overlap)}")
-# print(f"Max train idx: {max_train_idx}, Max test idx: {max_test_idx}")
-# Initialize the model
-# num_prompts = len(idx_mapping)
-# print(num_prompts)
 model = MFModel_Train(
     dim=dim,
     num_models=len(MODEL_IDS),
@@ -519,7 +393,6 @@ model = MFModel_Train(
     use_proj=use_proj,
     npy_path=npy_path,
 ).to(device)
-# print(f"Q embedding size: {model.Q.num_embeddings}")
 
 # Train the model with W&B logging
 train_loops_with_logging(
