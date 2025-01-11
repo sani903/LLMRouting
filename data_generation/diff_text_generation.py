@@ -50,17 +50,10 @@ def calculate_log_likelihood_batch(logits, response_ids, prompt_length):
         # Slice the logits to focus only on the response part (after the prompt)
         response_tensor = torch.tensor(response_id).to(device)
         response_logits = logits[i, prompt_length[i]:prompt_length[i] + len(response_tensor)]
-        # print(response_logits)
         # Get the token probabilities (use softmax)
         log_probs_soft = torch.nn.functional.log_softmax(torch.tensor(response_logits).to(device), dim=-1)
-        # print("*")
-        # print(token_probs)
-        # print("********")
         # Calculate the log probabilities for the actual tokens (response_id)
         log_probs = log_probs_soft[torch.arange(len(response_tensor), device=device), response_tensor.to(device)]
-        # print("*")
-        # print(log_probs)
-        # print("********")
 
         # Sum up the log probabilities for the entire response
         log_likelihood = log_probs.sum().item()
@@ -100,26 +93,6 @@ def process_batch(prompts, winning_responses, losing_responses):
         return_tensors="pt"
     ).to(device)
 
-    # prompt_response_pairs = [prompt + " " + response for prompt, response in zip(prompts, winning_responses)]
-    # losing_response_pairs = [prompt + " " + response for prompt, response in zip(prompts, losing_responses)]
-    # for pair in prompt_response_pairs + losing_response_pairs:
-    #   if not isinstance(pair, str) or not pair.strip():
-    #       raise ValueError(f"Invalid input for tokenization: {pair}")
-
-
-    # Tokenize the concatenated prompt-response pairs
-    # try:
-    #     inputs = tokenizer(
-    #         prompt_response_pairs,
-    #         return_tensors="pt",
-    #         padding=True,
-    #         truncation=True,
-    #         add_special_tokens=False  # Disable special tokens
-    #     ).to(device)
-    # except Exception as e:
-    #     print("Failed on prompt-response pairs:", prompt_response_pairs)
-    #     raise e
-
     with torch.no_grad():
         win_outputs = model(**win_inputs, return_dict=True)
         lose_outputs = model(**lose_inputs, return_dict=True)
@@ -134,14 +107,9 @@ def process_batch(prompts, winning_responses, losing_responses):
     # Calculate log likelihoods for both winning and losing responses (ignoring prompt tokens)
     winning_log_likelihoods = calculate_log_likelihood_batch(logits, win_tokens, prompt_lengths)
     losing_log_likelihoods = calculate_log_likelihood_batch(losing_logits, lose_tokens, prompt_lengths)
-    # print(winning_log_likelihoods)
-    # print(losing_log_likelihoods)
     # Normalize the log likelihoods by the length of the response
     normalized_winning_log_likelihoods = [ll / len(response) for ll, response in zip(winning_log_likelihoods, win_tokens)]
     normalized_losing_log_likelihoods = [ll / len(response) for ll, response in zip(losing_log_likelihoods, lose_tokens)]
-    # print("***")
-    # print(normalized_winning_log_likelihoods)
-    # print(normalized_losing_log_likelihoods)
     log_likelihood_diffs = [l - w for l, w in zip(normalized_losing_log_likelihoods, normalized_winning_log_likelihoods)]
 
     return {
@@ -156,7 +124,6 @@ batch_size = 1  # Start with a smaller batch size if you're facing OOM errors
 results = []
 
 for i in tqdm(range(0, len(df), batch_size)):
-    # print(i)
     batch = df.iloc[i:i + batch_size]
     # Ensure all inputs are correctly formatted as lists of strings
     try:
