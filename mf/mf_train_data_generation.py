@@ -1,6 +1,8 @@
 import json
 import pandas as pd
 import random
+import numpy as np
+from litellm import embedding
 
 # Paths to your existing data and new data
 existing_data_path = "mf_data.json"
@@ -51,12 +53,6 @@ with open(output_data_path, "w") as f:
 
 print(f"Processed data saved to {output_data_path}")
 
-
-import numpy as np
-import json
-from litellm import embedding
-import pandas as pd
-
 # Load existing embeddings and prompts
 existing_embeddings = np.load("prompt_embeddings.npy")
 with open("unique_prompts.json", "r") as f:
@@ -71,7 +67,7 @@ all_prompts = set(item["prompts"] for item in new_data)
 
 # Identify new prompts
 new_prompts = all_prompts - set(existing_prompts)
-print(len(new_prompts))
+
 # Generate embeddings for new prompts
 new_embeddings = []
 counter = 0
